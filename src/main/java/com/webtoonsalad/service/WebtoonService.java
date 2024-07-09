@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,35 +14,34 @@ import com.webtoonsalad.mapper.WebtoonMapper;
 
 @Service
 public class WebtoonService {
+	
     private final WebtoonApi webtoonApi;
+    private final WebtoonMapper webtoonMapper;
 
-    @Autowired
-    public WebtoonService(WebtoonApi webtoonApi) {
-        this.webtoonApi = webtoonApi;
-    }
+    private static final String[] PROVIDERS = {"KAKAO", "NAVER"};
+
     
     @Autowired
-    private WebtoonMapper webtoonMapper;
+    public WebtoonService(WebtoonApi webtoonApi, WebtoonMapper webtoonMapper) {
+        this.webtoonApi = webtoonApi;
+        this.webtoonMapper = webtoonMapper;
+    }
+    
 
-
+    @Transactional
     //@Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
     public void fetchAndProcessWebtoons() throws Exception {
-    	String[] providers = {"KAKAO", "NAVER"};
-    	
-    	
     	List<String> webtoonIds = new ArrayList<>();
-    	for (String provider:providers) {
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	
+    	for (String provider : PROVIDERS) {
     		int page = 1;
         	boolean isLastPage = false;
         	
-    		System.out.println(provider);
     		while (!isLastPage) {
     			String result = webtoonApi.getWebtoons(provider, page);
-                // 데이터를 처리하는 로직 추가
-                //System.out.println("Fetched webtoon data: " + result);
                 
                 // JSON 파싱
-    			ObjectMapper objectMapper = new ObjectMapper();
     			JsonNode rootNode = objectMapper.readTree(result);
     			JsonNode webtoonsNode = rootNode.path("webtoons");
 
@@ -49,15 +49,11 @@ public class WebtoonService {
     			for (JsonNode webtoonNode : webtoonsNode) {
     				String id = webtoonNode.path("id").asText();
     				webtoonIds.add(id);
-//    				System.out.println(id);
     			}
     			
     			page++;
     			
-    			if (rootNode.path("isLastPage").asText().equals("true"))
-    				isLastPage = true;
-    			
-    			
+    			isLastPage = rootNode.path("isLastPage").asBoolean();
     		}
     	}
     	for (String id : webtoonIds) {
