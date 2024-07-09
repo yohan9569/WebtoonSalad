@@ -49,7 +49,7 @@ public class WebtoonService {
     			for (JsonNode webtoonNode : webtoonsNode) {
     				String id = webtoonNode.path("id").asText();
     				webtoonIds.add(id);
-    				System.out.println(id);
+//    				System.out.println(id);
     			}
     			
     			page++;
