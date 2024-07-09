@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webtoonsalad.integration.WebtoonApi;
+import com.webtoonsalad.mapper.WebtoonMapper;
 
 @Service
 public class WebtoonService {
@@ -19,6 +19,10 @@ public class WebtoonService {
     public WebtoonService(WebtoonApi webtoonApi) {
         this.webtoonApi = webtoonApi;
     }
+    
+    @Autowired
+    private WebtoonMapper webtoonMapper;
+
 
     //@Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
     public void fetchAndProcessWebtoons() throws Exception {
@@ -56,5 +60,8 @@ public class WebtoonService {
     			
     		}
     	}
+    	for (String id : webtoonIds) {
+            webtoonMapper.updateLastup(id);
+        }
     }
 }
