@@ -233,23 +233,6 @@
 				<configuration>
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
-				<executions>
-					<execution>
-						<id>remove-timestamp</id>
-						<phase>package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>sh</executable>
-							<arguments>
-								<argument>-c</argument>
-								<argument>sed -i '/^#.* KST /d'
-									target/maven-archiver/pom.properties</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- 첫줄에러 방지 -->
 			<plugin>
