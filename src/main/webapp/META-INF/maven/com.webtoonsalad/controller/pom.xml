@@ -74,18 +74,13 @@
 			<scope>test</scope>
 		</dependency>
 
-<<<<<<< HEAD
-=======
 		<!-- for api -->
->>>>>>> 8aeb8e3d0762367c3d2d9a81d5c7c938f626e521
 		<!-- Spring WebFlux -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webflux</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-<<<<<<< HEAD
-=======
 		
 		<!-- Jackson Databind -->
 		<dependency>
@@ -109,7 +104,6 @@
 		</dependency>
 		<!-- for api -->
 		
->>>>>>> 8aeb8e3d0762367c3d2d9a81d5c7c938f626e521
 
 		<!-- Spring Core -->
 		<dependency>
@@ -263,23 +257,6 @@
 				<configuration>
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
-				<executions>
-					<execution>
-						<id>remove-timestamp</id>
-						<phase>package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>sh</executable>
-							<arguments>
-								<argument>-c</argument>
-								<argument>sed -i '/^#.* KST /d'
-									target/maven-archiver/pom.properties</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- 첫줄에러 방지 -->
 			<plugin>
