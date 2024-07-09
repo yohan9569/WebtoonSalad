@@ -74,18 +74,13 @@
 			<scope>test</scope>
 		</dependency>
 
-<<<<<<< HEAD
-=======
 		<!-- for api -->
->>>>>>> 8aeb8e3d0762367c3d2d9a81d5c7c938f626e521
 		<!-- Spring WebFlux -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webflux</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-<<<<<<< HEAD
-=======
 		
 		<!-- Jackson Databind -->
 		<dependency>
@@ -109,7 +104,6 @@
 		</dependency>
 		<!-- for api -->
 		
->>>>>>> 8aeb8e3d0762367c3d2d9a81d5c7c938f626e521
 
 		<!-- Spring Core -->
 		<dependency>
