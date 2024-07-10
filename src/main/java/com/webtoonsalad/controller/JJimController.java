@@ -23,8 +23,8 @@ public class JJimController {
 
     @GetMapping("/jjim")
     public String getJJim(@RequestParam("userId") String userId, Model model) {
-        List<WebtoonDTO> webtoons = jjimService.getJJimByUserId(userId);
-        model.addAttribute("webtoons", webtoons);
-        return "jjim";
+        List<WebtoonDTO> jjims = jjimService.getJJimByUserId(userId);
+        model.addAttribute("jjims", jjims);
+        return "jjim/jjim";
     }
 }
