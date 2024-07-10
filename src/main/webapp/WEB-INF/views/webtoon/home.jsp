@@ -8,6 +8,30 @@
 <title>웹툰 샐러드</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/home.css">
+<script>
+    function filterByDay(day) {
+        // 한글 요일을 영어 요일로 변환하는 객체
+        const dayMap = {
+            '일': 'SUN',
+            '월': 'MON',
+            '화': 'TUE',
+            '수': 'WED',
+            '목': 'THU',
+            '금': 'FRI',
+            '토': 'SAT',
+            '요일전체': null
+        };
+        
+        // 전달받은 요일(day)을 영어 요일로 변환
+        const englishDay = dayMap[day];
+
+        // 폼의 hidden input 필드에 영어 요일 값 설정
+        document.getElementById('dayForm').day.value = englishDay;
+        
+        // 폼 제출
+        document.getElementById('dayForm').submit();
+    }
+</script>
 </head>
 <body>
 	<header>
@@ -42,16 +66,19 @@
 		</div>
 	</aside>
 	<section class="webtoon-list">
-		<div class="day-filter">
-			<button class="active">요일전체</button>
-			<button>월</button>
-			<button>화</button>
-			<button>수</button>
-			<button>목</button>
-			<button>금</button>
-			<button>토</button>
-			<button>일</button>
-		</div>
+        <form id="dayForm" action="${pageContext.request.contextPath}/home" method="get">
+            <input type="hidden" name="day" value=""/>
+        </form>
+        <div class="day-filter">
+            <button onclick="filterByDay('요일전체')">요일전체</button>
+            <button onclick="filterByDay('월')">월</button>
+            <button onclick="filterByDay('화')">화</button>
+            <button onclick="filterByDay('수')">수</button>
+            <button onclick="filterByDay('목')">목</button>
+            <button onclick="filterByDay('금')">금</button>
+            <button onclick="filterByDay('토')">토</button>
+            <button onclick="filterByDay('일')">일</button>
+        </div>
 		<div class="webtoon-items">
 			<c:forEach var="webtoon" items="${home}">
 				<div class="webtoon-item">

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.webtoonsalad.dto.WebtoonDTO;
 
@@ -14,4 +15,7 @@ public interface WebtoonMapper {
 
 	// 전체 웹툰 불러오기
 	List<WebtoonDTO> getAllWebtoonList() throws SQLException;
+	
+	// 해당 요일 웹툰 불러오기
+	List<WebtoonDTO> getDayWebtoonList(@Param("day") String day) throws SQLException;
 }
