@@ -15,14 +15,14 @@
 		<org.slf4j-version>1.7.32</org.slf4j-version>
 	</properties>
 	<dependencies>
-		
+
 		<!-- Spring Security Core -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>5.5.5</version>
 		</dependency>
-		
+
 		<!-- Spring Security Config -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -36,15 +36,13 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>5.5.5</version>
 		</dependency>
-		
-		
+
 		<!-- Spring Security JSP Custom Tags -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>5.5.5</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
 		<dependency>
