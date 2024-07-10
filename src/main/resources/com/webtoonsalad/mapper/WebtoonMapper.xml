@@ -13,7 +13,7 @@
 
 	<select id="getAllWebtoonList"
 		resultType="com.webtoonsalad.dto.WebtoonDTO">
-		SELECT title
+		SELECT title, thumbnail1, thumbnail2
 		FROM tbl_webtoon
 	</select>
 

@@ -55,7 +55,13 @@
 		<div class="webtoon-items">
 			<c:forEach var="webtoon" items="${home}">
 				<div class="webtoon-item">
-					<p>${webtoon.title}</p>
+					<div class="thumbnail-container">
+                        <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
+                        <c:if test="${not empty webtoon.thumbnail2}">
+                            <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
+                        </c:if>
+                    </div>
+                    <p>${webtoon.title}</p>
 				</div>
 			</c:forEach>
 		</div>
