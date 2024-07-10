@@ -2,12 +2,14 @@ package com.webtoonsalad.dto;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
+@Component
 @Data
-public class WagleDTO {
+public class WagleCreateDTO {
 
-	private Long id;
 	private String title;
 	private Date create_date;
 	private Long view_cnt;
