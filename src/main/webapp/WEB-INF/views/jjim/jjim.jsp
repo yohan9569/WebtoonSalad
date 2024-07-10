@@ -45,22 +45,33 @@
 	<section class="jjim-list">
 		<h1>찜한 웹툰</h1>
 		<div class="search-bar">
-			<input type="text" placeholder="친구 찜꽁 구경하기">
+			<form action="${pageContext.request.contextPath}/jjim/search" method="get">
+				<input type="text" name="nickname" placeholder="친구 찜꽁 구경하기">
+				<button type="submit">검색</button>
+			</form>
 		</div>
-		<div class="webtoon-items">
-			<c:forEach var="webtoon" items="${jjims}">
-				<div class="webtoon-item">
-					<div class="thumbnail-container">
-                        <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
-                        <c:if test="${not empty webtoon.thumbnail2}">
-                            <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
-                        </c:if>
-                    </div>
-					<p>${webtoon.title}</p>
-					<button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
-				</div>
-			</c:forEach>
-		</div>
+		<c:if test="${not empty jjims}">
+			<div class="webtoon-items">
+				<c:forEach var="webtoon" items="${jjims}">
+					<div class="webtoon-item">
+						<div class="thumbnail-container">
+	                        <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
+	                        <c:if test="${not empty webtoon.thumbnail2}">
+	                            <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
+	                        </c:if>
+	                    </div>
+						<p>${webtoon.title}</p>
+						<button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
+					</div>
+				</c:forEach>
+			</div>
+		</c:if>
+		<c:if test="${empty jjims}">
+			<p>찜한 웹툰이 없습니다.</p>
+		</c:if>
+		<c:if test="${not empty error}">
+			<p class="error">${error}</p>
+		</c:if>
 	</section>
 	</main>
 	<footer>
