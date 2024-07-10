@@ -19,5 +19,6 @@ public class WebtoonDTO {
 	private Long isUpdated;
 	private Long freeWaitHour;
 	private Date lastUp;
+	private int jjimCount;
 	
 }
