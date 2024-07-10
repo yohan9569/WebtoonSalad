@@ -115,8 +115,8 @@ main {
 
 .thumbnail-container {
     position: relative;
-    width: 200px; /* 원하는 너비 설정 */
-    height: 400px; /* 원하는 높이 설정 */
+    width: 100px; /* 원하는 너비 설정 */
+    height: 200px; /* 원하는 높이 설정 */
 }
 
 .thumbnail-container img {

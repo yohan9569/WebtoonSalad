@@ -7,14 +7,28 @@
 
 	<update id="updateLastup" parameterType="String">
 		UPDATE tbl_webtoon
-		SET lastup = SYSDATE
+		SET
+		lastup = SYSDATE
 		WHERE id = #{id}
 	</update>
 
 	<select id="getAllWebtoonList"
 		resultType="com.webtoonsalad.dto.WebtoonDTO">
-		SELECT title, thumbnail1, thumbnail2
-		FROM tbl_webtoon
+		SELECT w.id, 
+			w.title,
+			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1) AS thumbnail1,
+			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1) AS thumbnail2,
+			COUNT(j.tbl_webtoon_id) AS jjimCount,
+			w.lastup
+		FROM tbl_webtoon w
+			LEFT JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
+		GROUP BY w.id,
+			w.title,
+			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1),
+			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1),
+			w.lastup
+		ORDER BY jjimCount DESC, w.lastup DESC NULLS LAST
+
 	</select>
 
 	<select id="getDaysWebtoonList"

@@ -43,8 +43,8 @@
 	</aside>
 	<section class="webtoon-list">
 		<div class="day-filter">
-			<button>요일전체</button>
-			<button class="active">월</button>
+			<button class="active">요일전체</button>
+			<button>월</button>
 			<button>화</button>
 			<button>수</button>
 			<button>목</button>
@@ -62,6 +62,7 @@
                         </c:if>
                     </div>
                     <p>${webtoon.title}</p>
+                    <p>♥ ${webtoon.jjimCount}</p>
 				</div>
 			</c:forEach>
 		</div>
