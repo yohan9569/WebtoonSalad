@@ -11,7 +11,8 @@ import com.webtoonsalad.dto.WebtoonDTO;
 @Mapper
 public interface WebtoonMapper {
 	// 오늘 웹툰 업데이트
-	void updateLastup(String id);
+	void resetIsUpdated();
+	void updateWebtoonInfo(String id);
 
 	// 전체 웹툰 불러오기
 	List<WebtoonDTO> getAllWebtoonList() throws SQLException;
