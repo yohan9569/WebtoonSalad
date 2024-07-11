@@ -23,8 +23,19 @@ public class JJimController {
 
     @GetMapping("/jjim")
     public String getJJim(@RequestParam("userId") String userId, Model model) {
-        List<WebtoonDTO> webtoons = jjimService.getJJimByUserId(userId);
-        model.addAttribute("webtoons", webtoons);
-        return "jjim";
+        List<WebtoonDTO> jjims = jjimService.getJJimByUserId(userId);
+        model.addAttribute("jjims", jjims);
+        return "jjim/jjim";
+    }
+    
+    @GetMapping("/jjim/search")
+    public String searchJJimByNickname(@RequestParam("nickname") String nickname, Model model) {
+        String userId = jjimService.getUserIdByNickname(nickname);
+        if (userId != null && !userId.isEmpty()) {
+            return "redirect:/jjim?userId=" + userId;
+        } else {
+            model.addAttribute("error", "사용자를 찾을 수 없습니다.");
+            return "jjim/jjim";
+        }
     }
 }

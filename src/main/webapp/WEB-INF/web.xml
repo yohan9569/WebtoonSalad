@@ -7,7 +7,12 @@
 		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
+<<<<<<< HEAD
 		<param-value>/WEB-INF/spring/root-context.xml
+=======
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+>>>>>>> 133f7b69403131f49c1caf824916d2bdb96ac3f3
 			/WEB-INF/spring/security-context.xml
 		</param-value>
 	</context-param>
