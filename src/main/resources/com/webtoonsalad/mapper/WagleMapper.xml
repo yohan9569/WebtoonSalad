@@ -25,18 +25,39 @@
 		  , view_cnt
 		  , rec_cnt
 		  , content
-		  , "FILE"
+		  , content_file
 		  , tbl_user_id
 		)
 		VALUES (
 			#{title}
-		  , #{create_date}
+		  , sysdate
 		  , #{view_cnt}
 		  , #{rec_cnt}
 		  , #{content}
-		  , #{file}
+		  , #{content_file, jdbcType=VARCHAR}
 		  , #{user_id}
-		);
+		)
 	</insert>
+	
+	<insert id="insertSelectKeyWagle" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tbl_wagle (
+            title
+            , create_date
+            , view_cnt
+            , rec_cnt
+            , content
+            , content_file
+            , tbl_user_id
+        )
+        VALUES (
+			 #{title}
+		   , sysdate
+		   , #{view_cnt}
+		   , #{rec_cnt}
+		   , #{content}
+		   , #{content_file, jdbcType=VARCHAR}
+		   , #{user_id}
+        )
+    </insert>
 
 </mapper>

@@ -19,7 +19,6 @@
 	<!-- MyBatis Mapper 스캔 -->
 	<mybatis-spring:scan base-package="com.webtoonsalad.mapper"/>
 	
-	
 	<!-- MyBatis SqlSessionFactory 설정 -->
     <bean id="sqlSessionFactory"
         class="org.mybatis.spring.SqlSessionFactoryBean">
