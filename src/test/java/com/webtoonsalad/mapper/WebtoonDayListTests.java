@@ -1,33 +1,29 @@
-package com.webtoon.persistence;
+package com.webtoonsalad.mapper;
 
-import static org.junit.Assert.fail;
-import java.sql.Connection;
+import static org.junit.Assert.assertNotNull;
+
 import java.sql.SQLException;
-import javax.sql.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import com.webtoonsalad.mapper.WebtoonMapper;
+
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class DataSourceTest {
-
+public class WebtoonDayListTests {
+	
 	@Autowired
-	private DataSource dataSource;
-
-	@Test
-	public void testConnection() {
-
-		try {
-			Connection con = dataSource.getConnection();
-			log.info(con);
-		} catch (SQLException e) {
-			fail(e.getMessage());
-		} // end try
-
-	}// end test
-}// end class
+    private WebtoonMapper mapper;
+   
+   
+    @Test
+    public void testGetDayList() throws SQLException {
+    	assertNotNull(mapper);
+        mapper.getDayWebtoonList("MON").forEach(row -> log.info(row));      
+    }
+}

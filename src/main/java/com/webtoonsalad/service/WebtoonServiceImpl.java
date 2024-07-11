@@ -20,8 +20,17 @@ public class WebtoonServiceImpl implements WebtoonService {
     @Override
     public List<WebtoonDTO> getAllWebtoonList() throws Exception {
         try {
-            //디비에서 리스트 반환 작업
             return mapper.getAllWebtoonList();
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw e;
+        }
+    }
+    
+    @Override
+    public List<WebtoonDTO> getDayWebtoonList(String day) throws Exception {
+        try {
+            return mapper.getDayWebtoonList(day);
         } catch (Exception e) {
             log.info(e.getMessage());
             throw e;
