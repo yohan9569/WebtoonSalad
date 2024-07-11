@@ -7,7 +7,7 @@
   
   <select id="selectJJimByUserId" parameterType="String" resultType="com.webtoonsalad.dto.WebtoonDTO">
     SELECT 
-        w.title, w.thumbnail1, w.thumbnail2, w.url, 
+        w.id, w.title, w.thumbnail1, w.thumbnail2, w.url, 
         w.isupdated, w.provider, w.updatedays, w.freewaithour,
         (SELECT COUNT(*) 
          FROM tbl_jjim j2 

@@ -61,20 +61,28 @@
 	                                <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
 	                            </c:if>
 	                        </div>
-	                        <p>${webtoon.title}</p>
-	                        <p>찜한 수: ${webtoon.jjimCount}</p> <!-- 추가된 정보 표시 -->
-	                        <p>UP?: <c:choose>
-	                            <c:when test="${webtoon.isUpdated == 1}">UP!</c:when>
-	                            <c:otherwise>No..</c:otherwise>
-	                        </c:choose></p>
-	                        <p>제공자: ${webtoon.provider}</p>
-	                        <p>연재 요일: ${webtoon.updateDays}</p>
-	                        <p>기다무?: <c:choose>
-	                            <c:when test="${webtoon.freeWaitHour == 1}">기다무</c:when>
-	                            <c:otherwise>-</c:otherwise>
-	                        </c:choose></p>
+		                    <div class="webtoon-details">
+		                        <p class="webtoon-title">${webtoon.title}</p>
+		                        <div class="webtoon-info">
+		                            <p>찜한 수: ${webtoon.jjimCount}</p>
+		                            <p>UP?: <c:choose>
+		                                <c:when test="${webtoon.isUpdated == 1}">UP!</c:when>
+		                                <c:otherwise>No..</c:otherwise>
+		                            </c:choose></p>
+		                            <p>제공자: ${webtoon.provider}</p>
+		                            <p>연재 요일: ${webtoon.updateDays}</p>
+		                            <p>기다무?: <c:choose>
+		                                <c:when test="${webtoon.freeWaitHour == 1}">기다무</c:when>
+		                                <c:otherwise>-</c:otherwise>
+		                            </c:choose></p>
+		                        </div>
+		                    </div>
 	                    </a>
-	                    <button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
+
+	                    <div class="webtoon-buttons">
+	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.id}'">웹툰 정보</button>
+	                        <button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
+	                    </div>
 	                </div>
 	            </c:forEach>
 	        </div>
