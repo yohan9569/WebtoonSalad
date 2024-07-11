@@ -12,5 +12,6 @@ public interface WagleMapper {
 
 	public List<WagleListDTO> selectWagleList();
 	public void insertWagle(WagleCreateDTO dto);
+	public void insertSelectKeyWagle(WagleCreateDTO dto);
 
 }

@@ -154,6 +154,13 @@
 			</exclusions>
 		</dependency>
 
+		<!--log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 		<!-- Spring WebMVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -186,7 +193,7 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
@@ -209,7 +216,7 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 
 		<!-- @Inject -->
 		<dependency>
