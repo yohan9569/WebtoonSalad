@@ -8,7 +8,7 @@
 	<update id="updateLastup" parameterType="String">
 		UPDATE tbl_webtoon
 		SET
-		lastup = SYSDATE
+		lastup = SYSDATE]
 		WHERE id = #{id}
 	</update>
 

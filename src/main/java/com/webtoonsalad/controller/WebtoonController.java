@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.webtoonsalad.dto.WebtoonDTO;
+import com.webtoonsalad.service.JJimService;
 import com.webtoonsalad.service.WebtoonService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 public class WebtoonController {
 	@Autowired
 	private WebtoonService webtoonService;
+	private JJimService jjimService;
+	
+	public WebtoonController(WebtoonService webtoonService, JJimService jjimService) {
+        this.webtoonService = webtoonService;
+        this.jjimService = jjimService;
+    }
 
 	@GetMapping("/home")
 	public String list(@RequestParam(value = "day", required = false) String day, Model model) throws Exception {
@@ -39,7 +46,10 @@ public class WebtoonController {
     public String getWebtoonDetail(@RequestParam("id") String id, Model model) throws Exception {
         try {
             WebtoonDTO webtoon = webtoonService.getDetail(id);
+            String userId = "test1"; // 로그인 시스템이 없으므로 user_id를 test1로 설정
+            boolean jjimExists = jjimService.checkJjimExists(id, userId);
             model.addAttribute("detail", webtoon);
+            model.addAttribute("jjimExists", jjimExists);
             return "webtoon/detail";
         } catch (Exception e) {
         	throw e;
