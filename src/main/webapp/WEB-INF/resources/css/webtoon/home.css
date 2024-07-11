@@ -127,6 +127,15 @@ main {
     height: 100%;
 }
 
+a.webtoon-link {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+a.webtoon-link:hover {
+    color: blue; 
+}
+
 footer {
     padding: 20px;
     text-align: center;
