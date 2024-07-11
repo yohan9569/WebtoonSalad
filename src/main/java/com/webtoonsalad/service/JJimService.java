@@ -27,4 +27,17 @@ public class JJimService {
     public String getUserIdByNickname(String nickname) {
         return userMapper.selectUserIdByNickname(nickname);
     }
+    
+    public boolean checkJjimExists(String userId, String webtoonId) {
+        return jjimMapper.checkJjimExists(userId, webtoonId);
+    }
+    
+    public void insertJjim(String userId, String webtoonId) {
+        jjimMapper.insertJjim(userId, webtoonId);
+    }
+
+    public void deleteJjim(String userId, String webtoonId) {
+        jjimMapper.deleteJjim(userId, webtoonId);
+    }
+   
 }

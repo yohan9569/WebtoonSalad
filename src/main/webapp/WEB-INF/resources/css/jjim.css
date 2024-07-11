@@ -102,6 +102,15 @@ main {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: 10px;
+    margin-bottom: 10px; /* 항목 간 간격 추가 */
+}
+
+.webtoon-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%; /* 링크가 전체 너비를 차지하도록 설정 */
 }
 
 .thumbnail-container {

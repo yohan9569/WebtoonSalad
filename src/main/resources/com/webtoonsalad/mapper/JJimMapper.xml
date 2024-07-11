@@ -4,17 +4,39 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.webtoonsalad.mapper.JJimMapper">
-
+  
   <select id="selectJJimByUserId" parameterType="String" resultType="com.webtoonsalad.dto.WebtoonDTO">
-	SELECT w.title, w.thumbnail1, w.thumbnail2
-	FROM tbl_jjim j
-	JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
-	WHERE j.tbl_user_id = #{id}
-	ORDER BY 
-	    CASE 
-	        WHEN w.LastUp > j.LastView THEN 0 
-	        ELSE 1 
-	    END,
-	   	w.LastUp DESC
+    SELECT 
+        w.title, w.thumbnail1, w.thumbnail2, w.url, 
+        w.isupdated, w.provider, w.updatedays, w.freewaithour,
+        (SELECT COUNT(*) 
+         FROM tbl_jjim j2 
+         WHERE j2.tbl_webtoon_id = w.id) AS jjimCount
+    FROM tbl_jjim j
+    JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
+    WHERE j.tbl_user_id = #{id}
+    ORDER BY 
+        CASE 
+            WHEN w.LastUp > j.LastView THEN 0 
+            ELSE 1 
+        END,
+        w.LastUp DESC
   </select>
+  
+  <select id="checkJjimExists" parameterType="map" resultType="boolean">
+    SELECT COUNT(*)
+    FROM tbl_jjim
+    WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+  </select>
+	
+  <insert id="insertJjim" parameterType="map">
+    INSERT INTO tbl_jjim (tbl_user_id, tbl_webtoon_id)
+    VALUES (#{userId}, #{webtoonId})
+  </insert>
+
+  <delete id="deleteJjim" parameterType="map">
+    DELETE FROM tbl_jjim
+    WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+  </delete>
+  
 </mapper>

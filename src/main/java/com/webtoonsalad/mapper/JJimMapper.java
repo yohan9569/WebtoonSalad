@@ -10,4 +10,13 @@ import com.webtoonsalad.dto.WebtoonDTO;
 @Mapper
 public interface JJimMapper {
 	List<WebtoonDTO> selectJJimByUserId(@Param("id") String id);
+	
+	// 사용자의 해당 웹툰 찜 수 확인하기
+	boolean checkJjimExists(@Param("userId") String userId, @Param("webtoonId") String webtoonId);
+	
+	// 찜 추가
+	void insertJjim(@Param("userId") String userId, @Param("webtoonId") String webtoonId);
+    
+	// 찜 삭제
+	void deleteJjim(@Param("userId") String userId, @Param("webtoonId") String webtoonId);
 }
