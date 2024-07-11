@@ -51,8 +51,10 @@ public class WebtoonApiService {
 				isLastPage = rootNode.path("isLastPage").asBoolean();
 			}
 		}
+		
+		webtoonMapper.resetIsUpdated();
 		for (String id : webtoonIds) {
-			webtoonMapper.updateLastup(id);
+			webtoonMapper.updateWebtoonInfo(id);
 		}
 	}
 
