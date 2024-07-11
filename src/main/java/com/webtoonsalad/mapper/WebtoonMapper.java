@@ -18,4 +18,11 @@ public interface WebtoonMapper {
 	
 	// 해당 요일 웹툰 불러오기
 	List<WebtoonDTO> getDayWebtoonList(@Param("day") String day) throws SQLException;
+	
+	// 선택한 웹툰 상세보기
+	WebtoonDTO getDetail(@Param("id") String id) throws SQLException;
+	
+	// 선택한 웹툰 찜 수 불러오기
+	Integer getJjimCount(@Param("id") String id) throws SQLException;
+	
 }

@@ -49,6 +49,21 @@
 			w.lastup
 		ORDER BY jjimCount DESC, w.lastup DESC NULLS LAST, w.title ASC
 	</select>
-
-
+	
+	<select id="getDetail" parameterType="string"
+		resultType="com.webtoonsalad.dto.WebtoonDTO">
+		SELECT *
+		FROM tbl_webtoon
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getJjimCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(j.tbl_webtoon_id) as jjimCount
+		FROM tbl_webtoon w
+			JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
+		WHERE w.id = #{id}
+		GROUP BY w.id
+	</select>
+	
 </mapper>

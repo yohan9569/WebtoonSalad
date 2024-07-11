@@ -34,5 +34,16 @@ public class WebtoonController {
 			throw e;
 		} 
 	}
+	
+	@GetMapping("/webtoon/detail")
+    public String getWebtoonDetail(@RequestParam("id") String id, Model model) throws Exception {
+        try {
+            WebtoonDTO webtoon = webtoonService.getDetail(id);
+            model.addAttribute("detail", webtoon);
+            return "webtoon/detail";
+        } catch (Exception e) {
+        	throw e;
+        }
+    }
 
 }
