@@ -6,7 +6,7 @@
 <mapper namespace="com.webtoonsalad.mapper.JJimMapper">
 
   <select id="selectJJimByUserId" parameterType="String" resultType="com.webtoonsalad.dto.WebtoonDTO">
-	SELECT w.title, w.thumbnail1, w.thumbnail2
+	SELECT w.title, w.thumbnail1, w.thumbnail2, w.url, w.isupdated, w.provider, w.updatedays, w.freewaithour
 	FROM tbl_jjim j
 	JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
 	WHERE j.tbl_user_id = #{id}

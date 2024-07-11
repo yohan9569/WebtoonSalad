@@ -53,16 +53,18 @@
 		<c:if test="${not empty jjims}">
 			<div class="webtoon-items">
 				<c:forEach var="webtoon" items="${jjims}">
-					<div class="webtoon-item">
-						<div class="thumbnail-container">
-	                        <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
-	                        <c:if test="${not empty webtoon.thumbnail2}">
-	                            <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
-	                        </c:if>
-	                    </div>
-						<p>${webtoon.title}</p>
-						<button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
-					</div>
+				    <div class="webtoon-item">
+				        <a href="${webtoon.url}" target="_blank" class="webtoon-link">
+				            <div class="thumbnail-container">
+				                <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
+				                <c:if test="${not empty webtoon.thumbnail2}">
+				                    <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
+				                </c:if>
+				            </div>
+				            <p>${webtoon.title}</p>
+				        </a>
+				        <button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
+				    </div>
 				</c:forEach>
 			</div>
 		</c:if>
