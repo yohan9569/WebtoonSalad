@@ -182,7 +182,6 @@ main {
     border: none;
     cursor: pointer;
     font-size: 20px;
-    color: white;
 }
 
 .delete-button:hover {
