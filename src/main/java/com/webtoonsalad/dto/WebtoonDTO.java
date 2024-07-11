@@ -15,9 +15,9 @@ public class WebtoonDTO {
 	private String thumbnail1;
 	private String thumbnail2;
 	private String authors;
-	private Long isAdult;
-	private Long isUpdated;
-	private Long freeWaitHour;
+	private int isAdult;
+	private int isUpdated;
+	private int freeWaitHour;
 	private Date lastUp;
 	private int jjimCount;
 	
