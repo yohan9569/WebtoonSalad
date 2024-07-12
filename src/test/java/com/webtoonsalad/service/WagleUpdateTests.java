@@ -1,4 +1,4 @@
-package com.webtoonsalad.mapper;
+package com.webtoonsalad.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,15 +16,14 @@ import lombok.extern.log4j.Log4j;
 public class WagleUpdateTests {
 
 	@Autowired
-	private WagleMapper wagleMapper;
+	private WagleService wagleService;
 	
 	@Test
 	public void test() {
 		WagleUpdateDTO dto = new WagleUpdateDTO();
 		dto.setId(3L);
-		dto.setTitle("업데이트");
-		dto.setContent("업데이트");
-//		int cnt = wagleMapper.updateWagle(dto);
-		log.info("update count: " + wagleMapper.updateWagle(dto));
+		dto.setTitle("서비스 업데이트 테스트");
+		dto.setContent("서비스 업데이트 테스트");
+		log.info(wagleService.modify(dto));
 	}
 }
