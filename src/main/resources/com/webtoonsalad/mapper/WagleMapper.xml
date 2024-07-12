@@ -61,7 +61,16 @@
     </insert>
     
     <select id="detailWagle" resultType="com.webtoonsalad.dto.WagleDetailDTO">
-    	SELECT * FROM TBL_WAGLE WHERE id = #{id}
+    	SELECT
+			w.id
+		  , w.title
+		  , u.name
+		  , w.create_date
+		  , w.rec_cnt AS recommend_cnt
+		  , w.content
+		FROM TBL_WAGLE w, TBL_USER u
+		WHERE w.tbl_user_id = u.id
+		AND w.id = #{id}
     </select>
 
 </mapper>

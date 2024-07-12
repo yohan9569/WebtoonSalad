@@ -20,7 +20,7 @@ public class WagleDetailTests {
 	
 	@Test
 	public void test() {
-		WagleDetailDTO dto = wagleMapper.detailWagle(5L);
+		WagleDetailDTO dto = wagleMapper.detailWagle(6L);
 		log.info(dto);
 	}
 }
