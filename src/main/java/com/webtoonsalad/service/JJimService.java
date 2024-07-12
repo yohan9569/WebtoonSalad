@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.webtoonsalad.dto.WebtoonDTO;
+import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.mapper.JJimMapper;
 import com.webtoonsalad.mapper.UserMapper;
 
@@ -20,7 +20,7 @@ public class JJimService {
         this.userMapper = userMapper;
     }
 
-    public List<WebtoonDTO> getJJimByUserId(String userId) {
+    public List<JJimDTO> getJJimByUserId(String userId) {
         return jjimMapper.selectJJimByUserId(userId);
     }
     

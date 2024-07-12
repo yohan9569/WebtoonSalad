@@ -5,16 +5,18 @@
 
 <mapper namespace="com.webtoonsalad.mapper.JJimMapper">
   
-  <select id="selectJJimByUserId" parameterType="String" resultType="com.webtoonsalad.dto.WebtoonDTO">
+  <select id="selectJJimByUserId" parameterType="String" resultType="com.webtoonsalad.dto.JJimDTO">
     SELECT 
-        w.id, w.title, w.thumbnail1, w.thumbnail2, w.url, 
-        w.isupdated, w.provider, w.updatedays, w.freewaithour,
+    	j.id, j.tbl_user_id AS userId, j.lastView, 
+        w.id AS webtoonId, w.title, w.provider, w.updateDays, 
+        w.url, w.thumbnail1, w.thumbnail2, w.authors, 
+        w.isAdult, w.isUpdated, w.freeWaitHour, w.lastUp,
         (SELECT COUNT(*) 
          FROM tbl_jjim j2 
          WHERE j2.tbl_webtoon_id = w.id) AS jjimCount
     FROM tbl_jjim j
     JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
-    WHERE j.tbl_user_id = #{id}
+    WHERE j.tbl_user_id = #{userId}
     ORDER BY 
         CASE 
             WHEN w.LastUp > j.LastView THEN 0 
