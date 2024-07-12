@@ -10,7 +10,12 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     pattern="/sample/all"   access="permitAll" />  
     <security:intercept-url
     pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
-    <security:form-login default-target-url="/user/member"/>
+    <!-- <security:form-login default-target-url="/user/member"/> -->
+    
+    <security:access-denied-handler error-page="/accessError" />
+    
+    <security:form-login login-page="/login"/>
+    
 </security:http>
 
 
