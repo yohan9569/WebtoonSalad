@@ -1,84 +1,13 @@
-/* detail.css */
-
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    /* margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.search-bar input {
-    padding: 5px;
-    font-size: 16px;
-}
-
-.auth-buttons button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    margin-right: 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 18px;
-}
-
-.container {
-    display: flex;
-    padding: 20px;
-}
-
-.sidebar {
-    width: 300px;
-    background-color: #f4f4f4;
+    box-sizing: border-box; */
 }
 
 main {
-    flex: 1;
-    padding: 0 20px;
-}
-
-.advertisement {
-    width: 100%;
-}
-
-.ad {
-    background-color: #f8f8f8;
-    border: 1px dashed purple;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.ad img {
-    max-width: 100%;
-    height: auto;
+    display: flex;
+    padding: 20px;
 }
 
 section.webtoon-detail {
@@ -90,15 +19,10 @@ section.webtoon-detail {
     align-items: center;
 }
 
-.webtoon-info img {
-    max-width: 150px;
-    margin-right: 20px;
-}
-
 .thumbnail-container {
     position: relative;
-    width: 150px; /* 원하는 너비 설정 */
-    height: 300px; /* 원하는 높이 설정 */
+    width: 150px;
+    height: 300px;
     margin-right: 20px;
 }
 
@@ -154,11 +78,4 @@ section.webtoon-detail {
     text-align: center;
     border: 1px solid #ccc;
     padding: 20px;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #f8f8f8;
-    border-top: 1px solid #ddd;
 }

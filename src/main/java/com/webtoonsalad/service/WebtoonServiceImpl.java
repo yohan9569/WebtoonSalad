@@ -1,5 +1,6 @@
 package com.webtoonsalad.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,13 @@ public class WebtoonServiceImpl implements WebtoonService {
 			throw e;
 		}
 	}
-	
+
+	@Override
+	public Integer getJjimCount(String id) throws Exception {
+		try {
+			return mapper.getJjimCount(id);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }
