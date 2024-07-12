@@ -25,11 +25,22 @@ table th {
 	background-color: #f2f2f2;
 }
 
+.middleSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 800px;
+    box-sizing: border-box;
+    margin: 40px 0;
+}
+
 .wagleList {
     flex-grow: 1;
     min-width: 1000px;
     padding: 25px;
     background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
 }
 
 .leftAd, .rightAd {
@@ -39,17 +50,13 @@ table th {
     background-color: lightblue;
 }
 
-.middleSection {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 800px;
-    box-sizing: border-box;
-}
-
 .buttonSection {
 	display: flex;
 	justify-content: flex-end;
+}
+
+.pageTitle {
+	margin-bottom: 60px;
 }
 
 header {
