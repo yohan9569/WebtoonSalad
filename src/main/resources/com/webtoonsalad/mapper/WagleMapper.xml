@@ -59,5 +59,9 @@
 		   , #{user_id}
         )
     </insert>
+    
+    <select id="detailWagle" resultType="com.webtoonsalad.dto.WagleDetailDTO">
+    	SELECT * FROM TBL_WAGLE WHERE id = #{id}
+    </select>
 
 </mapper>
