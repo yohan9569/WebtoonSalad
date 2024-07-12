@@ -8,20 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>와글와글</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/wagle/wagleList.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/wagle/wagleList.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="/WEB-INF/views/header.jsp" />
-	
-	<!-- aside -->
-	<jsp:include page="/WEB-INF/views/aside.jsp" />
-	
+
 	<div class="middleSection">
-		<div class="leftAd"></div>
+		<!-- aside -->
+		<jsp:include page="/WEB-INF/views/aside.jsp" />
 		<div class="wagleList">
 			<h2 class="pageTitle">자유게시판</h2>
 			<table>
@@ -53,7 +55,7 @@
 		</div>
 		<div class="rightAd"></div>
 	</div>
-	
+
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>

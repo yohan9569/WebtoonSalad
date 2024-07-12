@@ -22,11 +22,9 @@
 	<!-- header -->
 	<jsp:include page="/WEB-INF/views/header.jsp" />
 
-	<!-- aside -->
-	<jsp:include page="/WEB-INF/views/aside.jsp" />
-
 	<div class="middleSection">
-		<div class="leftAd"></div>
+		<!-- aside -->
+		<jsp:include page="/WEB-INF/views/aside.jsp" />
 		<div class="wagleList">
 			<h2 class="pageTitle">게시판 글쓰기</h2>
 			<form action="/wagle/register" method="post">
