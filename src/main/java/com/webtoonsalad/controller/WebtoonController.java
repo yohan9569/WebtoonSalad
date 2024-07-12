@@ -46,8 +46,8 @@ public class WebtoonController {
     public String getWebtoonDetail(@RequestParam("id") String id, Model model) throws Exception {
         try {
             WebtoonDTO webtoon = webtoonService.getDetail(id);
-            String userId = "test1"; // 로그인 시스템이 없으므로 user_id를 test1로 설정
-            boolean jjimExists = jjimService.checkJjimExists(id, userId);
+            String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test1로 설정
+            boolean jjimExists = jjimService.checkJjimExists(userId, id);
             model.addAttribute("detail", webtoon);
             model.addAttribute("jjimExists", jjimExists);
             return "webtoon/detail";

@@ -29,7 +29,7 @@ public class JJimService {
     }
     
     public boolean checkJjimExists(String userId, String webtoonId) {
-        return jjimMapper.checkJjimExists(userId, webtoonId);
+    	return jjimMapper.checkJjimExists(userId, webtoonId);
     }
     
     public void insertJjim(String userId, String webtoonId) {
