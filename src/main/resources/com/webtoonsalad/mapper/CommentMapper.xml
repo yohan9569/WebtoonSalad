@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webtoonsalad.mapper.CommentMapper">
+
+	<insert id="writeComment" parameterType="map">
+		INSERT INTO tbl_comment
+		(content, tbl_user_id, tbl_webtoon_id)
+		VALUES (#{content}, #{userId}, #{webtoonId})
+	</insert>
+
+	<delete id="deleteComment" parameterType="map">
+		DELETE FROM tbl_comment
+		WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+	</delete>
+	
+	<update id="editComment" parameterType="map">
+		UPDATE tbl_comment
+		SET content = #{content}
+		WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+	</update>
+
+	<resultMap id="CommentResultMap"
+		type="com.webtoonsalad.dto.CommentDTO">
+		<result property="content" column="content" />
+		<association property="user"
+			javaType="com.webtoonsalad.dto.UserDTO">
+			<result property="name" column="name" />
+		</association>
+	</resultMap>
+
+	<select id="getCommentList" parameterType="map"
+		resultMap="CommentResultMap">
+		SELECT content, u.name
+		FROM tbl_comment c
+			LEFT JOIN tbl_user u ON c.tbl_user_id = u.id
+		WHERE tbl_webtoon_id = #{webtoonId}
+	</select>
+
+	<select id="getMyComment" parameterType="map"
+		resultType="com.webtoonsalad.dto.CommentDTO">
+		SELECT content
+		FROM tbl_comment
+		WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+	</select>
+
+</mapper>

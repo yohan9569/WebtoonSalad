@@ -19,21 +19,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function toggleJjim(webtoonId) {
-        console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
         const toggleUrl = "${pageContext.request.contextPath}/jjim/toggleJjim?webtoonId=" + webtoonId;
-        console.log("Toggle URL: " + toggleUrl); // 경로 확인용 로그 출력
-
         $.get(toggleUrl, function(response) {
-            console.log("Response: ", response); // 응답 확인용 로그 출력
-
             if (response.error) {
                 console.log("Error: " + response.error);
                 return;
             }
-
             let button = $("button.btn-like");
             let jjimCount = response.jjimCount !== null ? response.jjimCount : 0;
-
             if (response.jjimExists) {
                 button.html("찜꽁 ❤️ " + jjimCount);
             } else {
