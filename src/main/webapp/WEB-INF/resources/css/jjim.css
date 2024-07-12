@@ -3,57 +3,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffa500;
-}
-
-.search-bar input {
-    padding: 5px;
-    font-size: 16px;
-}
-
-.auth-buttons button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-nav ul {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    background-color: #333;
-}
-
-nav ul li {
-    margin: 0;
-}
-
-nav ul li a {
-    display: block;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-}
-
-nav ul li a:hover,
-nav ul li a.active {
-    background-color: #444;
-}
-
 main {
     display: flex;
     padding: 20px;
@@ -186,12 +135,4 @@ main {
 
 .delete-button:hover {
     color: red; /* 마우스를 올렸을 때 색상을 변경 */
-}
-
-
-footer {
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f8f8;
-    border-top: 1px solid #ddd;
 }
