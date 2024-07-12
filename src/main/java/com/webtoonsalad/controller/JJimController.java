@@ -62,7 +62,12 @@ public class JJimController {
                 jjimService.insertJjim(userId, webtoonId);
                 jjimExists = true;
             }
-            int jjimCount = webtoonService.getJjimCount(webtoonId); // jjimCount를 가져오는 메서드
+            
+            Integer jjimCount = webtoonService.getJjimCount(webtoonId); // jjimCount를 가져오는 메서드
+            if (jjimCount == null) {
+                jjimCount = 0;
+            }
+            
             response.put("jjimExists", jjimExists);
             response.put("jjimCount", jjimCount);
             return response;
@@ -72,4 +77,5 @@ public class JJimController {
             return response;
         }
     }
+
 }
