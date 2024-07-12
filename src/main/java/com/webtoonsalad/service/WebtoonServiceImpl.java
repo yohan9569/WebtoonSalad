@@ -51,7 +51,7 @@ public class WebtoonServiceImpl implements WebtoonService {
 	}
 
 	@Override
-	public Integer getJjimCount(String id) throws Exception {
+	public Integer getJJimCount(String id) throws Exception {
 		try {
 			return mapper.getJjimCount(id);
 		} catch (Exception e) {

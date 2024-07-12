@@ -10,10 +10,10 @@ public interface JJimService {
     
     public String getUserIdByNickname(String nickname);
     
-    public boolean checkJjimExists(String userId, String webtoonId);
+    public boolean checkJJimExists(String userId, String webtoonId);
     
-    public void insertJjim(String userId, String webtoonId);
+    public void insertJJim(String userId, String webtoonId);
 
-    public void deleteJjim(String userId, String webtoonId);
+    public void deleteJJim(String userId, String webtoonId);
    
 }

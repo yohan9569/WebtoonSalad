@@ -47,7 +47,7 @@ public class WebtoonController {
         try {
             WebtoonDTO webtoon = webtoonService.getDetail(id);
             String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test1로 설정
-            boolean jjimExists = jjimService.checkJjimExists(userId, id);
+            boolean jjimExists = jjimService.checkJJimExists(userId, id);
             model.addAttribute("detail", webtoon);
             model.addAttribute("jjimExists", jjimExists);
             return "webtoon/detail";

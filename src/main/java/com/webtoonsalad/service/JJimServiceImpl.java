@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.mapper.JJimMapper;
@@ -31,18 +32,19 @@ public class JJimServiceImpl implements JJimService{
     }
     
     @Override
-    public boolean checkJjimExists(String userId, String webtoonId) {
-    	return jjimMapper.checkJjimExists(userId, webtoonId);
+    public boolean checkJJimExists(String userId, String webtoonId) {
+    	return jjimMapper.checkJJimExists(userId, webtoonId);
     }
     
     @Override
-    public void insertJjim(String userId, String webtoonId) {
-        jjimMapper.insertJjim(userId, webtoonId);
+    public void insertJJim(String userId, String webtoonId) {
+        jjimMapper.insertJJim(userId, webtoonId);
     }
 
     @Override
-    public void deleteJjim(String userId, String webtoonId) {
-        jjimMapper.deleteJjim(userId, webtoonId);
+    @Transactional
+    public void deleteJJim(String userId, String webtoonId) {
+        jjimMapper.deleteJJim(userId, webtoonId);
     }
    
 }

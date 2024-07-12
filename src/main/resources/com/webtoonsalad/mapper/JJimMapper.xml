@@ -25,18 +25,18 @@
         w.LastUp DESC
   </select>
   
-  <select id="checkJjimExists" parameterType="map" resultType="boolean">
+  <select id="checkJJimExists" parameterType="map" resultType="boolean">
     SELECT COUNT(*)
     FROM tbl_jjim
     WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
   </select>
 	
-  <insert id="insertJjim" parameterType="map">
+  <insert id="insertJJim" parameterType="map">
     INSERT INTO tbl_jjim (tbl_user_id, tbl_webtoon_id)
     VALUES (#{userId}, #{webtoonId})
   </insert>
 
-  <delete id="deleteJjim" parameterType="map">
+  <delete id="deleteJJim" parameterType="map">
     DELETE FROM tbl_jjim
     WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
   </delete>
