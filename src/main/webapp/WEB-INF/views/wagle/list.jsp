@@ -8,32 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>와글와글</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/wagleList.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/wagle/wagleList.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
-	<header>
-		<div class="logo">웹툰 샐러드</div>
-		<div class="search-bar">
-			<input type="text" placeholder="제목으로 검색">
-		</div>
-		<div class="auth-buttons">
-			<button onclick="location.href='login.jsp'">로그인</button>
-			<button onclick="location.href='signup.jsp'">회원가입</button>
-		</div>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="${pageContext.request.contextPath}/home">홈</a></li>
-			<li><a href="${pageContext.request.contextPath}/square">찜꽁</a></li>
-			<li><a href="${pageContext.request.contextPath}/workroom">와글와글</a></li>
-			<li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
-		</ul>
-	</nav>
+	<!-- header -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+	
+	<!-- aside -->
+	<jsp:include page="/WEB-INF/views/aside.jsp" />
+	
 	<div class="middleSection">
 		<div class="leftAd"></div>
 		<div class="wagleList">
-			<h2>자유게시판</h2>
+			<h2 class="pageTitle">자유게시판</h2>
 			<table>
 				<thead>
 					<tr>
@@ -66,9 +56,8 @@
 		</div>
 		<div class="rightAd"></div>
 	</div>
-	<footer>
-		<p>© HAHAHOHO CORP</p>
-		<!-- Additional footer content -->
-	</footer>
+	
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>
 </html>

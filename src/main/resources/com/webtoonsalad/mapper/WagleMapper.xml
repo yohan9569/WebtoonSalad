@@ -59,5 +59,29 @@
 		   , #{user_id}
         )
     </insert>
+    
+    <select id="detailWagle" resultType="com.webtoonsalad.dto.WagleDetailDTO">
+    	SELECT w.id
+		  	 , w.title
+		  	 , u.name
+		  	 , w.create_date
+		  	 , w.rec_cnt AS recommend_cnt
+		  	 , w.content
+		FROM TBL_WAGLE w, TBL_USER u
+		WHERE w.tbl_user_id = u.id
+		AND w.id = #{id}
+    </select>
+    
+    <update id="updateWagle" parameterType="com.webtoonsalad.dto.WagleUpdateDTO">
+    	UPDATE tbl_wagle
+		SET title = #{title}
+		  , content = #{content}
+		  , create_date = sysdate
+		WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteWagle">
+    	DELETE tbl_Wagle WHERE id = #{id}
+    </delete>
 
 </mapper>
