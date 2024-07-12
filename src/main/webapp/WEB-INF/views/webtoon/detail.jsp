@@ -15,23 +15,31 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	// 전역 범위에서 toggleJjim 함수 정의
-	function toggleJjim(webtoonId) {
-		console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
-		const toggleUrl = "${pageContext.request.contextPath}/jjim/toggleJjim?webtoonId="
-				+ webtoonId;
-		console.log("Toggle URL: " + toggleUrl); // 경로 확인용 로그 출력
-		$.get(toggleUrl, function(response) {
-			if (response === "success") {
-				console.log("Toggle successful");
-				location.reload();
-			} else {
-				console.log("Toggle failed: " + response);
-				alert("Failed to toggle jjim: " + response);
-			}
-		});
-	}
+    function toggleJjim(webtoonId) {
+        console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
+        const toggleUrl = "${pageContext.request.contextPath}/jjim/toggleJjim?webtoonId=" + webtoonId;
+        console.log("Toggle URL: " + toggleUrl); // 경로 확인용 로그 출력
+
+        $.get(toggleUrl, function(response) {
+            console.log("Response: ", response); // 응답 확인용 로그 출력
+
+            if (response.error) {
+                console.log("Error: " + response.error);
+                return;
+            }
+
+            let button = $("button.btn-like");
+
+            if (response.jjimExists) {
+                button.html("찜꽁 ❤️ " + response.jjimCount);
+            } else {
+                button.html("찜꽁 🤍 " + response.jjimCount);
+            }
+        });
+    }
 </script>
+
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp" />
@@ -60,11 +68,11 @@
 				<c:choose>
 					<c:when test="${jjimExists}">
 						<button class="btn-like" onclick="toggleJjim('${detail.id}')">찜꽁
-							♡ ${detail.jjimCount}</button>
+							❤️ ${detail.jjimCount}</button>
 					</c:when>
 					<c:otherwise>
 						<button class="btn-like" onclick="toggleJjim('${detail.id}')">찜꽁
-							❤️ ${detail.jjimCount}</button>
+							 🤍 ${detail.jjimCount}</button>
 					</c:otherwise>
 				</c:choose>
 				<button class="btn-view"
