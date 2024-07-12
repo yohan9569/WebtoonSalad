@@ -48,9 +48,6 @@
 				</c:forEach>
 			</table>
 			<div class="buttonSection">
-			
-			<!-- 버튼이랑 페이지네이션 이동시키기  -->
-			
 				<button>글쓰기</button>
 			</div>
 		</div>

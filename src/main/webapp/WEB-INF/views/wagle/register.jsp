@@ -18,6 +18,7 @@
 	href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
+
 	<!-- header -->
 	<jsp:include page="/WEB-INF/views/header.jsp" />
 
