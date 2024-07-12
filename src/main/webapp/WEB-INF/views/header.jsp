@@ -18,14 +18,4 @@
         <li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
     </ul>
 </nav>
-<aside class="advertisement">
-    <div class="ad">
-        <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="광고">
-        <p>$0</p>
-    </div>
-    <div class="ad">
-        <p>광고</p>
-        <p>$50 / month</p>
-        <button>Button</button>
-    </div>
-</aside>
+

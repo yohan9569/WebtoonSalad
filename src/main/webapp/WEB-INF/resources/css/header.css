@@ -48,19 +48,3 @@ nav ul li a:hover {
     background-color: #444;
 }
 
-.advertisement {
-    width: 20%;
-    padding-right: 20px;
-}
-
-.ad {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.ad img {
-    max-width: 100%;
-}
