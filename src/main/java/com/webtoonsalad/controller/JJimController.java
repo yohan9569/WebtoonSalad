@@ -18,6 +18,7 @@ import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.service.JJimService;
 import com.webtoonsalad.service.WebtoonServiceImpl;
 
+
 @Controller
 public class JJimController {
 
@@ -50,10 +51,11 @@ public class JJimController {
         }
     }
     
-    @DeleteMapping("/jjim/delete")
+    @GetMapping("/jjim/delete") //추후 Delete로 변경
     @ResponseBody
     public String deleteJJim(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
-        jjimService.deleteJJim(userId, webtoonId);
+        System.out.println("deleteJJim 호출 성공");
+    	jjimService.deleteJJim(userId, webtoonId);
         return "success";
     }
     

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.mapper.JJimMapper;
@@ -42,7 +41,6 @@ public class JJimServiceImpl implements JJimService{
     }
 
     @Override
-    @Transactional
     public void deleteJJim(String userId, String webtoonId) {
         jjimMapper.deleteJJim(userId, webtoonId);
     }

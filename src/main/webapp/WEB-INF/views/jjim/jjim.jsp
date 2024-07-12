@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>찜한 웹툰</title>
+<!-- jQuery CDN 추가 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
@@ -53,8 +55,10 @@
 	                    </a>
 
 	                    <div class="webtoon-buttons">
-	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.id}'">웹툰 정보</button>
-	                        <button class="delete-button" onclick="deleteJJim(${webtoon.id})">🗑</button>
+	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.webtoonId}'">웹툰 정보</button>
+	                        <sec:authorize access="principal.username eq ${userId}">
+                            	<button class="delete-button" onclick="deleteJJim('${webtoon.userId}', '${webtoon.webtoonId}')">🗑</button>
+                        	</sec:authorize>
 	                    </div>
 	                </div>
 	            </c:forEach>
@@ -70,10 +74,25 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 	<script>
-	function deleteJJim(id) {
-		// AJAX 요청을 보내서 찜 목록에서 삭제하는 함수
-		// 구현해야 할 부분
-		alert('찜 목록에서 삭제되었습니다.');
+	function deleteJJim(userId, webtoonId) {
+	    if (confirm("정말 삭제하시겠습니까?")) {
+	        $.ajax({
+	            url: '${pageContext.request.contextPath}/jjim/delete',
+	            type: 'GET', // 추후 DELETE로 변경
+	            data: { userId: userId, webtoonId: webtoonId },
+	            success: function(response) {
+	                if (response === "success") {
+	                    alert("삭제되었습니다.");
+	                    location.reload();
+	                } else {
+	                    alert("삭제에 실패했습니다.");
+	                }
+	            },
+	            error: function() {
+	            	alert("삭제 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+	            }
+	        });
+	    }
 	}
 	</script>
 </body>
