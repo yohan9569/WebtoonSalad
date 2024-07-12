@@ -28,7 +28,7 @@ public class CommentController {
         }
     }
 
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
     public ResponseEntity<String> deleteComment(@RequestParam String webtoonId) {
         try {
         	String userId = "test2";
@@ -39,7 +39,7 @@ public class CommentController {
         }
     }
 
-    @PutMapping("/edit")
+    @GetMapping("/edit")
     public ResponseEntity<String> editComment(@RequestParam String content, 
                                               @RequestParam String webtoonId) {
         try {

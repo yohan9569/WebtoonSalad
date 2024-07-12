@@ -37,9 +37,128 @@
             }
         });
     }
+
+    function addComment(webtoonId) {
+        const commentContent = $('#newComment').val();
+        if (!commentContent) {
+            alert('댓글을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/comments/write',
+            type: 'GET',
+            data: {
+                content: commentContent,
+                webtoonId: webtoonId
+            },
+            success: function(response) {
+                alert('댓글이 성공적으로 추가되었습니다.');
+                // 입력 창 새로고침
+                $('#newComment').val('');
+                loadComments(webtoonId); // 댓글 목록 새로고침
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 추가에 실패했습니다: ' + xhr.responseText);
+            }
+        });
+    }
+
+    function loadComments(webtoonId) {
+        $.ajax({
+            url: `${pageContext.request.contextPath}/comments/list`,
+            type: 'GET',
+            data: {
+                webtoonId: webtoonId
+            },
+            success: function(response) {
+                let commentsList = $('#commentsList');
+                commentsList.empty(); // 기존 댓글 목록 삭제
+
+                if (response.length > 0) {
+                    response.forEach(function(comment) {
+                        const userName = comment.user ? comment.user.name : 'Unknown';
+                        /* const commentHtml = `
+                            <div class="comment">
+                                <strong>${userName}:</strong> ${comment.content}
+                                <button class="btn-edit" data-content="${comment.content}">수정</button>
+                                <button class="btn-delete">삭제</button>
+                            </div>`;
+                        commentsList.append(commentHtml); */
+                        commentsList.append(
+                                '<div class="comment"><strong>' + userName + ':</strong> ' + comment.content +
+                                ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' +
+                                ' <button class="btn-delete">삭제</button></div>'
+                            );
+                    });
+
+                    // Add click event listeners for edit and delete buttons
+                    $('.btn-edit').click(function() {
+                        const commentContent = $(this).data('content');
+                        const newContent = prompt('수정할 내용을 입력하세요:', commentContent);
+                        if (newContent !== null) {
+                            editComment(newContent, webtoonId);
+                        }
+                    });
+
+                    $('.btn-delete').click(function() {
+                        if (confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
+                            deleteComment(webtoonId);
+                        }
+                    });
+                } else {
+                    commentsList.append('<div class="no-comments">댓글이 없습니다.</div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+            }
+        });
+    }
+
+    function deleteComment(webtoonId) {
+        $.ajax({
+            url: `${pageContext.request.contextPath}/comments/delete`,
+            type: 'GET',
+            data: {
+                webtoonId: webtoonId
+            },
+            success: function(response) {
+                alert('댓글이 성공적으로 삭제되었습니다.');
+                loadComments(webtoonId); // 댓글 목록 새로고침
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 삭제에 실패했습니다: ' + xhr.responseText);
+            }
+        });
+    }
+
+    function editComment(content, webtoonId) {
+        $.ajax({
+            url: `${pageContext.request.contextPath}/comments/edit`,
+            type: 'GET',
+            data: {
+                webtoonId: webtoonId,
+                content: content
+            },
+            success: function(response) {
+                alert('댓글이 성공적으로 수정되었습니다.');
+                loadComments(webtoonId); // 댓글 목록 새로고침
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 수정에 실패했습니다: ' + xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        const webtoonId = `${detail.id}`;
+        $('#addComment').click(function() {
+            addComment(webtoonId);
+        });
+        loadComments(webtoonId); // 페이지 로드 시 댓글 목록을 불러옴
+    });
 </script>
-
-
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp" />
@@ -72,18 +191,28 @@
 					</c:when>
 					<c:otherwise>
 						<button class="btn-like" onclick="toggleJjim('${detail.id}')">찜꽁
-							 🤍 ${detail.jjimCount}</button>
+							🤍 ${detail.jjimCount}</button>
 					</c:otherwise>
 				</c:choose>
 				<button class="btn-view"
 					onclick="window.location.href='${detail.url}'">바로 보기</button>
 			</div>
 		</div>
-		<div class="comments">
-			<button class="btn-comment">나의 한 줄 평</button>
-			<button class="btn-comment">작화는 초반이 더 좋다</button>
-			<p>👍 30</p>
-			<button class="btn-edit">수정 / 삭제</button>
+		<div class="comments-section">
+			<div class="input-section">
+				<input type="text" id="newComment" placeholder="한줄평 입력">
+				<button id="addComment">추가</button>
+			</div>
+			<div id="commentsList"></div>
+			<!-- 댓글 목록을 표시할 위치 -->
+			<div id="commentTemplate" style="display: none;">
+				<div class="comment">
+					<strong class="user-name"></strong>: <span class="comment-content"></span>
+					<button class="btn-edit">수정</button>
+					<button class="btn-delete">삭제</button>
+				</div>
+			</div>
+		</div>
 		</div>
 		<div class="ad-placeholder">
 			<button class="btn-ad">스포 방지 버튼</button>
@@ -91,7 +220,6 @@
 	</section>
 	</main>
 	<aside class="sidebar right-sidebar"></aside>
-	</div>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>
 </html>
