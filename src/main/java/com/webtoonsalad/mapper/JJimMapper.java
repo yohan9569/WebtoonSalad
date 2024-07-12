@@ -5,11 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.webtoonsalad.dto.WebtoonDTO;
+import com.webtoonsalad.dto.JJimDTO;
 
 @Mapper
 public interface JJimMapper {
-	List<WebtoonDTO> selectJJimByUserId(@Param("id") String id);
+	List<JJimDTO> selectJJimByUserId(@Param("userId") String userId);
 	
 	// 사용자의 해당 웹툰 찜 수 확인하기
 	boolean checkJjimExists(@Param("userId") String userId, @Param("webtoonId") String webtoonId);

@@ -28,14 +28,14 @@
 			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1) AS thumbnail1,
 			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1) AS thumbnail2,
 			COUNT(j.tbl_webtoon_id) AS jjimCount,
-			w.lastup
+			w.lastup, w.isUpdated
 		FROM tbl_webtoon w
 			LEFT JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
 		GROUP BY w.id,
 			w.title,
 			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1),
 			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1),
-			w.lastup
+			w.lastup, w.isUpdated
 		ORDER BY jjimCount DESC, w.lastup DESC NULLS LAST, w.title ASC
 
 	</select>
@@ -47,7 +47,7 @@
 			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1) AS thumbnail1,
 			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1) AS thumbnail2,
 			COUNT(j.tbl_webtoon_id) AS jjimCount,
-			w.lastup
+			w.lastup, w.isUpdated
 		FROM tbl_webtoon w
 			LEFT JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
 		 WHERE w.updatedays LIKE '%' || #{day} || '%'
@@ -55,7 +55,7 @@
 			w.title,
 			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1),
 			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1),
-			w.lastup
+			w.lastup, w.isUpdated
 		ORDER BY jjimCount DESC, w.lastup DESC NULLS LAST, w.title ASC
 	</select>
 	

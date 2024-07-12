@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.webtoonsalad.dto.WebtoonDTO;
+import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.service.JJimService;
 import com.webtoonsalad.service.WebtoonServiceImpl;
 
@@ -32,8 +32,9 @@ public class JJimController {
 
     @GetMapping("/jjim")
     public String getJJim(@RequestParam("userId") String userId, Model model) {
-        List<WebtoonDTO> jjims = jjimService.getJJimByUserId(userId);
+        List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
         model.addAttribute("jjims", jjims);
+        model.addAttribute("userId", userId);
         return "jjim/jjim";
     }
     
@@ -62,7 +63,12 @@ public class JJimController {
                 jjimService.insertJjim(userId, webtoonId);
                 jjimExists = true;
             }
-            int jjimCount = webtoonService.getJjimCount(webtoonId); // jjimCount를 가져오는 메서드
+            
+            Integer jjimCount = webtoonService.getJjimCount(webtoonId); // jjimCount를 가져오는 메서드
+            if (jjimCount == null) {
+                jjimCount = 0;
+            }
+            
             response.put("jjimExists", jjimExists);
             response.put("jjimCount", jjimCount);
             return response;
@@ -72,4 +78,5 @@ public class JJimController {
             return response;
         }
     }
+
 }
