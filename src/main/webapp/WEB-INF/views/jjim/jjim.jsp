@@ -6,42 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>찜한 웹툰</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/jjim.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
-	<header>
-		<div class="logo">웹툰 샐러드</div>
-		<div class="search-bar">
-			<input type="text" placeholder="제목으로 검색">
-		</div>
-		<div class="auth-buttons">
-			<button onclick="location.href='login.jsp'">로그인</button>
-			<button onclick="location.href='signup.jsp'">회원가입</button>
-		</div>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="${pageContext.request.contextPath}/home">홈</a></li>
-			<li><a href="${pageContext.request.contextPath}/jjim" class="active">찜꽁</a></li>
-			<li><a href="${pageContext.request.contextPath}/workroom">와글와글</a></li>
-			<li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
-		</ul>
-	</nav>
+	<jsp:include page="/WEB-INF/views/header.jsp" />
 	<main>
-	<aside class="advertisement">
-		<div class="ad">
-			<!-- <img src="${pageContext.request.contextPath}/images/placeholder.jpg"
-				alt="광고">  -->
-			<p>광고</p>
-			<p>$0</p>
-		</div>
-		<div class="ad">
-			<p>광고</p>
-			<p>$50 / month</p>
-			<button>Button</button>
-		</div>
-	</aside>
+	<jsp:include page="/WEB-INF/views/aside.jsp" />
 	<section class="jjim-list">
 	    <h1>찜한 웹툰</h1>
 	    <div class="search-bar">
@@ -95,9 +68,7 @@
 	    </c:if>
 	</section>
 	</main>
-	<footer>
-		<p>© HAHAHOHO CORP</p>
-	</footer>
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
 	<script>
 	function deleteJJim(id) {
 		// AJAX 요청을 보내서 찜 목록에서 삭제하는 함수
