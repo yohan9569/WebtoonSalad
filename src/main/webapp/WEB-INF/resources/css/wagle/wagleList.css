@@ -34,6 +34,10 @@ table th {
     margin: 40px 0;
 }
 
+.pageTitle {
+	margin-bottom: 60px;
+}
+
 .wagleList {
     flex-grow: 1;
     min-width: 1000px;
@@ -53,58 +57,17 @@ table th {
 .buttonSection {
 	display: flex;
 	justify-content: flex-end;
+	height: 40px;
 }
 
-.pageTitle {
-	margin-bottom: 60px;
+.createWagleButton {
+	width: 65px;
+	margin-left: 20px;
+	border-radius: 15px;
+	border: 1px solid lightgray;
+	bakground-color: #eeeeee;
 }
 
-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 20px;
-	background-color: #f8f8f8;
-	border-bottom: 1px solid #ddd;
-}
-
-.logo {
-	font-size: 24px;
-	font-weight: bold;
-	color: #ffa500;
-}
-
-.search-bar input {
-	padding: 5px;
-	font-size: 16px;
-}
-
-nav ul {
-	display: flex;
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	background-color: #333;
-}
-
-nav ul li {
-	margin: 0;
-}
-
-nav ul li a {
-	display: block;
-	padding: 10px 20px;
-	color: white;
-	text-decoration: none;
-}
-
-nav ul li a:hover, nav ul li a.active {
-	background-color: #444;
-}
-
-footer {
-	padding: 20px;
-	text-align: center;
-	background-color: #f8f8f8;
-	border-top: 1px solid #ddd;
+.createWagleButton:hover {
+	background-color: lightgray;
 }

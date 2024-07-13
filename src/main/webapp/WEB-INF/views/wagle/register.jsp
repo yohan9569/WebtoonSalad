@@ -25,24 +25,25 @@
 	<div class="middleSection">
 		<!-- aside -->
 		<jsp:include page="/WEB-INF/views/aside.jsp" />
+		
 		<div class="wagleList">
 			<div class="wagleSection">
 				<h2 class="pageTitle">게시판 글쓰기</h2>
 				<form action="/wagle/register" method="post">
 					<div class="wagleTitleSection">
-						<input class="input" id="titleInput" type="text" name="title"
+						제목  <input class="input" id="titleInput" type="text" name="title"
 							placeholder="제목을 입력해주세요">
 					</div>
 					<div class="wagleFileSection">
-						<input class="input" placeholder="파일 첨부">
+						파일 <input class="input" id="fileInput" placeholder="파일 첨부">
 					</div>
 					<div class="wagleContentSection">
 						<textarea class="input" id="contentInput" name="content"
 							placeholder="글을 입력해주세요"></textarea>
 					</div>
 					<div class="buttonSection">
-						<button class="wagleButton">취소</button>
-						<button class="wagleButton">등록</button>
+						<button class="wagleButton" type="button" onclick="location.href='${pageContext.request.contextPath}/wagle/list'">취소</button>
+						<button class="wagleButton" type="submit">등록</button>
 					</div>
 				</form>
 			</div>

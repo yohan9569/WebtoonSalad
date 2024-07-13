@@ -67,6 +67,7 @@
 		  	 , w.create_date
 		  	 , w.rec_cnt AS recommend_cnt
 		  	 , w.content
+		  	 , w.content_file
 		FROM TBL_WAGLE w, TBL_USER u
 		WHERE w.tbl_user_id = u.id
 		AND w.id = #{id}
@@ -77,6 +78,7 @@
 		SET title = #{title}
 		  , content = #{content}
 		  , create_date = sysdate
+		  , content_file = #{content_file}
 		WHERE id = #{id}
     </update>
     

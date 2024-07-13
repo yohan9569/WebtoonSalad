@@ -16,5 +16,6 @@ public class WagleDetailDTO {
 	private Date create_date;
 	private Long recommend_cnt;
 	private String content;
+	private String content_file;
 	
 }

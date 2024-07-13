@@ -50,7 +50,7 @@
 				</c:forEach>
 			</table>
 			<div class="buttonSection">
-				<button>글쓰기</button>
+				<button class="createWagleButton" type="button" onClick="location.href='${pageContext.request.contextPath}/wagle/register'">글쓰기</button>
 			</div>
 		</div>
 		<div class="rightAd"></div>
