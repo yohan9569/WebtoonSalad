@@ -34,8 +34,8 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<CommentDTO> getCommentList(String webtoonId) throws Exception {
-        return commentMapper.getCommentList(webtoonId);
+    public List<CommentDTO> getCommentList(String userId, String webtoonId) throws Exception {
+        return commentMapper.getCommentList(userId, webtoonId);
     }
 
     @Override

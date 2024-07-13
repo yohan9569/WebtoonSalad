@@ -87,7 +87,7 @@ public class CommentMapperTests {
         mapper.writeComment(content1, userId1, webtoonId);
         mapper.writeComment(content2, userId2, webtoonId);
 
-        List<CommentDTO> comments = mapper.getCommentList(webtoonId);
+        List<CommentDTO> comments = mapper.getCommentList(userId1,webtoonId);
         for (CommentDTO comment : comments) {
             log.info(comment);
         }

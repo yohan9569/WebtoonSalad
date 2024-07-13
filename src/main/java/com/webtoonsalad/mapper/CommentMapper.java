@@ -20,7 +20,7 @@ public interface CommentMapper {
 	void editComment(@Param("content") String content, @Param("userId") String userId, @Param("webtoonId") String webtoonId);
 
 	// 한줄평 리스트 조회
-	List<CommentDTO> getCommentList(@Param("webtoonId") String webtoonId);
+	List<CommentDTO> getCommentList(@Param("userId") String userId, @Param("webtoonId") String webtoonId);
 
 	// 특정 사용자의 한줄평 조회
 	CommentDTO getMyComment(@Param("userId") String userId, @Param("webtoonId") String webtoonId);

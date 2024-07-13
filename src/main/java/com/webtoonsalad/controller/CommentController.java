@@ -54,7 +54,8 @@ public class CommentController {
     @GetMapping("/list")
     public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam String webtoonId) {
         try {
-            List<CommentDTO> comments = commentService.getCommentList(webtoonId);
+        	String userId = "test2";
+            List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
             return ResponseEntity.ok(comments);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
@@ -65,8 +66,8 @@ public class CommentController {
     public ResponseEntity<CommentDTO> getMyComment(@RequestParam String webtoonId) {
         try {
         	String userId = "test2";
-            CommentDTO comment = commentService.getMyComment(userId, webtoonId);
-            return ResponseEntity.ok(comment);
+            CommentDTO content = commentService.getMyComment(userId, webtoonId);
+            return ResponseEntity.ok(content);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }

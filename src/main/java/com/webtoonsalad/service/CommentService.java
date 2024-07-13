@@ -15,7 +15,7 @@ public interface CommentService {
 	void editComment(@Param("content") String content, @Param("userId") String userId,
 			@Param("webtoonId") String webtoonId) throws Exception;
 
-	List<CommentDTO> getCommentList(@Param("webtoonId") String webtoonId) throws Exception;
+	List<CommentDTO> getCommentList(@Param("userId") String userId, @Param("webtoonId") String webtoonId) throws Exception;
 
 	CommentDTO getMyComment(@Param("userId") String userId, @Param("webtoonId") String webtoonId) throws Exception;
 

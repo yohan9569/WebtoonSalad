@@ -36,7 +36,7 @@
 		SELECT content, u.name
 		FROM tbl_comment c
 			LEFT JOIN tbl_user u ON c.tbl_user_id = u.id
-		WHERE tbl_webtoon_id = #{webtoonId}
+		WHERE tbl_user_id != #{userId} AND tbl_webtoon_id = #{webtoonId}
 	</select>
 
 	<select id="getMyComment" parameterType="map"

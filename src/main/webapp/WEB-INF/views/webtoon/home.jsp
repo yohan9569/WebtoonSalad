@@ -77,6 +77,12 @@
 							<c:otherwise>
 							</c:otherwise>
 						</c:choose>
+						<c:choose>
+							<c:when test="${webtoon.isAdult == 1}"> 🔞
+                        	</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
 						<p>♥ ${webtoon.jjimCount}</p>
 					</a>
 				</div>
