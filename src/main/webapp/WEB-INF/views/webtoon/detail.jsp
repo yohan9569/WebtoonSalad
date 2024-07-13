@@ -89,7 +89,6 @@ function loadComments(webtoonId) {
                     ' <button class="btn-delete">삭제</button></div>'
                 );
 
-                // Add click event listeners for edit and delete buttons
                 $('.btn-edit').click(function() {
                     const commentContent = $(this).data('content');
                     const newContent = prompt('수정할 내용을 입력하세요:', commentContent);
