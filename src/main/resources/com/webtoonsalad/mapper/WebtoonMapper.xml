@@ -75,4 +75,11 @@
 		GROUP BY w.id
 	</select>
 	
+	<select id="searchWebtoon" parameterType="map"
+		resultType="com.webtoonsalad.dto.WebtoonDTO">
+		SELECT id, title, authors, thumbnail1, thumbnail2, provider
+		FROM tbl_webtoon
+		WHERE title LIKE '%' || #{keyword} || '%' OR authors LIKE '%' || #{keyword} || '%'
+	</select>
+	
 </mapper>

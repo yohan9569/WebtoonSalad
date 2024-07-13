@@ -58,4 +58,14 @@ public class WebtoonServiceImpl implements WebtoonService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<WebtoonDTO> searchWebtoon(String keyword) throws Exception {
+		try {
+			return mapper.searchWebtoon(keyword);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 }

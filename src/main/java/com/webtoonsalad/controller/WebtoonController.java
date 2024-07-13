@@ -3,10 +3,15 @@ package com.webtoonsalad.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.webtoonsalad.dto.WebtoonDTO;
 import com.webtoonsalad.service.JJimService;
@@ -53,6 +58,18 @@ public class WebtoonController {
             return "webtoon/detail";
         } catch (Exception e) {
         	throw e;
+        }
+    }
+	
+	@RequestMapping(value = "/webtoon/search", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<WebtoonDTO>> searchWebtoon(
+            @RequestParam String keyword) {
+        try {
+            List<WebtoonDTO> webtoons = webtoonService.searchWebtoon(keyword);
+            return new ResponseEntity<>(webtoons, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

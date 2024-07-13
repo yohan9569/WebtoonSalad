@@ -46,7 +46,7 @@ function toggleJjim(webtoonId) {
 function addComment(webtoonId) {
     const commentContent = $('#newComment').val();
     if (!commentContent) {
-        alert('댓글을 입력해주세요.');
+        alert('한줄평을 입력해주세요.');
         return;
     }
 
@@ -58,14 +58,14 @@ function addComment(webtoonId) {
             webtoonId: webtoonId
         },
         success: function(response) {
-            alert('댓글이 성공적으로 추가되었습니다.');
+            alert('한줄평이 성공적으로 추가되었습니다.');
             // 입력 창 새로고침
             $('#newComment').val('');
-            $('#commentInputSection').hide(); // 댓글 입력 섹션 숨기기
-            loadComments(webtoonId); // 댓글 목록 새로고침
+            $('#commentInputSection').hide(); // 한줄평 입력 섹션 숨기기
+            loadComments(webtoonId); // 한줄평 목록 새로고침
         },
         error: function(xhr, status, error) {
-            alert('댓글 추가에 실패했습니다: ' + xhr.responseText);
+            alert('한줄평 추가에 실패했습니다: ' + xhr.responseText);
         }
     });
 }
@@ -79,12 +79,12 @@ function loadComments(webtoonId) {
         },
         success: function(response) {
             let commentsList = $('#commentsList');
-            commentsList.empty(); // 기존 댓글 목록 삭제
+            commentsList.empty(); // 기존 한줄평 목록 삭제
 
             if (response) {
                 const comment = response;
                 commentsList.append(
-                    '<div class="comment"><strong>내 댓글:</strong> ' + comment.content +
+                    '<div class="comment"><strong>내 한줄평:</strong> ' + comment.content +
                     ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' +
                     ' <button class="btn-delete">삭제</button></div>'
                 );
@@ -98,19 +98,19 @@ function loadComments(webtoonId) {
                 });
 
                 $('.btn-delete').click(function() {
-                    if (confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
+                    if (confirm('정말로 이 한줄평을 삭제하시겠습니까?')) {
                         deleteComment(webtoonId);
                     }
                 });
             } else {
-                $('#commentInputSection').show(); // 댓글 입력 섹션 표시
+                $('#commentInputSection').show(); // 한줄평 입력 섹션 표시
                 $('#addComment').off('click').on('click', function() {
                     addComment(webtoonId);
                 });
             }
         },
         error: function(xhr, status, error) {
-            alert('댓글 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+            alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
         }
     });
 }
@@ -123,11 +123,11 @@ function deleteComment(webtoonId) {
             webtoonId: webtoonId
         },
         success: function(response) {
-            alert('댓글이 성공적으로 삭제되었습니다.');
-            loadComments(webtoonId); // 댓글 목록 새로고침
+            alert('한줄평이 성공적으로 삭제되었습니다.');
+            loadComments(webtoonId); // 한줄평 목록 새로고침
         },
         error: function(xhr, status, error) {
-            alert('댓글 삭제에 실패했습니다: ' + xhr.responseText);
+            alert('한줄평 삭제에 실패했습니다: ' + xhr.responseText);
         }
     });
 }
@@ -141,11 +141,11 @@ function editComment(content, webtoonId) {
             content: content
         },
         success: function(response) {
-            alert('댓글이 성공적으로 수정되었습니다.');
-            loadComments(webtoonId); // 댓글 목록 새로고침
+            alert('한줄평이 성공적으로 수정되었습니다.');
+            loadComments(webtoonId); // 한줄평 목록 새로고침
         },
         error: function(xhr, status, error) {
-            alert('댓글 수정에 실패했습니다: ' + xhr.responseText);
+            alert('한줄평 수정에 실패했습니다: ' + xhr.responseText);
         }
     });
 }
@@ -158,7 +158,7 @@ function loadCommentsExceptMine(webtoonId) {
             webtoonId: webtoonId,
         },
         success: function(response) {
-            let commentsList = $('<div></div>'); // 새로운 div 생성하여 댓글 목록 저장
+            let commentsList = $('<div></div>'); // 새로운 div 생성하여 한줄평 목록 저장
             if (response.length > 0) {
                 response.forEach(function(comment) {
                     const userName = comment.user ? comment.user.name : 'Unknown';
@@ -172,20 +172,20 @@ function loadCommentsExceptMine(webtoonId) {
                     );
                 });
             } else {
-                commentsList.append('<div class="no-comments">댓글이 없습니다.</div>');
+                commentsList.append('<div class="no-comments">한줄평이 없습니다.</div>');
             }
-            $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 댓글 목록을 추가
+            $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
             $('.review-card').show(); // review-card 요소를 모두 보이도록 설정
             $('.btn-ad').hide(); // btn-ad 버튼 숨기기
         },
         error: function(xhr, status, error) {
-            alert('댓글 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+            alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
         }
     });
 }
 $(document).ready(function() {
     const webtoonId = `${detail.id}`;
-    loadComments(webtoonId); // 페이지 로드 시 댓글 목록을 불러옴
+    loadComments(webtoonId); // 페이지 로드 시 한줄평 목록을 불러옴
     $('#addComment').click(function() {
         addComment(webtoonId);
     });
