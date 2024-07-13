@@ -4,7 +4,8 @@
 <header>
     <div class="logo">웹툰 샐러드</div>
     <div class="search-bar">
-        <input type="text" placeholder="제목으로 검색">
+        <input type="text" placeholder="제목, 작가로  검색">
+        <button type="button">검색</button>
     </div>
     <div class="auth-buttons">
         <button onclick="location.href='login.jsp'">로그인</button>

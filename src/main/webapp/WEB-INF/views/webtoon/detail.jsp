@@ -186,7 +186,7 @@ function loadCommentsExceptMine(webtoonId) {
 $(document).ready(function() {
     const webtoonId = `${detail.id}`;
     loadComments(webtoonId); // 페이지 로드 시 댓글 목록을 불러옴
-    $('#addComment').off('click').on('click', function() {
+    $('#addComment').click(function() {
         addComment(webtoonId);
     });
     $('.btn-ad').click(function() {
