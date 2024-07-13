@@ -8,42 +8,39 @@ h1 {
 	margin-bottom: 20px;
 }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 20px;
-}
-
-table th, table td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
-	font-size: 14px;
-}
-
-table th {
-	background-color: #f2f2f2;
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #ddd;
 }
 
 .middleSection {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 1000px;
+    height: 800px;
     box-sizing: border-box;
     margin: 40px 0;
 }
 
 .wagleList {
     flex-grow: 1;
-    min-width: 1000px;
+    min-width: 800px;
     padding: 25px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;
 }
 
-.leftAd, .rightAd {
+.wagleSection {
+	width: 100%;
+	height: 100%;
+}
+
+.rightAd {
     width: 20%;
     min-width: 160px;
     padding: 20px;
@@ -51,7 +48,7 @@ table th {
 }
 
 .pageTitle {
-	margin-bottom: 60px;
+	margin-bottom: 45px;
 }
 
 .input {
@@ -65,15 +62,16 @@ table th {
 }
 
 #titleInput {
-	height: 65px;
+	height: 50px;
 	background-color: lightgray;
 	margin-bottom: 30px;
 }
 
 #contentInput {
-	height: 500px;
+	height: 400px;
 	background-color: white;
 	margin-bottom: 50px;
+	resize: none;
 }
 
 .buttonSection {
@@ -89,15 +87,6 @@ table th {
 	border: 1px solid lightgray;
 }
 
-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 20px;
-	background-color: #f8f8f8;
-	border-bottom: 1px solid #ddd;
-}
-
 .logo {
 	font-size: 24px;
 	font-weight: bold;
@@ -107,29 +96,6 @@ header {
 .search-bar input {
 	padding: 5px;
 	font-size: 16px;
-}
-
-nav ul {
-	display: flex;
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	background-color: #333;
-}
-
-nav ul li {
-	margin: 0;
-}
-
-nav ul li a {
-	display: block;
-	padding: 10px 20px;
-	color: white;
-	text-decoration: none;
-}
-
-nav ul li a:hover, nav ul li a.active {
-	background-color: #444;
 }
 
 footer {
