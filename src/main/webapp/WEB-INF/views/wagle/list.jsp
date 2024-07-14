@@ -41,7 +41,9 @@
 					<c:forEach items="${list}" var="wagle">
 						<tr>
 							<td><c:out value="${wagle.row_number}" /></td>
-							<td><c:out value="${wagle.title}" /></td>
+							<td><a href='detail?id=<c:out value="${wagle.id}"/>'>
+                                <c:out value="${wagle.title}"/></a>
+                            </td>
 							<td><c:out value="${wagle.name}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${wagle.create_date}" /></td>
@@ -52,8 +54,8 @@
 				</tbody>
 			</table>
 			<div class="buttonSection">
-				<a href="<c:url value='/wagle/register'/>" role="button"
-					class="createWagleButton">글쓰기</a>
+				<button class="createWagleButton" type="button"
+					onclick="location.href='${pageContext.request.contextPath}/wagle/register'">글쓰기</button>
 			</div>
 		</div>
 		<div class="rightAd"></div>

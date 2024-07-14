@@ -35,8 +35,8 @@ public class WagleCreateTests {
         WagleCreateDTO dto = new WagleCreateDTO();
         dto.setTitle("테스트 제목");
 //        dto.setCreate_date(now);  // 문자열로 설정
-        dto.setView_cnt(100L);
-        dto.setRec_cnt(100L);
+//        dto.setView_cnt(100L);
+//        dto.setRec_cnt(100L);
         dto.setContent("테스트 글");
         dto.setContent_file(null);  // NULL 값으로 설정
         dto.setUser_id("test1");
