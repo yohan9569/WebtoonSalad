@@ -37,20 +37,23 @@
 						<th>추천</th>
 					</tr>
 				</thead>
-				<c:forEach items="${list}" var="wagle">
-					<tr>
-						<td><c:out value="${wagle.row_number}" /></td>
-						<td><c:out value="${wagle.title}" /></td>
-						<td><c:out value="${wagle.name}" /></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-								value="${wagle.create_date}" /></td>
-						<td><c:out value="${wagle.view_cnt}" /></td>
-						<td><c:out value="${wagle.recommend_cnt}" /></td>
-					</tr>
-				</c:forEach>
+				<tbody>
+					<c:forEach items="${list}" var="wagle">
+						<tr>
+							<td><c:out value="${wagle.row_number}" /></td>
+							<td><c:out value="${wagle.title}" /></td>
+							<td><c:out value="${wagle.name}" /></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+									value="${wagle.create_date}" /></td>
+							<td><c:out value="${wagle.view_cnt}" /></td>
+							<td><c:out value="${wagle.recommend_cnt}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 			<div class="buttonSection">
-				<button class="createWagleButton" type="button" onClick="location.href='${pageContext.request.contextPath}/wagle/register'">글쓰기</button>
+				<a href="<c:url value='/wagle/register'/>" role="button"
+					class="createWagleButton">글쓰기</a>
 			</div>
 		</div>
 		<div class="rightAd"></div>

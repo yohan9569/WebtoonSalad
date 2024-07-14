@@ -1,5 +1,6 @@
 package com.webtoonsalad.mapper;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -26,7 +27,7 @@ public class WagleCreateTests {
     @Test
     @Transactional
     @Rollback(false)
-    public void testCreateWagle() {
+    public void testCreateWagle() throws SQLException {
     	
     	// 현재 날짜와 시간을 Timestamp 형식으로 설정
 //        Timestamp now = Timestamp.valueOf(LocalDateTime.now());

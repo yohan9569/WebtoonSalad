@@ -29,13 +29,15 @@
 		<div class="wagleList">
 			<div class="wagleSection">
 				<h2 class="pageTitle">게시판 글쓰기</h2>
-				<form action="/wagle/register" method="post">
+				<form role="form" action="register" method="post">
 					<div class="wagleTitleSection">
-						제목  <input class="input" id="titleInput" type="text" name="title"
+						<label>제목</label>
+						<input class="input" id="titleInput" type="text" name="title"
 							placeholder="제목을 입력해주세요">
 					</div>
 					<div class="wagleFileSection">
-						파일 <input class="input" id="fileInput" placeholder="파일 첨부">
+						<label>파일</label>
+						<input class="input" id="fileInput" name="content_file" placeholder="파일 첨부">
 					</div>
 					<div class="wagleContentSection">
 						<textarea class="input" id="contentInput" name="content"
@@ -43,7 +45,7 @@
 					</div>
 					<div class="buttonSection">
 						<button class="wagleButton" type="button" onclick="location.href='${pageContext.request.contextPath}/wagle/list'">취소</button>
-						<button class="wagleButton" type="submit">등록</button>
+						<input class="wagleButton" type="submit" value="완료" />
 					</div>
 				</form>
 			</div>

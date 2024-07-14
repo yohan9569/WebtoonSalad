@@ -1,5 +1,7 @@
 package com.webtoonsalad.mapper;
 
+import java.sql.SQLException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class WagleDetailTests {
 	private WagleMapper wagleMapper;
 	
 	@Test
-	public void test() {
+	public void test() throws SQLException {
 		WagleDetailDTO dto = wagleMapper.detailWagle(4L);
 		log.info(dto);
 	}

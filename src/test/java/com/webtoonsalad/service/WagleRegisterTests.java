@@ -19,7 +19,7 @@ public class WagleRegisterTests {
 	private WagleService wagleService;
 
 	@Test
-	public void test() {
+	public void test() throws Exception{
 		
 		// 현재 날짜와 시간을 Timestamp 형식으로 설정
 //      Timestamp now = Timestamp.valueOf(LocalDateTime.now());

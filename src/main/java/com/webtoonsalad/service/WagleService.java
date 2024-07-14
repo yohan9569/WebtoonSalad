@@ -9,10 +9,10 @@ import com.webtoonsalad.dto.WagleUpdateDTO;
 
 public interface WagleService {
 
-	public void register(WagleCreateDTO dto);
-	public List<WagleListDTO> getList();
-	public WagleDetailDTO getDetailWagle(Long id);
-	public boolean modify(WagleUpdateDTO dto);
-	public boolean remove(Long id);
+	public void register(WagleCreateDTO dto) throws Exception;
+	public List<WagleListDTO> getList() throws Exception;
+	public WagleDetailDTO getDetailWagle(Long id) throws Exception;
+	public boolean modify(WagleUpdateDTO dto) throws Exception;
+	public boolean remove(Long id) throws Exception;
 	
 }

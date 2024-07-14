@@ -1,5 +1,7 @@
 package com.webtoonsalad.mapper;
 
+import java.sql.SQLException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class WagleDeleteTests {
 	private WagleMapper wagleMapper;
 	
 	@Test
-	public void test() {
+	public void test() throws SQLException {
 		log.info("delete count: " + wagleMapper.deleteWagle(4L));
 	}
 }
