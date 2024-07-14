@@ -25,6 +25,12 @@
         w.LastUp DESC
   </select>
   
+  <update id="updateLastView" parameterType="map">
+    UPDATE tbl_jjim
+    SET lastview = SYSDATE
+    WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+  </update>
+  
   <select id="checkJJimExists" parameterType="map" resultType="boolean">
     SELECT COUNT(*)
     FROM tbl_jjim

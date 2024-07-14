@@ -10,6 +10,8 @@ public interface JJimService {
     
     public String getUserIdByNickname(String nickname);
     
+    void updateLastView(String userId, String webtoonId);
+    
     public boolean checkJJimExists(String userId, String webtoonId);
     
     public void insertJJim(String userId, String webtoonId);

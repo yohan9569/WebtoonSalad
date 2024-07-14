@@ -26,10 +26,10 @@
 	        </form>
 	    </div>
 	    <c:if test="${not empty jjims}">
-	        <div class="webtoon-items">
+	        <div id="webtoon-items">
 	            <c:forEach var="webtoon" items="${jjims}">
-	                <div class="webtoon-item">
-	                    <a href="${webtoon.url}" target="_blank" class="webtoon-link">
+	                <div class="webtoon-item" data-webtoon-id="${webtoon.webtoonId}">
+	                    <a href="${webtoon.url}" target="_blank" class="webtoon-link" onclick="updateLastView('${userId}', '${webtoon.webtoonId}')">
 	                        <div class="thumbnail-container">
 	                            <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
 	                            <c:if test="${not empty webtoon.thumbnail2}">
@@ -50,15 +50,18 @@
 		                                <c:when test="${webtoon.freeWaitHour == 1}">기다무</c:when>
 		                                <c:otherwise>-</c:otherwise>
 		                            </c:choose></p>
+		                            <!-- temporary -->
+		                            <p>lastView: ${webtoon.lastView}</p>
+		                            <p>lastUp: ${webtoon.lastUp}</p>
 		                        </div>
 		                    </div>
 	                    </a>
 
 	                    <div class="webtoon-buttons">
 	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.webtoonId}'">웹툰 정보</button>
-	                        <sec:authorize access="principal.username eq ${userId}">
+<%-- 	                        <sec:authorize access="principal.username eq '${userId}'"> --%>
                             	<button class="delete-button" onclick="deleteJJim('${webtoon.userId}', '${webtoon.webtoonId}')">🗑</button>
-                        	</sec:authorize>
+<!--                         	</sec:authorize> -->
 	                    </div>
 	                </div>
 	            </c:forEach>
@@ -94,6 +97,46 @@
 	        });
 	    }
 	}
+	
+    function updateLastView(userId, webtoonId) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/jjim/updateLastView',
+            type: 'POST',
+            data: { 
+                userId: userId, 
+                webtoonId: webtoonId,
+                _csrf: '${_csrf.token}' // CSRF 토큰 추가
+            },
+            success: function(response) {
+                if (response === "success") {
+                    reloadWebtoonList(userId); // 웹툰 목록을 다시 불러옵니다.
+                } else {
+                    alert("lastview 업데이트에 실패했습니다.");
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("lastview 업데이트 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+            }
+        });
+    }
+
+    function reloadWebtoonList(userId) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/jjim/list',
+            type: 'GET',
+            data: { userId: userId },
+            success: function(response) {
+				// 응답을 파싱하여 필요한 부분을 추출합니다.
+                var tempDiv = $('<div>').html(response); // 응답을 임시로 div에 넣습니다.
+                var newContent = tempDiv.find('#webtoonItems').html();
+                console.log("New content:", newContent); // 파싱된 내용을 확인합니다.
+                $('#webtoon-items').html(newContent);
+            },
+            error: function(xhr, status, error) {
+                alert("웹툰 목록을 불러오는 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+            }
+        });
+    }
 	</script>
 </body>
 </html>

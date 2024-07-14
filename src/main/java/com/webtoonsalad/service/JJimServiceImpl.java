@@ -31,6 +31,11 @@ public class JJimServiceImpl implements JJimService{
     }
     
     @Override
+    public void updateLastView(String userId, String webtoonId) {
+        jjimMapper.updateLastView(userId, webtoonId);
+    }
+    
+    @Override
     public boolean checkJJimExists(String userId, String webtoonId) {
     	return jjimMapper.checkJJimExists(userId, webtoonId);
     }

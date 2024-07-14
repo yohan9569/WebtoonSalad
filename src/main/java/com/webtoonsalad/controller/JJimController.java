@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,6 +57,20 @@ public class JJimController {
         System.out.println("deleteJJim 호출 성공");
     	jjimService.deleteJJim(userId, webtoonId);
         return "success";
+    }
+    
+    @PostMapping("/jjim/updateLastView")
+    @ResponseBody
+    public String updateLastView(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
+        jjimService.updateLastView(userId, webtoonId);
+        return "success";
+    }
+    
+    @GetMapping("/jjim/list")
+    public String getJJimList(@RequestParam("userId") String userId, Model model) {
+    	List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
+        model.addAttribute("jjims", jjims);
+        return "jjim/list";
     }
     
     
