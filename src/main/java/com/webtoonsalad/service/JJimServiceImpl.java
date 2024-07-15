@@ -31,18 +31,23 @@ public class JJimServiceImpl implements JJimService{
     }
     
     @Override
-    public boolean checkJjimExists(String userId, String webtoonId) {
-    	return jjimMapper.checkJjimExists(userId, webtoonId);
+    public void updateLastView(String userId, String webtoonId) {
+        jjimMapper.updateLastView(userId, webtoonId);
     }
     
     @Override
-    public void insertJjim(String userId, String webtoonId) {
-        jjimMapper.insertJjim(userId, webtoonId);
+    public boolean checkJJimExists(String userId, String webtoonId) {
+    	return jjimMapper.checkJJimExists(userId, webtoonId);
+    }
+    
+    @Override
+    public void insertJJim(String userId, String webtoonId) {
+        jjimMapper.insertJJim(userId, webtoonId);
     }
 
     @Override
-    public void deleteJjim(String userId, String webtoonId) {
-        jjimMapper.deleteJjim(userId, webtoonId);
+    public void deleteJJim(String userId, String webtoonId) {
+        jjimMapper.deleteJJim(userId, webtoonId);
     }
    
 }

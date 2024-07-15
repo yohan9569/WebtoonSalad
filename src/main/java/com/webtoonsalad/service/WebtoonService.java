@@ -11,8 +11,7 @@ public interface WebtoonService {
 	List<WebtoonDTO> getAllWebtoonList() throws Exception;
 	List<WebtoonDTO> getDayWebtoonList(@Param("day") String day) throws Exception;
 	WebtoonDTO getDetail(@Param("id") String id) throws Exception;
-	Integer getJjimCount(@Param("id") String id) throws Exception;
+	Integer getJJimCount(@Param("id") String id) throws Exception;
 	List<WebtoonDTO> searchWebtoon(@Param("keyword") String keyword) throws Exception;
-
 
 }
