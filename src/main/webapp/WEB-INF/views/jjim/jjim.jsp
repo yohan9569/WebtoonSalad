@@ -60,7 +60,7 @@
 
 	                    <div class="webtoon-buttons">
 	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.webtoonId}'">웹툰 정보</button>
-	                        <button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button>
+	                        <button class="delete-button" onclick="deleteJJim('${userId}', '${webtoon.webtoonId}')">🗑</button>
 <%-- 	                        <sec:authorize access="principal.username eq '${userId}'"> --%>
 <%--                             	<button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button> --%>
 <%--                         	</sec:authorize> --%>
@@ -79,27 +79,29 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 	<script>
-	function deleteJJim(webtoonId) {
+	function deleteJJim(userId, webtoonId) {
 // 		var loggedInUserId = '<sec:authentication property="name" />';
 		var loggedInUserId = 'test1'; // 예비용. 추후 위 코드로.
-	    if (confirm("정말 삭제하시겠습니까?")) {
-	        $.ajax({
-	            url: '${pageContext.request.contextPath}/jjim/delete',
-	            type: 'GET', // 추후 DELETE로 변경
-	            data: { userId: loggedInUserId, webtoonId: webtoonId },
-	            success: function(response) {
-	                if (response === "success") {
-	                    alert("삭제되었습니다.");
-	                    location.reload(); //reloadWebtoonList(loggedInUserId);
-	                } else {
-	                    alert("삭제에 실패했습니다.");
-	                }
-	            },
-	            error: function() {
-	            	alert("삭제 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
-	            }
-	        });
-	    }
+		if (userId === loggedInUserId) {
+			if (confirm("정말 삭제하시겠습니까?")) {
+		        $.ajax({
+		            url: '${pageContext.request.contextPath}/jjim/delete',
+		            type: 'GET', // 추후 DELETE로 변경
+		            data: { userId: loggedInUserId, webtoonId: webtoonId },
+		            success: function(response) {
+		                if (response === "success") {
+		                    alert("삭제되었습니다.");
+		                    location.reload(); //reloadWebtoonList(loggedInUserId);
+		                } else {
+		                    alert("삭제에 실패했습니다.");
+		                }
+		            },
+		            error: function() {
+		            	alert("삭제 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+		            }
+		        });
+		    }
+		}
 	}
 	
     function updateLastView(userId, webtoonId) {
