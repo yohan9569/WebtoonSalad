@@ -8,20 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>와글와글</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/wagle/wagleList.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/wagle/wagleList.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="/WEB-INF/views/header.jsp" />
-	
-	<!-- aside -->
-	<jsp:include page="/WEB-INF/views/aside.jsp" />
-	
+
 	<div class="middleSection">
-		<div class="leftAd"></div>
+		<!-- aside -->
+		<jsp:include page="/WEB-INF/views/aside.jsp" />
 		<div class="wagleList">
 			<h2 class="pageTitle">자유게시판</h2>
 			<table>
@@ -35,25 +37,30 @@
 						<th>추천</th>
 					</tr>
 				</thead>
-				<c:forEach items="${list}" var="wagle">
-					<tr>
-						<td><c:out value="${wagle.row_number}" /></td>
-						<td><c:out value="${wagle.title}" /></td>
-						<td><c:out value="${wagle.name}" /></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-								value="${wagle.create_date}" /></td>
-						<td><c:out value="${wagle.view_cnt}" /></td>
-						<td><c:out value="${wagle.recommend_cnt}" /></td>
-					</tr>
-				</c:forEach>
+				<tbody>
+					<c:forEach items="${list}" var="wagle">
+						<tr>
+							<td><c:out value="${wagle.row_number}" /></td>
+							<td><a href='detail?id=<c:out value="${wagle.id}"/>'>
+                                <c:out value="${wagle.title}"/></a>
+                            </td>
+							<td><c:out value="${wagle.name}" /></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+									value="${wagle.create_date}" /></td>
+							<td><c:out value="${wagle.view_cnt}" /></td>
+							<td><c:out value="${wagle.recommend_cnt}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 			<div class="buttonSection">
-				<button>글쓰기</button>
+				<button class="createWagleButton" type="button"
+					onclick="location.href='${pageContext.request.contextPath}/wagle/register'">글쓰기</button>
 			</div>
 		</div>
 		<div class="rightAd"></div>
 	</div>
-	
+
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>

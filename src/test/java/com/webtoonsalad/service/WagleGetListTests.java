@@ -17,7 +17,7 @@ public class WagleGetListTests {
 	private WagleService wagleService;
 	
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		wagleService.getList().forEach(wagle -> log.info(wagle));
 	}
 }

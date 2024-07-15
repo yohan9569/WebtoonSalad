@@ -17,7 +17,7 @@ public class WagleDeleteTests {
 	private WagleService wagleService;
 	
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		log.info("delete count: " + wagleService.remove(2L));
 	}
 }

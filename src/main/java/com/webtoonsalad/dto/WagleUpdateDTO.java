@@ -11,5 +11,6 @@ public class WagleUpdateDTO {
 	private Long id;
 	private String title;
 	private String content;
+	private String content_file;
 	
 }

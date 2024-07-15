@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class WagleListDTO {
 
+	private Long id;
 	private Long row_number;
 	private String title;
 	private String name;

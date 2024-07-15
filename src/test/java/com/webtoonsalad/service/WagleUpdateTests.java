@@ -19,7 +19,7 @@ public class WagleUpdateTests {
 	private WagleService wagleService;
 	
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		WagleUpdateDTO dto = new WagleUpdateDTO();
 		dto.setId(3L);
 		dto.setTitle("서비스 업데이트 테스트");

@@ -17,7 +17,7 @@ public class WagleGetDetailWagleTests {
 	private WagleService wagleService;
 	
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		log.info(wagleService.getDetailWagle(3L));
 	}
 }
