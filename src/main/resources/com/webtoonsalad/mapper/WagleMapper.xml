@@ -7,11 +7,12 @@
 
 	<select id="selectWagleList" resultType="com.webtoonsalad.dto.WagleListDTO">
 		SELECT ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
+			   w.id AS id,
 		       w.title AS title,
 		       u.name AS name,
 		       w.create_date AS create_date,
-		       w.view_cnt AS view_cnt,
-		       w.rec_cnt AS recommend_cnt
+		       NVL(w.view_cnt, 0) AS view_cnt,
+		       NVL(w.rec_cnt, 0) recommend_cnt
 		FROM tbl_wagle w, tbl_user u
 		WHERE w.tbl_user_id = u.id
 		ORDER BY w.create_date DESC
@@ -22,8 +23,6 @@
 		INSERT INTO tbl_wagle (
 			title
 		  , create_date
-		  , view_cnt
-		  , rec_cnt
 		  , content
 		  , content_file
 		  , tbl_user_id
@@ -31,8 +30,6 @@
 		VALUES (
 			#{title}
 		  , sysdate
-		  , #{view_cnt}
-		  , #{rec_cnt}
 		  , #{content}
 		  , #{content_file, jdbcType=VARCHAR}
 		  , #{user_id}
@@ -43,8 +40,6 @@
         INSERT INTO tbl_wagle (
             title
             , create_date
-            , view_cnt
-            , rec_cnt
             , content
             , content_file
             , tbl_user_id
@@ -52,12 +47,36 @@
         VALUES (
 			 #{title}
 		   , sysdate
-		   , #{view_cnt}
-		   , #{rec_cnt}
 		   , #{content}
 		   , #{content_file, jdbcType=VARCHAR}
-		   , #{user_id}
+		   , 'test1'
         )
     </insert>
+    
+    <select id="detailWagle" resultType="com.webtoonsalad.dto.WagleDetailDTO">
+    	SELECT w.id
+		  	 , w.title
+		  	 , u.name
+		  	 , w.create_date
+		  	 , NVL(w.rec_cnt, 0) AS recommend_cnt
+		  	 , w.content
+		  	 , w.content_file
+		FROM TBL_WAGLE w, TBL_USER u
+		WHERE w.tbl_user_id = u.id
+		AND w.id = #{id}
+    </select>
+    
+    <update id="updateWagle" parameterType="com.webtoonsalad.dto.WagleUpdateDTO">
+    	UPDATE tbl_wagle
+		SET title = #{title}
+		  , content = #{content}
+		  , create_date = sysdate
+		  , content_file = #{content_file}
+		WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteWagle">
+    	DELETE tbl_Wagle WHERE id = #{id}
+    </delete>
 
 </mapper>

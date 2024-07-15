@@ -47,3 +47,69 @@ nav ul li a {
 nav ul li a:hover {
     background-color: #444;
 }
+
+.search-bar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.results {
+    position: absolute;
+    top: 50px; /* 이 값을 조정하여 결과를 입력 필드 아래에 배치 */
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    background-color: #fff;
+    z-index: 1000; /* 결과가 다른 요소 위에 나타나도록 하는 요소 */
+}
+
+.result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item:hover {
+    background-color: #f1f1f1;
+}
+
+.search-thumbnail-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.search-thumbnail1, .search-thumbnail2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-thumbnail2 {
+    opacity: 0.5; 
+}

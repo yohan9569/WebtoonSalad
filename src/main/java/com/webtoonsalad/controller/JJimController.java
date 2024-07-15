@@ -1,18 +1,23 @@
 package com.webtoonsalad.controller;
 
-import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.webtoonsalad.dto.WebtoonDTO;
+import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.service.JJimService;
+import com.webtoonsalad.service.WebtoonServiceImpl;
+
 
 @Controller
 public class JJimController {
@@ -23,11 +28,15 @@ public class JJimController {
     public JJimController(JJimService jjimService) {
         this.jjimService = jjimService;
     }
+    
+    @Autowired
+    private WebtoonServiceImpl webtoonService;
 
     @GetMapping("/jjim")
     public String getJJim(@RequestParam("userId") String userId, Model model) {
-        List<WebtoonDTO> jjims = jjimService.getJJimByUserId(userId);
+        List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
         model.addAttribute("jjims", jjims);
+        model.addAttribute("userId", userId);
         return "jjim/jjim";
     }
     
@@ -42,19 +51,57 @@ public class JJimController {
         }
     }
     
-    @GetMapping("/jjim/toggleJjim")
+    @GetMapping("/jjim/delete") //추후 Delete로 변경
     @ResponseBody
-    public String toggleJjim(@RequestParam("webtoonId") String webtoonId) {
-    	String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test1로 설정
-    	try {
-            if (jjimService.checkJjimExists(userId, webtoonId)) {
-                jjimService.deleteJjim(userId, webtoonId);
+    public String deleteJJim(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
+        System.out.println("deleteJJim 호출 성공");
+    	jjimService.deleteJJim(userId, webtoonId);
+        return "success";
+    }
+    
+    @PostMapping("/jjim/updateLastView")
+    @ResponseBody
+    public String updateLastView(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
+        jjimService.updateLastView(userId, webtoonId);
+        return "success";
+    }
+    
+    @GetMapping("/jjim/list")
+    public String getJJimList(@RequestParam("userId") String userId, Model model) {
+    	List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
+        model.addAttribute("jjims", jjims);
+        return "jjim/list";
+    }
+    
+    
+    @RequestMapping(value = "/jjim/toggleJjim", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> toggleJJim(@RequestParam("webtoonId") String webtoonId) {
+        String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test2로 설정
+        Map<String, Object> response = new HashMap<>();
+        try {
+            boolean jjimExists;
+            if (jjimService.checkJJimExists(userId, webtoonId)) {
+                jjimService.deleteJJim(userId, webtoonId);
+                jjimExists = false;
             } else {
-                jjimService.insertJjim(userId, webtoonId);
+                jjimService.insertJJim(userId, webtoonId);
+                jjimExists = true;
             }
-            return "success";
+            
+            Integer jjimCount = webtoonService.getJJimCount(webtoonId); // jjimCount를 가져오는 메서드
+            if (jjimCount == null) {
+                jjimCount = 0;
+            }
+            
+            response.put("jjimExists", jjimExists);
+            response.put("jjimCount", jjimCount);
+            return response;
         } catch (Exception e) {
-            return "error: " + e.getMessage();
+            e.printStackTrace();
+            response.put("error", e.getMessage());
+            return response;
         }
     }
+
 }

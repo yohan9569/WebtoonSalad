@@ -26,4 +26,6 @@ public interface WebtoonMapper {
 	// 선택한 웹툰 찜 수 불러오기
 	Integer getJjimCount(@Param("id") String id) throws SQLException;
 	
+	// 키워드로 제목과 작가이름 검색하기
+	List<WebtoonDTO> searchWebtoon(@Param("keyword") String keyword) throws SQLException;
 }

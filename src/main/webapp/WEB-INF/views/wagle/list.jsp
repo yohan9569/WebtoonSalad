@@ -9,31 +9,23 @@
 <meta charset="UTF-8">
 <title>와글와글</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/wagleList.css">
+	href="${pageContext.request.contextPath}/css/wagle/wagleList.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
-	<header>
-		<div class="logo">웹툰 샐러드</div>
-		<div class="search-bar">
-			<input type="text" placeholder="제목으로 검색">
-		</div>
-		<div class="auth-buttons">
-			<button onclick="location.href='login.jsp'">로그인</button>
-			<button onclick="location.href='signup.jsp'">회원가입</button>
-		</div>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="${pageContext.request.contextPath}/home">홈</a></li>
-			<li><a href="${pageContext.request.contextPath}/square">찜꽁</a></li>
-			<li><a href="${pageContext.request.contextPath}/workroom">와글와글</a></li>
-			<li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
-		</ul>
-	</nav>
+	<!-- header -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+
 	<div class="middleSection">
-		<div class="leftAd"></div>
+		<!-- aside -->
+		<jsp:include page="/WEB-INF/views/aside.jsp" />
 		<div class="wagleList">
-			<h2>자유게시판</h2>
+			<h2 class="pageTitle">자유게시판</h2>
 			<table>
 				<thead>
 					<tr>
@@ -45,30 +37,31 @@
 						<th>추천</th>
 					</tr>
 				</thead>
-				<c:forEach items="${list}" var="wagle">
-					<tr>
-						<td><c:out value="${wagle.row_number}" /></td>
-						<td><c:out value="${wagle.title}" /></td>
-						<td><c:out value="${wagle.name}" /></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
-								value="${wagle.create_date}" /></td>
-						<td><c:out value="${wagle.view_cnt}" /></td>
-						<td><c:out value="${wagle.recommend_cnt}" /></td>
-					</tr>
-				</c:forEach>
+				<tbody>
+					<c:forEach items="${list}" var="wagle">
+						<tr>
+							<td><c:out value="${wagle.row_number}" /></td>
+							<td><a href='detail?id=<c:out value="${wagle.id}"/>'>
+                                <c:out value="${wagle.title}"/></a>
+                            </td>
+							<td><c:out value="${wagle.name}" /></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+									value="${wagle.create_date}" /></td>
+							<td><c:out value="${wagle.view_cnt}" /></td>
+							<td><c:out value="${wagle.recommend_cnt}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 			<div class="buttonSection">
-			
-			<!-- 버튼이랑 페이지네이션 이동시키기  -->
-			
-				<button>글쓰기</button>
+				<button class="createWagleButton" type="button"
+					onclick="location.href='${pageContext.request.contextPath}/wagle/register'">글쓰기</button>
 			</div>
 		</div>
 		<div class="rightAd"></div>
 	</div>
-	<footer>
-		<p>© HAHAHOHO CORP</p>
-		<!-- Additional footer content -->
-	</footer>
+
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>
 </html>

@@ -8,14 +8,14 @@ import lombok.Data;
 
 @Component
 @Data
-public class WagleListDTO {
+public class WagleDetailDTO {
 
 	private Long id;
-	private Long row_number;
 	private String title;
 	private String name;
 	private Date create_date;
-	private Long view_cnt;
 	private Long recommend_cnt;
+	private String content;
+	private String content_file;
 	
 }
