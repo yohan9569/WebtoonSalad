@@ -36,9 +36,10 @@
 
             <div class="webtoon-buttons">
                 <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.webtoonId}'">웹툰 정보</button>
-<%--                 <sec:authorize access="principal.username eq '${userId}'"> --%>
-                   	<button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button>
-<%--                	</sec:authorize> --%>
+	            <button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button>
+<%-- 	        <sec:authorize access="principal.username eq '${userId}'"> --%>
+<%--                <button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button> --%>
+<%--            </sec:authorize> --%>
             </div>
         </div>
     </c:forEach>
