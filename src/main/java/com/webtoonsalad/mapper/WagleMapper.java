@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.webtoonsalad.dto.Criteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleDetailDTO;
 import com.webtoonsalad.dto.WagleListDTO;
@@ -13,6 +14,8 @@ import com.webtoonsalad.dto.WagleUpdateDTO;
 @Mapper
 public interface WagleMapper {
 
+	public List<WagleListDTO> selectWagleListWithPaging(Criteria cri) throws SQLException;
+	
 	public void insertWagle(WagleCreateDTO dto) throws SQLException;
 	public void insertSelectKeyWagle(WagleCreateDTO dto) throws SQLException;
 	public List<WagleListDTO> selectWagleList() throws SQLException;

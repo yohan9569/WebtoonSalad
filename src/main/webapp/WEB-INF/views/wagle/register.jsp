@@ -45,7 +45,7 @@
 					</div>
 					<div class="buttonSection">
 						<button class="wagleButton" type="button" onclick="location.href='${pageContext.request.contextPath}/wagle/list'">취소</button>
-						<input class="wagleButton" type="submit" value="완료" />
+						<button class="wagleButton" type="submit">완료</button>
 					</div>
 				</form>
 			</div>

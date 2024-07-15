@@ -5,6 +5,20 @@
   
 <mapper namespace="com.webtoonsalad.mapper.WagleMapper">
 
+	<select id="selectWagleListWithPaging" parameterType="com.webtoonsalad.dto.Criteria" resultType="com.webtoonsalad.dto.WagleListDTO">
+		SELECT ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
+			   w.id AS id,
+		       w.title AS title,
+		       u.name AS name,
+		       w.create_date AS create_date,
+		       NVL(w.view_cnt, 0) AS view_cnt,
+		       NVL(w.rec_cnt, 0) recommend_cnt
+		FROM tbl_wagle w, tbl_user u
+		WHERE w.tbl_user_id = u.id
+		ORDER BY w.create_date DESC
+		OFFSET (#{pageNum} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+	</select>
+
 	<select id="selectWagleList" resultType="com.webtoonsalad.dto.WagleListDTO">
 		SELECT ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
 			   w.id AS id,

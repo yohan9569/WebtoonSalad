@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.webtoonsalad.dto.Criteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleDetailDTO;
 import com.webtoonsalad.dto.WagleListDTO;
@@ -32,6 +33,12 @@ public class WagleServiceImple implements WagleService {
 	public List<WagleListDTO> getList() throws Exception{
 		log.info("getList");
 		return wagleMapper.selectWagleList();
+	}
+	
+	@Override
+	public List<WagleListDTO> getList(Criteria cri) throws Exception {
+		log.info("get List with criteria" + cri);
+		return wagleMapper.selectWagleListWithPaging(cri);
 	}
 
 	@Override

@@ -39,8 +39,7 @@
 							value='<c:out value="${detailList.content_file}"/>' readonly="readonly">
 					</div>
 					<div class="wagleContentSection">
-						<textarea class="input" id="contentInput" name="content" readonly="readonly">
-							<c:out value="${detailList.content}" />
+						<textarea class="input" id="contentInput" name="content" readonly="readonly"><c:out value="${detailList.content}" />
 						</textarea>
 					</div>
 					<div class="buttonSection">

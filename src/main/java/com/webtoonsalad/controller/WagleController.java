@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.webtoonsalad.dto.Criteria;
+import com.webtoonsalad.dto.PageDTO;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleUpdateDTO;
 import com.webtoonsalad.service.WagleService;
@@ -25,9 +27,10 @@ public class WagleController {
 	private WagleService wagleService;
 	
 	@GetMapping("list")
-	public void list(Model model) throws Exception {
-		log.info("list");
-		model.addAttribute("list", wagleService.getList());
+	public void list(Criteria cri, Model model) throws Exception {
+		log.info("list" + cri);
+		model.addAttribute("list", wagleService.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, 123));
 	}
 	
 	
@@ -37,11 +40,13 @@ public class WagleController {
 	}
 	
 	@PostMapping("register")
-	public String register(@ModelAttribute WagleCreateDTO dto, RedirectAttributes rttr) throws Exception {
+	public String register(@ModelAttribute WagleCreateDTO dto, RedirectAttributes rttr, Criteria cri) throws Exception {
 		log.info("register: " + dto);
 		
 		wagleService.register(dto);
 		rttr.addFlashAttribute("result", dto.getId());
+		rttr.addAttribute("pageNum", cri.getPageNum());
+	    rttr.addAttribute("amount", cri.getAmount());
 		return "redirect:list";
 	}
 	
