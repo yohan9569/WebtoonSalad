@@ -18,11 +18,11 @@
     JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
     WHERE j.tbl_user_id = #{userId}
     ORDER BY 
-        CASE 
-            WHEN w.LastUp > j.LastView THEN 0 
+    	CASE 
+            WHEN w.LastUp > NVL(j.LastView, DATE '0001-01-01') THEN 0 
             ELSE 1 
         END,
-        w.LastUp DESC
+        NVL(w.LastUp, DATE '0001-01-01') DESC
   </select>
   
   <update id="updateLastView" parameterType="map">
