@@ -6,7 +6,7 @@
         <input type="text" placeholder="제목으로 검색">
     </div>
     <div class="auth-buttons">
-        <button onclick="location.href='login.jsp'">로그인</button>
+        <button onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
         <button onclick="location.href='signup.jsp'">회원가입</button>
     </div>
 </header>
