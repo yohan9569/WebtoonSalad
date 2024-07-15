@@ -24,5 +24,6 @@ public class JJimDTO {
     private int freeWaitHour;
     private Date lastUp;
     private int jjimCount;
+    private Integer isViewed;
 }
 

@@ -5,7 +5,7 @@
 
 <div class="webtoon-items" id="webtoonItems">
     <c:forEach var="webtoon" items="${jjims}">
-        <div class="webtoon-item" data-webtoon-id="${webtoon.webtoonId}">
+        <div class="webtoon-item ${webtoon.isViewed == 1 ? 'viewed' : ''}" data-webtoon-id="${webtoon.webtoonId}">
             <a href="${webtoon.url}" target="_blank" class="webtoon-link" onclick="updateLastView('${userId}', '${webtoon.webtoonId}')">
                 <div class="thumbnail-container">
                     <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
@@ -30,6 +30,7 @@
 				        <!-- temporary -->
 				        <p>lastView: ${webtoon.lastView}</p>
 		                <p>lastUp: ${webtoon.lastUp}</p>
+		                <p>${webtoon.isViewed == 1 ? 'viewed' : ''}</p>
 				    </div>
 				</div>
             </a>

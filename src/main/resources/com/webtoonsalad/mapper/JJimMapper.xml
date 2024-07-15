@@ -13,15 +13,16 @@
         w.isAdult, w.isUpdated, w.freeWaitHour, w.lastUp,
         (SELECT COUNT(*) 
          FROM tbl_jjim j2 
-         WHERE j2.tbl_webtoon_id = w.id) AS jjimCount
+         WHERE j2.tbl_webtoon_id = w.id) AS jjimCount,
+        CASE 
+            WHEN w.LastUp > NVL(j.LastView, DATE '0001-01-01') THEN 0 
+            ELSE 1 
+        END AS isViewed
     FROM tbl_jjim j
     JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
     WHERE j.tbl_user_id = #{userId}
     ORDER BY 
-    	CASE 
-            WHEN w.LastUp > NVL(j.LastView, DATE '0001-01-01') THEN 0 
-            ELSE 1 
-        END,
+    	isViewed,
         NVL(w.LastUp, DATE '0001-01-01') DESC
   </select>
   

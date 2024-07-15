@@ -8,7 +8,7 @@
 <title>찜한 웹툰</title>
 <!-- jQuery CDN 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css?version=${System.currentTimeMillis()}">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
@@ -28,7 +28,7 @@
 	    <c:if test="${not empty jjims}">
 	        <div id="webtoon-items">
 	            <c:forEach var="webtoon" items="${jjims}">
-	                <div class="webtoon-item" data-webtoon-id="${webtoon.webtoonId}">
+	            	<div class="webtoon-item ${webtoon.isViewed == 1 ? 'viewed' : ''}" data-webtoon-id="${webtoon.webtoonId}">
 	                    <a href="${webtoon.url}" target="_blank" class="webtoon-link" onclick="updateLastView('${userId}', '${webtoon.webtoonId}')">
 	                        <div class="thumbnail-container">
 	                            <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
@@ -53,6 +53,7 @@
 		                            <!-- temporary -->
 		                            <p>lastView: ${webtoon.lastView}</p>
 		                            <p>lastUp: ${webtoon.lastUp}</p>
+		                            <p>${webtoon.isViewed == 1 ? 'viewed' : ''}</p>
 		                        </div>
 		                    </div>
 	                    </a>
