@@ -82,7 +82,7 @@
 	function deleteJJim(userId, webtoonId) {
 // 		var loggedInUserId = '<sec:authentication property="name" />';
 		var loggedInUserId = 'test1'; // 예비용. 추후 위 코드로.
-		if (userId === loggedInUserId) {
+		if (userId === loggedInUserId) { // 추후 메서드 인가로 변경
 			if (confirm("정말 삭제하시겠습니까?")) {
 		        $.ajax({
 		            url: '${pageContext.request.contextPath}/jjim/delete',
