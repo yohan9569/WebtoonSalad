@@ -6,15 +6,25 @@
 <mapper namespace="com.webtoonsalad.mapper.WagleMapper">
 
 	<select id="selectWagleListWithPaging" parameterType="com.webtoonsalad.dto.Criteria" resultType="com.webtoonsalad.dto.WagleListDTO">
-		SELECT ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
-			   w.id AS id,
-		       w.title AS title,
-		       u.name AS name,
-		       w.create_date AS create_date,
-		       w.view_cnt AS view_cnt
-		FROM tbl_wagle w, tbl_user u
-		WHERE w.tbl_user_id = u.id
-		ORDER BY w.create_date DESC
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
+		    w.id AS id,
+	        w.title AS title,
+	        u.name AS name,
+	        w.create_date AS create_date,
+	        w.view_cnt AS view_cnt,
+		    NVL(l.like_cnt, 0) AS recommend_cnt
+		FROM 
+		    tbl_wagle w,
+		    tbl_user u,
+		    (SELECT tbl_wagle_id, COUNT(*) AS like_cnt
+		     FROM tbl_like_wagle
+		     GROUP BY tbl_wagle_id) l
+		WHERE 
+		    w.tbl_user_id = u.id
+		    AND w.id = l.tbl_wagle_id(+)
+		ORDER BY 
+		    w.create_date DESC
 		OFFSET (#{pageNum} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
 	</select>
 
@@ -28,6 +38,7 @@
 		FROM tbl_wagle w, tbl_user u
 		WHERE w.tbl_user_id = u.id
 		ORDER BY w.create_date DESC
+		OFFSET (#{pageNum} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
 	</select>
 	
 	<insert id="insertWagle" parameterType="com.webtoonsalad.dto.WagleCreateDTO">
