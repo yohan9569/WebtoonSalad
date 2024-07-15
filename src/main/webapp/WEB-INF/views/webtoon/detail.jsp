@@ -52,7 +52,7 @@ function addComment(webtoonId) {
 
     $.ajax({
         url: '${pageContext.request.contextPath}/comments/write',
-        type: 'GET',
+        type: 'Post',
         data: {
             content: commentContent,
             webtoonId: webtoonId
@@ -73,7 +73,7 @@ function addComment(webtoonId) {
 function loadComments(webtoonId) {
     $.ajax({
         url: `${pageContext.request.contextPath}/comments/mycomment`,
-        type: 'GET',
+        type: 'Get',
         data: {
             webtoonId: webtoonId
         },
@@ -118,7 +118,7 @@ function loadComments(webtoonId) {
 function deleteComment(webtoonId) {
     $.ajax({
         url: `${pageContext.request.contextPath}/comments/delete`,
-        type: 'GET',
+        type: 'Delete',
         data: {
             webtoonId: webtoonId
         },
@@ -135,7 +135,7 @@ function deleteComment(webtoonId) {
 function editComment(content, webtoonId) {
     $.ajax({
         url: `${pageContext.request.contextPath}/comments/edit`,
-        type: 'GET',
+        type: 'Put',
         data: {
             webtoonId: webtoonId,
             content: content
@@ -153,7 +153,7 @@ function editComment(content, webtoonId) {
 function loadCommentsExceptMine(webtoonId) {
     $.ajax({
         url: `${pageContext.request.contextPath}/comments/list`,
-        type: 'GET',
+        type: 'Get',
         data: {
             webtoonId: webtoonId,
         },
