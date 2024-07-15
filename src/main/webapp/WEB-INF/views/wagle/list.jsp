@@ -41,9 +41,8 @@
 					<c:forEach items="${list}" var="wagle">
 						<tr>
 							<td><c:out value="${wagle.row_number}" /></td>
-							<td><a href='detail?id=<c:out value="${wagle.id}"/>'>
-                                <c:out value="${wagle.title}"/></a>
-                            </td>
+							<td><a href='detail?id=<c:out value="${wagle.id}"/>'> <c:out
+										value="${wagle.title}" /></a></td>
 							<td><c:out value="${wagle.name}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
 									value="${wagle.create_date}" /></td>
@@ -57,6 +56,27 @@
 				<button class="createWagleButton" type="button"
 					onclick="location.href='${pageContext.request.contextPath}/wagle/register'">글쓰기</button>
 			</div>
+			<div class="pageSection">
+				<ul class=pagiNation>
+					<c:if test="${pageMaker.prev}">
+						<li class="paginateButton">
+						<a href="list?pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.cri.amount}">이전</a></li>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage}"
+						end="${pageMaker.endPage}">
+						<li class="paginateButton">
+						<a href="list?pageNum=${num}&amount=${pageMaker.cri.amount}">${num}</a></li>
+					</c:forEach>
+					<c:if test="${pageMaker.next}">
+						<li class="paginateButton">
+						<a href="list?pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.cri.amount}">다음</a></li>
+					</c:if>
+				</ul>
+			</div>
+			<form id="actionForm" action="list" method="get">
+				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+			</form>
 		</div>
 		<div class="rightAd"></div>
 	</div>
