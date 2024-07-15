@@ -30,6 +30,7 @@ public class WagleController {
 		model.addAttribute("list", wagleService.getList());
 	}
 	
+	
 	@GetMapping("register")
 	public String register() {
 		return "wagle/register";
@@ -44,13 +45,18 @@ public class WagleController {
 		return "redirect:list";
 	}
 	
+	
 	@GetMapping("detail")
 	public void get(@RequestParam("id") Long id, Model model) throws Exception {
 		log.info("detail");
 		model.addAttribute("detailList", wagleService.getDetailWagle(id));
 	}
 	
-	// Request method 'GET' not supported
+	
+	@GetMapping("modify")
+	public String mofidy() {
+		return "wagle/modify";
+	}
 	
 	@PostMapping("modify")
 	public String modify(WagleUpdateDTO dto, RedirectAttributes rttr) throws Exception {
@@ -59,6 +65,7 @@ public class WagleController {
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:list";
 	}
+	
 	
 	@PostMapping("remove")
 	public String remove(@RequestParam("id") Long id, RedirectAttributes rttr) throws Exception {

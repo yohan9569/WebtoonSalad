@@ -47,7 +47,7 @@
 						<button class="wagleButton" type="button"
 							onclick="location.href='${pageContext.request.contextPath}/wagle/list'">목록</button>
 						<button class="wagleButton" type="button"
-							onclick="location.href='modify?id=<c:out value="${wagle.id}"/>'">수정</button>
+							onclick="location.href='modify?id=<c:out value="${detailList.id}"/>'">수정</button>
 					</div>
 				</div>
 			</div>

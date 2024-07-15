@@ -26,7 +26,6 @@ public class WagleUpdateTests {
 		dto.setId(3L);
 		dto.setTitle("업데이트");
 		dto.setContent("업데이트");
-//		int cnt = wagleMapper.updateWagle(dto);
 		log.info("update count: " + wagleMapper.updateWagle(dto));
 	}
 }
