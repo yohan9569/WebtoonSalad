@@ -60,7 +60,7 @@
 	                    <div class="webtoon-buttons">
 	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.webtoonId}'">웹툰 정보</button>
 <%-- 	                        <sec:authorize access="principal.username eq '${userId}'"> --%>
-                            	<button class="delete-button" onclick="deleteJJim('${webtoon.userId}', '${webtoon.webtoonId}')">🗑</button>
+                            	<button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button>
 <!--                         	</sec:authorize> -->
 	                    </div>
 	                </div>
@@ -77,16 +77,18 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 	<script>
-	function deleteJJim(userId, webtoonId) {
+	function deleteJJim(webtoonId) {
+// 		var loggedInUserId = '<sec:authentication property="name" />';
+		var loggedInUserId = 'test1'; // 예비용. 추후 위 코드로.
 	    if (confirm("정말 삭제하시겠습니까?")) {
 	        $.ajax({
 	            url: '${pageContext.request.contextPath}/jjim/delete',
 	            type: 'GET', // 추후 DELETE로 변경
-	            data: { userId: userId, webtoonId: webtoonId },
+	            data: { userId: loggedInUserId, webtoonId: webtoonId },
 	            success: function(response) {
 	                if (response === "success") {
 	                    alert("삭제되었습니다.");
-	                    location.reload();
+	                    location.reload(); //reloadWebtoonList(loggedInUserId);
 	                } else {
 	                    alert("삭제에 실패했습니다.");
 	                }
@@ -99,17 +101,20 @@
 	}
 	
     function updateLastView(userId, webtoonId) {
+//     	var loggedInUserId = '<sec:authentication property="name" />';
+    	var loggedInUserId = 'test1'; // 예비용. 추후 위 코드로.
         $.ajax({
             url: '${pageContext.request.contextPath}/jjim/updateLastView',
             type: 'POST',
             data: { 
-                userId: userId, 
+                userId: loggedInUserId, 
                 webtoonId: webtoonId,
                 _csrf: '${_csrf.token}' // CSRF 토큰 추가
             },
             success: function(response) {
                 if (response === "success") {
-                    reloadWebtoonList(userId); // 웹툰 목록을 다시 불러옵니다.
+                	if (userId === loggedInUserId)
+	                    reloadWebtoonList(userId); // 웹툰 목록을 다시 불러옵니다.
                 } else {
                     alert("lastview 업데이트에 실패했습니다.");
                 }
@@ -129,7 +134,6 @@
 				// 응답을 파싱하여 필요한 부분을 추출합니다.
                 var tempDiv = $('<div>').html(response); // 응답을 임시로 div에 넣습니다.
                 var newContent = tempDiv.find('#webtoonItems').html();
-                console.log("New content:", newContent); // 파싱된 내용을 확인합니다.
                 $('#webtoon-items').html(newContent);
             },
             error: function(xhr, status, error) {
