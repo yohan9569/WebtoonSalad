@@ -17,18 +17,18 @@
   <form method='post' action="/login">
  
   <div>
-    <input type='text' name='username' value='manager88'>
+    <input type='text' name='username' value='manager0'>
   </div>
   <div>
-    <input type='password' name='password' value='pw88'>
+    <input type='password' name='password' value='pw0'>
   </div>
-  <div>
+  
   <div>
     <input type='checkbox' name='remember-me'> Remember Me
   </div>
 
   <div>
-    <input type='submit'>
+    <input type='submit' value='로그인'>
   </div>
     <input type="hidden" name="${_csrf.parameterName}"
     value="${_csrf.token}" />
