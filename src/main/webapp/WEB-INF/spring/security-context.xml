@@ -18,9 +18,19 @@ class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </bean>
       
 <security:http>
-    <security:intercept-url pattern="/sample/all"   access="permitAll" />
-    <security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
-    <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
+	<!-- 누구나 접근 가능 -->
+    <security:intercept-url pattern="/home"   access="permitAll" />
+    <security:intercept-url pattern="/customLogin"   access="permitAll" />
+    <security:intercept-url pattern="/wagle/detail"   access="permitAll" />
+    <security:intercept-url pattern="/webtoon/**"   access="permitAll" />
+    
+    <!-- 회원 권한이 필요한 URL -->
+    <security:intercept-url pattern="/comments/**" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/jjim/**" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/register" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/modify" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/remove" access="hasRole('ROLE_MEMBER')" />
+    
     <security:access-denied-handler ref="customAccessDenied" />
     <security:form-login login-page="/customLogin"
     authentication-success-handler-ref="customLoginSuccess" />  

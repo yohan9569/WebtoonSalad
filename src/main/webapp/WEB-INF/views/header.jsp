@@ -34,8 +34,8 @@
 			<sec:authorize access="isAuthenticated()">
 				<div class="user-info">
                     <span>
-                        <sec:authentication property="principal.member.name" />
-                        <!-- <sec:authentication property="principal.username" /> --> <!-- 유저 ID 가져옴 --> 
+                        <sec:authentication property="principal.member.name" /> <!-- 유저 name 보여줌 -->
+                        <!-- <sec:authentication property="principal.username" /> --> <!-- 유저 ID 보여줌 --> 
                     </span>
                     <form action="${pageContext.request.contextPath}/customLogout" method="post" style="display: inline;">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -51,7 +51,7 @@
 			<li><sec:authentication property="name" var="username" /> <%--<a href="${pageContext.request.contextPath}/jjim?userId=${username}">찜꽁</a> --%>
 				<a href="${pageContext.request.contextPath}/jjim?userId=test1">찜꽁</a>
 			</li>
-			<li><a href="${pageContext.request.contextPath}/workroom">와글와글</a></li>
+			<li><a href="${pageContext.request.contextPath}/wagle/list">와글와글</a></li>
 			<li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
 		</ul>
 	</nav>
