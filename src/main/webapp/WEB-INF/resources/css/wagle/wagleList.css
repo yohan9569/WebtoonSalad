@@ -8,6 +8,10 @@ h1 {
 	margin-bottom: 20px;
 }
 
+ul {
+	padding: 0;
+}
+
 a {
 	color: black;
 	text-decoration: none;
