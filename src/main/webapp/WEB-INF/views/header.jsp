@@ -31,7 +31,6 @@
 				<button onclick="location.href='signup.jsp'">회원가입</button>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<span><sec:authentication property="principal.name" /></span>
 				<form action="${pageContext.request.contextPath}/customLogout"
 					method="post">
 					<input type="hidden" name="${_csrf.parameterName}"
@@ -39,7 +38,6 @@
 					<button type="submit">로그아웃</button>
 				</form>
 			</sec:authorize>
-
 		</div>
 	</header>
 	<nav>
