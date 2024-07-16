@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>웹툰 샐러드</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/header.css">
+	href="${pageContext.request.contextPath}/css/header.css?version=${System.currentTimeMillis()}">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/aside.css">
 <link rel="stylesheet" type="text/css"
@@ -19,7 +19,10 @@
 </head>
 <body>
 	<header>
-		<div class="logo">웹툰 샐러드</div>
+		<div class="logo">
+			<img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고 이미지" class="logo-image"> 
+			<span class="webtoon">웹툰</span> <span class="salad">샐러드</span>
+		</div>
 		<div class="search-bar">
 			<input type="text" id="searchInput" placeholder="제목, 작가로 검색"
 				onkeyup="search()">

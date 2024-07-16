@@ -10,7 +10,21 @@ header {
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #ffa500;
+    display: flex;
+    align-items: center;
+}
+
+.logo .webtoon {
+    color: #FFBC00;
+}
+
+.logo .salad {
+    color: #4CAF50;
+}
+
+.logo .logo-image {
+    margin-right: 10px; /* 텍스트와 이미지 사이의 간격 조절 */
+    height: 30px; /* 로고 이미지 높이 조절, 필요에 따라 변경 */
 }
 
 .search-bar input {

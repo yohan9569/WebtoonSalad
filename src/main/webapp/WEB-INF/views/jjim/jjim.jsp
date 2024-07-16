@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>찜한 웹툰</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css?version=${System.currentTimeMillis()}">
 </head>
 <body>
