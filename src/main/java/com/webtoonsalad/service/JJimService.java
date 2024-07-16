@@ -8,8 +8,6 @@ public interface JJimService {
 
     public List<JJimDTO> getJJimByUserId(String userId);
     
-    public String getUserIdByNickname(String nickname);
-    
     void updateLastView(String userId, String webtoonId);
     
     public boolean checkJJimExists(String userId, String webtoonId);

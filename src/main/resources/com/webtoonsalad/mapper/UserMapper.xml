@@ -3,13 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.webtoonsalad.mapper.UserMapper">
-	<select id="selectUserIdByNickname" parameterType="String"
-		resultType="String">
-		SELECT id
-		FROM tbl_user
-		WHERE name = #{nickname}
-	</select>
+<mapper namespace="com.webtoonsalad.mapper.UserMapper">	
+    <select id="findUsersByNickname" parameterType="String" resultType="com.webtoonsalad.dto.UserDTO">
+        SELECT id, name
+        FROM tbl_user
+        WHERE name LIKE '%' || #{keyword} || '%'
+    </select>
 
 	<resultMap type="com.webtoonsalad.dto.UserDTO" id="userMap">
 		<id property="id" column="id" />

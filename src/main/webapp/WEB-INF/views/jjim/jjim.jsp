@@ -11,12 +11,10 @@
 	<jsp:include page="/WEB-INF/views/aside.jsp" />
 	<section class="jjim-list">
 	    <h1>찜한 웹툰</h1>
-	    <div class="search-bar">
-	        <form action="${pageContext.request.contextPath}/jjim/search" method="get">
-	            <input type="text" name="nickname" placeholder="친구 찜꽁 구경하기">
-	            <button type="submit">검색</button>
-	        </form>
-	    </div>
+	    <div class="user-search-bar">
+		    <input type="text" id="userSearchInput" placeholder="친구 찜꽁 구경하기">
+    		<div class="results" id="userSearchResults"></div>
+		</div>
 	    <c:if test="${not empty jjims}">
 	        <div id="webtoon-items">
 	            <c:forEach var="webtoon" items="${jjims}">
@@ -137,6 +135,88 @@
             }
         });
     }
+    
+    $(document).ready(function() {
+        let selectedIndex = -1;
+
+        // 사용자 검색 함수
+        function searchUser() {
+            var keyword = document.getElementById('userSearchInput').value;
+
+            if (keyword.length > 0) {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/user/search',
+                    type: 'GET',
+                    data: {
+                        keyword: keyword
+                    },
+                    success: function(data) {
+                        if (Array.isArray(data)) {
+                            displayUserResults(data);
+                        } else {
+                            console.error('Received data is not an array');
+                        }
+                    },
+                    error: function() {
+                        console.error('사용자 검색 중 오류 발생');
+                    }
+                });
+            } else {
+                $('#userSearchResults').hide();
+            }
+        }
+
+        // 검색 결과 표시 함수
+        function displayUserResults(data) {
+            var results = $('#userSearchResults');
+            results.empty();
+            if (data.length > 0) {
+                data.forEach(function(item, index) {
+                    var div = $('<div>').addClass('result-item').text(item.name);
+                    div.on('click', function() {
+                        window.location.href = '${pageContext.request.contextPath}/jjim?userId=' + item.id;
+                    });
+                    results.append(div);
+                });
+                results.show();
+            } else {
+                results.hide();
+            }
+        }
+
+        // 키보드 이벤트 리스너
+        $('#userSearchInput').on('keydown', function(e) {
+            var results = $('#userSearchResults').children('.result-item');
+            if (e.key === 'ArrowDown') {
+                selectedIndex = (selectedIndex + 1) % results.length;
+                results.removeClass('selected');
+                $(results[selectedIndex]).addClass('selected');
+            } else if (e.key === 'ArrowUp') {
+                selectedIndex = (selectedIndex - 1 + results.length) % results.length;
+                results.removeClass('selected');
+                $(results[selectedIndex]).addClass('selected');
+            } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                $(results[selectedIndex]).trigger('click');
+            }
+        });
+
+        // 외부 클릭 시 결과창 닫기
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('#userSearchInput').length && !$(event.target).closest('#userSearchResults').length) {
+                $('#userSearchResults').hide();
+            }
+        });
+
+        // 검색창 클릭 시 결과창 표시
+        $('#userSearchInput').on('focus', function() {
+            if ($('#userSearchInput').val().length > 0) {
+                $('#userSearchResults').show();
+            }
+        });
+
+        // 검색창 입력 이벤트 리스너
+        $('#userSearchInput').on('input', searchUser);
+    });
 	</script>
 </body>
 </html>
