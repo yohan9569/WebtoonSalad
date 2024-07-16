@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/header.css?version=${System.currentTimeMillis()}">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/aside.css">
+	href="${pageContext.request.contextPath}/css/aside.css?version=${System.currentTimeMillis()}">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/footer.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
