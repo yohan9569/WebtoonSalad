@@ -3,15 +3,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>찜한 웹툰</title>
-<!-- jQuery CDN 추가 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css?version=${System.currentTimeMillis()}">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
+	<title>찜한 웹툰</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jjim.css?version=${System.currentTimeMillis()}">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp" />

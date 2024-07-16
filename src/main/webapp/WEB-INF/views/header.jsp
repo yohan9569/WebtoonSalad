@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>웹툰 샐러드</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aside.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -18,8 +20,16 @@
         <div class="results" id="results"></div>
     </div>
     <div class="auth-buttons">
-        <button onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
-        <button onclick="location.href='signup.jsp'">회원가입</button>
+        <sec:authorize access="isAuthenticated()">
+            <form action="${pageContext.request.contextPath}/customLogout" method="post">
+               <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+                <button type="submit">로그아웃</button>
+            </form>
+        </sec:authorize>
+        <sec:authorize access="isAnonymous()">
+            <button onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
+            <button onclick="location.href='signup.jsp'">회원가입</button>
+        </sec:authorize>
     </div>
 </header>
 <nav>
