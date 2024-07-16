@@ -26,7 +26,12 @@
 			<div class="results" id="results"></div>
 		</div>
 		<div class="auth-buttons">
+			<sec:authorize access="isAnonymous()">
+				<button onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
+				<button onclick="location.href='signup.jsp'">회원가입</button>
+			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
+				<span><sec:authentication property="principal.name" /></span>
 				<form action="${pageContext.request.contextPath}/customLogout"
 					method="post">
 					<input type="hidden" name="${_csrf.parameterName}"
@@ -34,11 +39,7 @@
 					<button type="submit">로그아웃</button>
 				</form>
 			</sec:authorize>
-			<sec:authorize access="isAnonymous()">
-				<button
-					onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
-				<button onclick="location.href='signup.jsp'">회원가입</button>
-			</sec:authorize>
+
 		</div>
 	</header>
 	<nav>
