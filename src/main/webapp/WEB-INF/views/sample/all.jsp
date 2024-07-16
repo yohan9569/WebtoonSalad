@@ -9,6 +9,6 @@
 </head>
 <body>
 <!-- all or member or admin -->
-<h1>/user/all page</h1>
+<h1>/sample/all page</h1>
 </body>
 </html>
