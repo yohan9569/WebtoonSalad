@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.webtoonsalad.domain.MemberVO;
-import com.webtoonsalad.mapper.MemberMapper;
+import com.webtoonsalad.dto.UserDTO;
+import com.webtoonsalad.mapper.UserMapper;
 import com.webtoonsalad.security.domain.CustomUser;
 
 import lombok.extern.log4j.Log4j;
@@ -15,15 +15,15 @@ import lombok.extern.log4j.Log4j;
 public class CustomUserDetailsService implements UserDetailsService {
    
     @Autowired
-    private MemberMapper membermapper;
+    private UserMapper usermapper;
    
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
        
-        log.warn("Load User By UserName :" +username);
+        System.out.println("Load User By UserName :" +id);
        
-        MemberVO vo = membermapper.read(username);      
-        log.warn("Query by memebr maper :" +vo);
+        UserDTO vo = usermapper.read(id);      
+        System.out.println("Query by memebr maper :" +vo);
            
         //삼항식
         return ( vo == null

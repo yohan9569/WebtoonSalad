@@ -29,9 +29,9 @@ public class MemberTests {
   @Test
   public void testInsertMember() {
 
-    String sql = "insert into tbl_member(userid, userpw, username) values (?,?,?)";
+    String sql = "insert into tbl_user(id, pw, name, join_date) values (?,?,?,sysdate)";
    
-    for(int i = 0; i < 100; i++) {      
+    for(int i = 0; i < 3; i++) {      
       Connection con = null;
       PreparedStatement pstmt = null;
      
@@ -40,16 +40,16 @@ public class MemberTests {
         pstmt = con.prepareStatement(sql);        
         pstmt.setString(2, pwencoder.encode("pw" + i));  
        
-        if(i <80) {          
-          pstmt.setString(1, "user"+i);
-          pstmt.setString(3,"일반사용자"+i);          
-        }else if (i <90) {          
+//        if(i <80) {          
+//          pstmt.setString(1, "user"+i);
+//          pstmt.setString(3,"일반사용자"+i);          
+//        }else if (i <90) {          
           pstmt.setString(1, "manager"+i);
-          pstmt.setString(3,"운영자"+i);          
-        }else {          
-          pstmt.setString(1, "admin"+i);
-          pstmt.setString(3,"관리자"+i);          
-        }//end if
+          pstmt.setString(3,"운영자"+i); 
+//        }else {          
+//          pstmt.setString(1, "admin"+i);
+//          pstmt.setString(3,"관리자"+i);          
+//        }//end if
        
         pstmt.executeUpdate();        
       }catch(Exception e) {

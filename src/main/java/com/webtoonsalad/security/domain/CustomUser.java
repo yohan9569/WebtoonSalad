@@ -7,29 +7,29 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.webtoonsalad.domain.MemberVO;
+import com.webtoonsalad.dto.UserDTO;
 
 import lombok.Getter;
 
 @Getter
-public class CustomUser  extends User{
+public class CustomUser extends User{
    
     //Serialization
     private static final long serialVersionUID = 1L;
    
-    private MemberVO member;
+    private UserDTO member;
    
-    public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    public CustomUser(String id, String pw, Collection<? extends GrantedAuthority> authorities) {
+        super(id, pw, authorities);
     }//end CustomUser...
    
-    public CustomUser(MemberVO vo) {
+    public CustomUser(UserDTO vo) {
        
-        super(vo.getUserid()
-             ,vo.getUserpw()
+        super(vo.getId()
+             ,vo.getPw()
              ,vo.getAuthList()
               .stream()
-              .map( auth -> new SimpleGrantedAuthority(auth.getAuth()))
+              .map( auth -> new SimpleGrantedAuthority(auth.getAuthority()))
               .collect(Collectors.toList())            
         );//end super
        

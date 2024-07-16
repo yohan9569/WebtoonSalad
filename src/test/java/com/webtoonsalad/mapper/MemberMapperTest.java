@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.webtoonsalad.domain.AuthVO;
-import com.webtoonsalad.domain.MemberVO;
+import com.webtoonsalad.dto.AuthDTO;
+import com.webtoonsalad.dto.UserDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -18,15 +18,15 @@ import lombok.extern.log4j.Log4j;
 public class MemberMapperTest {
    
     @Autowired
-    private MemberMapper mapper;
+    private UserMapper mapper;
    
     @Test
     public void testRead() {
-        MemberVO vo = mapper.read("admin90");  
+        UserDTO vo = mapper.read("test1");  
         log.info(vo);      
         //vo.getAuthList().forEach( authVO -> log.info(authVO));        
-        for ( AuthVO  authVO: vo.getAuthList()  ) {
-            log.info(authVO);          
+        for (AuthDTO  authDTO: vo.getAuthList()  ) {
+            log.info(authDTO);          
         }//end for
        
     }//end testRead()
