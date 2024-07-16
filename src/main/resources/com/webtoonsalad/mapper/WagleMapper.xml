@@ -78,15 +78,24 @@
     </insert>
     
     <select id="detailWagle" resultType="com.webtoonsalad.dto.WagleDetailDTO">
-    	SELECT w.id
-		  	 , w.title
-		  	 , u.name
-		  	 , w.create_date
-		  	 , w.content
-		  	 , w.content_file
-		FROM TBL_WAGLE w, TBL_USER u
-		WHERE w.tbl_user_id = u.id
-		AND w.id = #{id}
+    	SELECT 
+		    w.id,
+		    w.title,
+		    u.name,
+		    w.create_date,
+		    w.content,
+		    w.content_file,
+		    NVL(l.like_cnt, 0) AS recommend_cnt
+		FROM 
+		    TBL_WAGLE w,
+		    TBL_USER u,
+		    (SELECT tbl_wagle_id, COUNT(*) AS like_cnt
+		     FROM tbl_like_wagle
+		     GROUP BY tbl_wagle_id) l
+		WHERE 
+		    w.tbl_user_id = u.id
+		    AND w.id = l.tbl_wagle_id(+)
+		    AND w.id = #{id}
     </select>
     
     <update id="updateWagle" parameterType="com.webtoonsalad.dto.WagleUpdateDTO">
