@@ -27,12 +27,6 @@ public class CommentMapperTests {
     @Autowired
     private CommentMapper mapper;
 
-//    @Before
-//    public void setUp() {
-//        log.info("Setting up initial data for tests...");
-//        // 필요한 경우, 테스트 전에 초기 데이터를 삽입하거나 설정합니다.
-//    }
-
     @Test
     public void testWriteComment() throws SQLException {
     	String content = "잼나다~";

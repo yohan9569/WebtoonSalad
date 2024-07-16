@@ -82,7 +82,7 @@ section.webtoon-detail {
 .comment .btn-edit,
 .comment .btn-delete {
     background-color: transparent; /* 투명한 배경 */
-    border: 1px solid #E74C3C; /* 버튼 테두리 없음 */
+    border: none; /* 버튼 테두리 없음 */
     color: none; /* 빨간색 버튼 텍스트 */
     cursor: pointer; /* 호버 시 포인터 커서 */
     font-size: 14px; /* 버튼 텍스트 크기 */

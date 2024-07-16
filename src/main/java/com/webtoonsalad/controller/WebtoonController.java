@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,7 @@ public class WebtoonController {
     public String getWebtoonDetail(@RequestParam("id") String id, Model model) throws Exception {
         try {
             WebtoonDTO webtoon = webtoonService.getDetail(id);
-            String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test1로 설정
+            String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test2로 설정
             boolean jjimExists = jjimService.checkJJimExists(userId, id);
             model.addAttribute("detail", webtoon);
             model.addAttribute("jjimExists", jjimExists);
@@ -59,6 +60,14 @@ public class WebtoonController {
         } catch (Exception e) {
         	throw e;
         }
+    }
+	
+	@PostMapping("/webtoon/updateLastView")
+    @ResponseBody
+    public String updateLastView(@RequestParam("id") String id, @RequestParam("webtoonId") String webtoonId) {
+		//String userId = "test2";
+		jjimService.updateLastView(id, webtoonId);
+        return "success";
     }
 	
 	@RequestMapping(value = "/webtoon/search", method = RequestMethod.GET)
