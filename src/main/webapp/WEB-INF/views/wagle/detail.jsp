@@ -9,12 +9,6 @@
 <title>와글</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/wagle/wagleDetail.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/aside.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
 	<!-- header -->

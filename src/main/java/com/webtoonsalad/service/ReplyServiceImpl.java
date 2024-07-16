@@ -20,6 +20,12 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Autowired
 	private ReplyMapper replyMapper;
+	
+	@Override
+	public int getTotal(ReplyCriteria cri, Long id) {
+		log.info("get total" + cri);
+		return replyMapper.getTotalCount(cri, id);
+	}
 
 	@Override
 	public void register(ReplyCreateDTO dto) throws Exception {

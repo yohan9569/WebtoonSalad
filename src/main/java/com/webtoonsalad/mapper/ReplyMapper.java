@@ -14,6 +14,7 @@ import com.webtoonsalad.dto.ReplyDTO;
 public interface ReplyMapper {
 	
 	public List<ReplyDTO> getListWithPaging(@Param("cri") ReplyCriteria cri, @Param("tbl_wagle_id") Long tbl_wagle_id) throws SQLException;
+	public int getTotalCount(@Param("cri")ReplyCriteria cri, @Param("id") Long id);
 
 	public void insertSelectKeyReply(ReplyCreateDTO dto) throws SQLException;
 	public List<ReplyDTO> selectReplyList(@Param("tbl_wagle_id") Long tbl_wagle_id) throws SQLException;

@@ -5,6 +5,12 @@
   
 <mapper namespace="com.webtoonsalad.mapper.ReplyMapper">
 
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_reply
+		WHERE tbl_wagle_id = #{id}
+	</select>
+
     <select id="getListWithPaging" parameterType="map" resultType="com.webtoonsalad.dto.ReplyDTO">
         SELECT
             r.tbl_wagle_id,
