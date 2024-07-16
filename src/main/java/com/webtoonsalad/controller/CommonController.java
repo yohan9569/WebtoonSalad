@@ -1,15 +1,21 @@
 package com.webtoonsalad.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.webtoonsalad.mapper.UserMapper;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 public class CommonController {
+	
+	@Autowired
+	private UserMapper mapper;
 
 	@GetMapping("/customLogout")
 	public void logoutGET() {
@@ -17,17 +23,20 @@ public class CommonController {
 	}// end logout...
 
 	@GetMapping("/customLogin")
-	public void loginInput(String error, String logout, Model model) {
+	public String loginInput(String error, String logout, Model model) {
 		System.out.println("error" + error);
 		System.out.println("logout" + logout);
-
+		model.addAttribute("auth", mapper.read("manager0"));
+		
 		if (error != null) {
 			model.addAttribute("error", "Login Error check your Account");
 		} // end if
 
 		if (logout != null) {
-			model.addAttribute("logout", "LoginOut!! ");
+			return "redirect:/home";
 		} // end if
+		
+		return "customLogin";
 
 	}// end login..
 
