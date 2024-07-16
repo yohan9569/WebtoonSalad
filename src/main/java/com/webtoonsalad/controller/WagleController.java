@@ -14,6 +14,7 @@ import com.webtoonsalad.dto.Criteria;
 import com.webtoonsalad.dto.PageDTO;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleUpdateDTO;
+import com.webtoonsalad.service.ReplyService;
 import com.webtoonsalad.service.WagleService;
 
 import lombok.extern.log4j.Log4j;
@@ -25,6 +26,9 @@ public class WagleController {
 
 	@Autowired
 	private WagleService wagleService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@GetMapping("list")
 	public void list(Criteria cri, Model model) throws Exception {
@@ -55,6 +59,7 @@ public class WagleController {
 	public void get(@RequestParam("id") Long id, Model model) throws Exception {
 		log.info("detail");
 		model.addAttribute("detailList", wagleService.getDetailWagle(id));
+		model.addAttribute("replyList", replyService.getList(id));
 	}
 	
 	

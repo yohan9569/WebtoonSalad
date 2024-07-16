@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.webtoonsalad.mapper.ReplyMapper">
+
+	<select id="selectReplyList" resultType="com.webtoonsalad.dto.ReplyDTO">
+		SELECT
+			r.tbl_wagle_id,
+		    u.name,
+		    r.content,
+		    r.create_date,
+		    NVL(l.like_cnt, 0) AS recommend_cnt
+		FROM
+		    tbl_user u,
+		    tbl_reply r,
+		    (SELECT tbl_reply_id, COUNT(*) AS like_cnt
+		     FROM tbl_like_reply
+		     GROUP BY tbl_reply_id) l
+		WHERE
+		    r.tbl_user_id = u.id
+		    AND r.id = l.tbl_reply_id(+)
+		    AND r.tbl_wagle_id = #{tbl_wagle_id}
+	</select>
+
+</mapper>

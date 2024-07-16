@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class WagleServiceImple implements WagleService {
+public class WagleServiceImpl implements WagleService {
 	
 	@Autowired
 	private WagleMapper wagleMapper;
