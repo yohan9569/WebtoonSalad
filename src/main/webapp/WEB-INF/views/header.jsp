@@ -27,16 +27,21 @@
 		</div>
 		<div class="auth-buttons">
 			<sec:authorize access="isAnonymous()">
-				<button onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
+				<button
+					onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
 				<button onclick="location.href='signup.jsp'">회원가입</button>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<form action="${pageContext.request.contextPath}/customLogout"
-					method="post">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-					<button type="submit">로그아웃</button>
-				</form>
+				<div class="user-info">
+                    <span>
+                        <sec:authentication property="principal.member.name" />
+                        <!-- <sec:authentication property="principal.username" /> --> <!-- 유저 ID 가져옴 --> 
+                    </span>
+                    <form action="${pageContext.request.contextPath}/customLogout" method="post" style="display: inline;">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <button type="submit">로그아웃</button>
+                    </form>
+                </div>
 			</sec:authorize>
 		</div>
 	</header>
