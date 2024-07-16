@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.webtoonsalad.dto.ReplyCreateDTO;
+import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.ReplyDTO;
 import com.webtoonsalad.mapper.ReplyMapper;
 
@@ -20,9 +22,9 @@ public class ReplyServiceImpl implements ReplyService{
 	private ReplyMapper replyMapper;
 
 	@Override
-	public void register(ReplyDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void register(ReplyCreateDTO dto) throws Exception {
+		log.info("register" + dto);
+		replyMapper.insertSelectKeyReply(dto);
 	}
 
 	@Override
@@ -33,8 +35,14 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public boolean remove(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		log.info("remove" + id);
+		return replyMapper.deleteReply(id) == 1;
+	}
+
+	@Override
+	public List<ReplyDTO> getList(ReplyCriteria cri, Long tbl_wagle_id) throws Exception {
+		log.info("getList" + cri + ", " + tbl_wagle_id);
+		return replyMapper.getListWithPaging(cri, tbl_wagle_id);
 	}
 	
 	

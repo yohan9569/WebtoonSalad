@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.webtoonsalad.dto.Criteria;
 import com.webtoonsalad.dto.PageDTO;
+import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
+import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleUpdateDTO;
 import com.webtoonsalad.service.ReplyService;
 import com.webtoonsalad.service.WagleService;
@@ -31,10 +32,11 @@ public class WagleController {
 	private ReplyService replyService;
 	
 	@GetMapping("list")
-	public void list(Criteria cri, Model model) throws Exception {
-		log.info("list" + cri);
-		model.addAttribute("list", wagleService.getList(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, 123));
+	public void list(WagleCriteria wagleCri, Model model) throws Exception {
+		log.info("list" + wagleCri);
+		model.addAttribute("list", wagleService.getList(wagleCri));
+		int total = wagleService.getTotal(wagleCri);
+		model.addAttribute("pageMaker", new PageDTO(wagleCri, total));
 	}
 	
 	
@@ -44,7 +46,7 @@ public class WagleController {
 	}
 	
 	@PostMapping("register")
-	public String register(@ModelAttribute WagleCreateDTO dto, RedirectAttributes rttr, Criteria cri) throws Exception {
+	public String register(@ModelAttribute WagleCreateDTO dto, RedirectAttributes rttr, WagleCriteria cri) throws Exception {
 		log.info("register: " + dto);
 		
 		wagleService.register(dto);
@@ -56,10 +58,11 @@ public class WagleController {
 	
 	
 	@GetMapping("detail")
-	public void get(@RequestParam("id") Long id, Model model) throws Exception {
+	public void get(@RequestParam("id") Long id, ReplyCriteria replyCri, Model model) throws Exception {
 		log.info("detail");
 		model.addAttribute("detailList", wagleService.getDetailWagle(id));
-		model.addAttribute("replyList", replyService.getList(id));
+		model.addAttribute("replyList", replyService.getList(replyCri, id));
+		model.addAttribute("pageMaker", new PageDTO(replyCri, 123));
 	}
 	
 	

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.webtoonsalad.dto.Criteria;
+import com.webtoonsalad.dto.WagleCriteria;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,6 +20,6 @@ public class WagleGetListWithPagingTests {
 	
 	@Test
 	public void test() throws Exception {
-		wagleService.getList(new Criteria(1, 10)).forEach(wagle -> log.info(wagle));
+		wagleService.getList(new WagleCriteria(1, 10)).forEach(wagle -> log.info(wagle));
 	}
 }

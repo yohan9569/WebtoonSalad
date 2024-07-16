@@ -59,19 +59,19 @@
 			<div class="pageSection">
                 <ul class="pagiNation">
                     <c:if test="${pageMaker.prev}">
-                        <li class="paginateButton" onclick="location.href='list?pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.cri.amount}'">이전</li>
+                        <li class="paginateButton" onclick="location.href='list?pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.wagleCri.amount}'">이전</li>
                     </c:if>
                     <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                        <li class="paginateButton" onclick="location.href='list?pageNum=${num}&amount=${pageMaker.cri.amount}'">${num}</li>
+                        <li class="paginateButton" onclick="location.href='list?pageNum=${num}&amount=${pageMaker.wagleCri.amount}'">${num}</li>
                     </c:forEach>
                     <c:if test="${pageMaker.next}">
-                        <li class="paginateButton" onclick="location.href='list?pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.cri.amount}'">다음</li>
+                        <li class="paginateButton" onclick="location.href='list?pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.wagleCri.amount}'">다음</li>
                     </c:if>
                 </ul>
             </div>
 			<form id="actionForm" action="list" method="get">
-				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+				<input type="hidden" name="pageNum" value="${pageMaker.wagleCri.pageNum}">
+				<input type="hidden" name="amount" value="${pageMaker.wagleCri.amount}">
 			</form>
 		</div>
 		<div class="rightAd"></div>

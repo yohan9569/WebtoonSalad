@@ -8,6 +8,10 @@ h1 {
 	margin-bottom: 20px;
 }
 
+ul {
+	padding: 0;
+}
+
 a {
 	color: black;
 	text-decoration: none;
@@ -150,4 +154,26 @@ th {
 
 .replySection {
 	padding-top: 50px;
+}
+
+.replyList {
+	padding: 30px 0;
+}
+
+.pagiNation {
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+
+.paginateButton {
+	width: 40px;
+	height: 40px;
+	background: #eeeeee;
+	margin: 5px 2px;
+	border-radius: 5px;
+	list-style: none;
+	cursor: pointer;
+	text-align: center;
+    align-content: center;
 }

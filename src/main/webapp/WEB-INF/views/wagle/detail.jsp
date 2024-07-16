@@ -56,6 +56,7 @@
 				</div>
 				<div class="replySection">
 					<table>
+						<h3>댓글</h3>
 				        <c:forEach items="${replyList}" var="reply">
 							<tr>
 								<td><c:out value="${reply.name}" /></td>
@@ -67,6 +68,23 @@
 						</c:forEach>
 				    </table>
 				</div>
+				<div class="pageSection">
+	                <ul class="pagiNation">
+	                    <c:if test="${pageMaker.prev}">
+	                        <li class="paginateButton" onclick="location.href='detail?id=${detailList.id}&pageNum=${pageMaker.startPage - 1}&amount=${pageMaker.replyCri.amount}'">이전</li>
+	                    </c:if>
+	                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	                        <li class="paginateButton" onclick="location.href='detail?id=${detailList.id}&pageNum=${num}&amount=${pageMaker.replyCri.amount}'">${num}</li>
+	                    </c:forEach>
+	                    <c:if test="${pageMaker.next}">
+	                        <li class="paginateButton" onclick="location.href='detail?id=${detailList.id}&pageNum=${pageMaker.endPage + 1}&amount=${pageMaker.replyCri.amount}'">다음</li>
+	                    </c:if>
+	                </ul>
+	            </div>
+				<form id="actionForm" action="list" method="get">
+					<input type="hidden" name="pageNum" value="${pageMaker.replyCri.pageNum}">
+					<input type="hidden" name="amount" value="${pageMaker.replyCri.amount}">
+				</form>
 			</div>
 		</div>
 		<div class="rightAd"></div>
