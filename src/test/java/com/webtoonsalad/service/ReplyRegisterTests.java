@@ -6,20 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.webtoonsalad.dto.WagleCriteria;
+import com.webtoonsalad.dto.ReplyCreateDTO;
 
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class WagleGetListWithPagingTests {
+public class ReplyRegisterTests {
 
 	@Autowired
-	private WagleService wagleService;
+	private ReplyService replyService;
 	
 	@Test
-	public void test() throws Exception {
-		wagleService.getList(new WagleCriteria(1, 10)).forEach(wagle -> log.info(wagle));
+	public void test() throws Exception{
+		ReplyCreateDTO dto = new ReplyCreateDTO();
+		dto.setContent("댓글이다~");
+		dto.setWagle_id(6L);
+		
+		replyService.register(dto);
 	}
 }

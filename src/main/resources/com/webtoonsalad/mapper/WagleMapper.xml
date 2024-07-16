@@ -5,7 +5,12 @@
   
 <mapper namespace="com.webtoonsalad.mapper.WagleMapper">
 
-	<select id="selectWagleListWithPaging" parameterType="com.webtoonsalad.dto.Criteria" resultType="com.webtoonsalad.dto.WagleListDTO">
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_wagle
+	</select>
+
+	<select id="selectWagleListWithPaging" parameterType="com.webtoonsalad.dto.WagleCriteria" resultType="com.webtoonsalad.dto.WagleListDTO">
 		SELECT 
 		    ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
 		    w.id AS id,
