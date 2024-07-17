@@ -100,6 +100,19 @@ public class WagleController {
 		return "redirect:/wagle/detail?id=" + dto.getTbl_wagle_id();
 	}
 	
+	@PostMapping("reply/remove")
+	public String removeReply(@RequestParam("id") Long id, @RequestParam("tbl_wagle_id") Long tblWagleId, RedirectAttributes rttr) throws Exception {
+	    log.info("removeReply: " + id);
+
+	    if (replyService.remove(id)) {
+	        rttr.addFlashAttribute("result", "success");
+	    } else {
+	        rttr.addFlashAttribute("result", "failure");
+	    }
+
+	    return "redirect:/wagle/detail?id=" + tblWagleId;
+	}
+	
 	
 	@GetMapping("modify")
 	public String mofidy() {

@@ -16,5 +16,6 @@ public class ReplyDTO {
 	private Date create_date;
 	private Long recommend_cnt;
 	private Long tbl_wagle_id;
+	private String tbl_user_id;
 	
 }

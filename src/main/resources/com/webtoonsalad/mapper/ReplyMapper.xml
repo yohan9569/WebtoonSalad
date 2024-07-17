@@ -13,7 +13,9 @@
 
     <select id="getListWithPaging" parameterType="map" resultType="com.webtoonsalad.dto.ReplyDTO">
         SELECT
+        	r.id,
             r.tbl_wagle_id,
+            r.tbl_user_id,
             u.name,
             r.content,
             r.create_date,

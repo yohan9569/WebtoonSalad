@@ -39,7 +39,7 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public boolean remove(Long id) throws Exception {
-		log.info("remove" + id);
+		log.info("remove " + id);
 		return replyMapper.deleteReply(id) == 1;
 	}
 
