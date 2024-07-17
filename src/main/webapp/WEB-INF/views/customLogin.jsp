@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/customLogin.css">
 </head>
 <body>
+<<<<<<< HEAD
     <div class="login-container">
     	<div class="logo">
     		<img
@@ -48,6 +49,38 @@
 		    </div>
 		</aside>
     </div>
+=======
+
+	<h1>Custom Login Page</h1>
+	<h2>
+		<c:out value="${error}" />
+	</h2>
+	<h2>
+		<c:out value="${logout}" />
+	</h2>
+
+	<form method='post' action="/webtoonsalad/login">
+
+		<div>
+			<input type='text' name='username' value='manager0'>
+		</div>
+		<div>
+			<input type='password' name='password' value='pw0'>
+		</div>
+
+		<div>
+			<input type='checkbox' name='remember-me'> Remember Me
+		</div>
+
+		<div>
+			<input type='submit' value='로그인'>
+		</div>
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+
+	</form>
+
+>>>>>>> 6eed4649f887c59f27196f1d5c528808896df32a
 </body>
 </html>
 

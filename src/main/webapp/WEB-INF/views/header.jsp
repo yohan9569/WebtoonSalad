@@ -33,13 +33,13 @@
 			<sec:authorize access="isAnonymous()">
 				<button
 					onclick="location.href='${pageContext.request.contextPath}/customLogin'">로그인</button>
-				<button onclick="location.href='signup.jsp'">회원가입</button>
+				<button onclick="location.href='${pageContext.request.contextPath}/signup'">회원가입</button>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<div class="user-info">
-					<span> <sec:authentication property="principal.member.name" />
-						<!-- 유저 name 보여줌 --> <!-- <sec:authentication property="principal.username" /> -->
-						<!-- 유저 ID 보여줌 -->
+					<span> 
+						<sec:authentication property="principal.member.name" /> <!-- 유저 name 보여줌 --> 
+						<!-- <sec:authentication property="principal.username" /> --> <!-- 유저 ID 보여줌 -->
 					</span>
 					<form action="${pageContext.request.contextPath}/customLogout"
 						method="post" style="display: inline;">
