@@ -39,7 +39,6 @@ public class JJimController {
     public String getJJim(@RequestParam("userId") String userId, Model model) {
         List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
         String userName = userService.getUserNameById(userId);
-        System.out.println(userName);
         model.addAttribute("jjims", jjims);
         model.addAttribute("userId", userId);
         model.addAttribute("userName", userName);

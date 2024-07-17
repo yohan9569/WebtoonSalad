@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,10 +51,12 @@
 
 	                    <div class="webtoon-buttons">
 	                        <button class="detail-button" onclick="location.href='${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.webtoonId}'">웹툰 정보</button>
-	                        <button class="delete-button" onclick="deleteJJim('${userId}', '${webtoon.webtoonId}')">🗑</button>
-<%-- 	                        <sec:authorize access="principal.username eq '${userId}'"> --%>
-<%--                             	<button class="delete-button" onclick="deleteJJim('${webtoon.webtoonId}')">🗑</button> --%>
-<%--                         	</sec:authorize> --%>
+	                        <sec:authorize access="principal.username eq '${userId}'">
+                            	<button class="delete-button" onclick="deleteJJim('${userId}', '${webtoon.webtoonId}')">🗑</button>
+                        	</sec:authorize>
+                        	<sec:authorize access="principal.username ne '${userId}'">
+						        <button class="delete-button" style="visibility: hidden;">🗑</button>
+						    </sec:authorize>
 	                    </div>
 	                </div>
 	            </c:forEach>
@@ -70,8 +73,7 @@
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 	<script>
 	function deleteJJim(userId, webtoonId) {
-// 		var loggedInUserId = '<sec:authentication property="name" />';
-		var loggedInUserId = 'test1'; // 예비용. 추후 위 코드로.
+		var loggedInUserId = '<sec:authentication property="name" />';
 		if (userId === loggedInUserId) { // 추후 메서드 인가로 변경
 			if (confirm("정말 삭제하시겠습니까?")) {
 		        $.ajax({
@@ -81,7 +83,7 @@
 		            success: function(response) {
 		                if (response === "success") {
 		                    alert("삭제되었습니다.");
-		                    location.reload(); //reloadWebtoonList(loggedInUserId);
+		                    location.reload();
 		                } else {
 		                    alert("삭제에 실패했습니다.");
 		                }
@@ -95,8 +97,7 @@
 	}
 	
     function updateLastView(userId, webtoonId) {
-//     	var loggedInUserId = '<sec:authentication property="name" />';
-    	var loggedInUserId = 'test1'; // 예비용. 추후 위 코드로.
+    	var loggedInUserId = '<sec:authentication property="name" />';
         $.ajax({
             url: '${pageContext.request.contextPath}/jjim/updateLastView',
             type: 'POST',
