@@ -21,6 +21,7 @@ class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<!-- 누구나 접근 가능 -->
     <security:intercept-url pattern="/home"   access="permitAll" />
     <security:intercept-url pattern="/customLogin"   access="permitAll" />
+    <security:intercept-url pattern="/signup"   access="permitAll" />
     <security:intercept-url pattern="/wagle/detail"   access="permitAll" />
     <security:intercept-url pattern="/webtoon/**"   access="permitAll" />
     
