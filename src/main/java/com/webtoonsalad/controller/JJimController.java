@@ -45,7 +45,7 @@ public class JJimController {
         return "jjim/jjim";
     }
     
-    @GetMapping("/jjim/delete") //추후 Delete로 변경
+    @GetMapping("/jjim/delete")
     @ResponseBody
     public String deleteJJim(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
         System.out.println("deleteJJim 호출 성공");

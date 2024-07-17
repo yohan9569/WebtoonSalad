@@ -74,11 +74,11 @@
 	<script>
 	function deleteJJim(userId, webtoonId) {
 		var loggedInUserId = '<sec:authentication property="name" />';
-		if (userId === loggedInUserId) { // 추후 메서드 인가로 변경
+		if (userId === loggedInUserId) {
 			if (confirm("정말 삭제하시겠습니까?")) {
 		        $.ajax({
 		            url: '${pageContext.request.contextPath}/jjim/delete',
-		            type: 'GET', // 추후 DELETE로 변경
+		            type: 'GET',
 		            data: { userId: loggedInUserId, webtoonId: webtoonId },
 		            success: function(response) {
 		                if (response === "success") {
@@ -126,8 +126,8 @@
             type: 'GET',
             data: { userId: userId },
             success: function(response) {
-				// 응답을 파싱하여 필요한 부분을 추출합니다.
-                var tempDiv = $('<div>').html(response); // 응답을 임시로 div에 넣습니다.
+				// 응답을 파싱하여 필요한 부분을 추출
+                var tempDiv = $('<div>').html(response);
                 var newContent = tempDiv.find('#webtoonItems').html();
                 $('#webtoon-items').html(newContent);
             },
