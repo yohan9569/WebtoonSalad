@@ -6,4 +6,5 @@ import com.webtoonsalad.dto.UserDTO;
 
 public interface UserService {
 	List<UserDTO> searchUsersByNickname(String keyword);
+	String getUserNameById(String userId);
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.webtoonsalad.dto.JJimDTO;
 import com.webtoonsalad.service.JJimService;
+import com.webtoonsalad.service.UserService;
 import com.webtoonsalad.service.WebtoonServiceImpl;
 
 
@@ -23,10 +24,12 @@ import com.webtoonsalad.service.WebtoonServiceImpl;
 public class JJimController {
 
     private final JJimService jjimService;
+    private final UserService userService;
 
     @Autowired
-    public JJimController(JJimService jjimService) {
+    public JJimController(JJimService jjimService, UserService userService) {
         this.jjimService = jjimService;
+        this.userService = userService;
     }
     
     @Autowired
@@ -35,8 +38,11 @@ public class JJimController {
     @GetMapping("/jjim")
     public String getJJim(@RequestParam("userId") String userId, Model model) {
         List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
+        String userName = userService.getUserNameById(userId);
+        System.out.println(userName);
         model.addAttribute("jjims", jjims);
         model.addAttribute("userId", userId);
+        model.addAttribute("userName", userName);
         return "jjim/jjim";
     }
     

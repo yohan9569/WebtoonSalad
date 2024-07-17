@@ -16,6 +16,13 @@ main {
     margin-bottom: 20px;
 }
 
+.user-name {
+    color: #FFBC00;
+}
+.jjim-text {
+    color: #4CAF50;
+}
+
 .user-search-bar {
     position: relative;
     display: flex;

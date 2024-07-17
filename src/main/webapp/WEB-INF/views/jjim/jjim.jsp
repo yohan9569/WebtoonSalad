@@ -10,7 +10,7 @@
 	<main>
 	<jsp:include page="/WEB-INF/views/aside.jsp" />
 	<section class="jjim-list">
-	    <h1>찜한 웹툰</h1>
+	    <h1><span class="user-name">${userName}</span> 님의 <span class="jjim-text">찜</span>한 웹툰</h1>
 	    <div class="user-search-bar">
 		    <input type="text" id="userSearchInput" placeholder="친구 찜꽁 구경하기">
     		<div class="results" id="userSearchResults"></div>

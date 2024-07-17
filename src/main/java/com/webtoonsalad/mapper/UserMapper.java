@@ -10,5 +10,6 @@ import com.webtoonsalad.dto.UserDTO;
 @Mapper
 public interface UserMapper {
     List<UserDTO> findUsersByNickname(String keyword);
+    String getUserNameById(String userId);
     public UserDTO read(String id);
 }

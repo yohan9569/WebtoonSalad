@@ -9,6 +9,12 @@
         FROM tbl_user
         WHERE name LIKE '%' || #{keyword} || '%'
     </select>
+    
+    <select id="getUserNameById" resultType="String">
+        SELECT name
+        FROM tbl_user
+        WHERE id = #{userId}
+    </select>
 
 	<resultMap type="com.webtoonsalad.dto.UserDTO" id="userMap">
 		<id property="id" column="id" />
