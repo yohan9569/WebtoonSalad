@@ -22,10 +22,10 @@ header {
 /*     color: #4CAF50; */
 /* } */
 
-/* .logo .logo-image { */
-/*     margin-right: 10px; */
-/*     height: 100px; */
-/* } */
+.logo .icon-logo-image {
+    margin-right: 10px;
+    height: 60px;
+}
 
 .logo .text-logo-image {
     margin-right: 10px;
