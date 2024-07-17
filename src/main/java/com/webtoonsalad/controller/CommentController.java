@@ -17,10 +17,10 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/write")
-    public ResponseEntity<String> writeComment(@RequestParam String content, 
+    public ResponseEntity<String> writeComment(@RequestParam String content, @RequestParam("userId") String userId, 
                                                @RequestParam String webtoonId) {
         try {
-        	String userId = "test2"; 
+//        	String userId = "test2"; 
             commentService.writeComment(content, userId, webtoonId);
             return ResponseEntity.ok("Comment added successfully");
         } catch (Exception e) {
@@ -29,9 +29,9 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteComment(@RequestParam String webtoonId) {
+    public ResponseEntity<String> deleteComment(@RequestParam("userId") String userId, @RequestParam String webtoonId) {
         try {
-        	String userId = "test2";
+//        	String userId = "test2";
             commentService.deleteComment(userId, webtoonId);
             return ResponseEntity.ok("Comment deleted successfully");
         } catch (Exception e) {
@@ -40,10 +40,10 @@ public class CommentController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> editComment(@RequestParam String content, 
+    public ResponseEntity<String> editComment(@RequestParam String content, @RequestParam("userId") String userId,
                                               @RequestParam String webtoonId) {
         try {
-        	String userId = "test2";
+//        	String userId = "test2";
             commentService.editComment(content, userId, webtoonId);
             return ResponseEntity.ok("Comment edited successfully");
         } catch (Exception e) {
@@ -52,9 +52,9 @@ public class CommentController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam String webtoonId) {
+    public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam("userId") String userId, @RequestParam String webtoonId) {
         try {
-        	String userId = "test2";
+//        	String userId = "test2";
             List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
             return ResponseEntity.ok(comments);
         } catch (Exception e) {
@@ -63,9 +63,9 @@ public class CommentController {
     }
 
     @GetMapping("/mycomment")
-    public ResponseEntity<CommentDTO> getMyComment(@RequestParam String webtoonId) {
+    public ResponseEntity<CommentDTO> getMyComment(@RequestParam("userId") String userId, @RequestParam String webtoonId) {
         try {
-        	String userId = "test2";
+//        	String userId = "test2";
             CommentDTO content = commentService.getMyComment(userId, webtoonId);
             return ResponseEntity.ok(content);
         } catch (Exception e) {

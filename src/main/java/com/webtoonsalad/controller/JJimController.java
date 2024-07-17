@@ -65,8 +65,8 @@ public class JJimController {
     
     @RequestMapping(value = "/jjim/toggleJjim", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> toggleJJim(@RequestParam("webtoonId") String webtoonId) {
-        String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test2로 설정
+    public Map<String, Object> toggleJJim(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
+        //String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test2로 설정
         Map<String, Object> response = new HashMap<>();
         try {
             boolean jjimExists;

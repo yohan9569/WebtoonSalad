@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.webtoonsalad.dto.CommentDTO;
+import com.webtoonsalad.dto.LikeCommentDTO;
 
 @Mapper
 public interface CommentMapper {
@@ -24,4 +25,5 @@ public interface CommentMapper {
 
 	// 특정 사용자의 한줄평 조회
 	CommentDTO getMyComment(@Param("userId") String userId, @Param("webtoonId") String webtoonId);
+	
 }
