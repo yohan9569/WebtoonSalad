@@ -68,7 +68,7 @@ public class JJimController {
     }
     
     
-    @RequestMapping(value = "/jjim/toggleJjim", method = RequestMethod.GET)
+    @RequestMapping(value = "/webtoonsalad/jjim/toggleJjim", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> toggleJJim(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
         //String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test2로 설정

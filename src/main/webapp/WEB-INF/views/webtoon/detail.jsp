@@ -1,245 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>웹툰 샐러드</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/webtoon/detail.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/footer.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/aside.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-function toggleJjim(webtoonId) {
-    console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
-    const toggleUrl = "${pageContext.request.contextPath}/jjim/toggleJjim?webtoonId=" + webtoonId;
-    console.log("Toggle URL: " + toggleUrl); // 경로 확인용 로그 출력
+    <meta charset="UTF-8">
+    <title>웹툰 샐러드</title>
+    <link rel="stylesheet" type="text/css"
+        href="${pageContext.request.contextPath}/css/webtoon/detail.css">
+    <link rel="stylesheet" type="text/css"
+        href="${pageContext.request.contextPath}/css/header.css">
+    <link rel="stylesheet" type="text/css"
+        href="${pageContext.request.contextPath}/css/footer.css">
+    <link rel="stylesheet" type="text/css"
+        href="${pageContext.request.contextPath}/css/aside.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const userId = '${userId}';
+        const webtoonId = "${detail.id}";
 
-    $.get(toggleUrl, function(response) {
-        console.log("Response: ", response); // 응답 확인용 로그 출력
+        //CSRF 토큰 설정
+        const csrfToken = '${_csrf.token}';
+        const csrfHeader = '${_csrf.headerName}';
 
-        if (response.error) {
-            console.log("Error: " + response.error);
-            return;
-        }
-
-        let button = $("button.btn-jjim");
-
-        if (response.jjimExists) {
-            button.html("찜꽁 ❤️ " + response.jjimCount);
-        } else {
-            button.html("찜꽁 🤍 " + response.jjimCount);
-        }
-    });
-}
-
-function addComment(webtoonId) {
-    const commentContent = $('#newComment').val();
-    if (!commentContent) {
-        alert('한줄평을 입력해주세요.');
-        return;
-    }
-
-    $.ajax({
-        url: '${pageContext.request.contextPath}/comments/write',
-        type: 'Post',
-        data: {
-            content: commentContent,
-            webtoonId: webtoonId
-        },
-        success: function(response) {
-            alert('한줄평이 성공적으로 추가되었습니다.');
-            // 입력 창 새로고침
-            $('#newComment').val('');
-            $('#commentInputSection').hide(); // 한줄평 입력 섹션 숨기기
-            loadComments(webtoonId); // 한줄평 목록 새로고침
-        },
-        error: function(xhr, status, error) {
-            alert('한줄평 추가에 실패했습니다: ' + xhr.responseText);
-        }
-    });
-}
-
-function loadComments(webtoonId) {
-    getMyComment(webtoonId, function(comment) {
-        let commentsList = $('#commentsList');
-        commentsList.empty(); // 기존 한줄평 목록 삭제
-
-        if (comment) {
-            getLikeCount(comment.id, function(likeCount) {
-                commentsList.append(
-                    '<div class="comment"><strong>내 한줄평:</strong> ' + comment.content +
-                    ' <span class="like-count">좋아요: ' + likeCount + '</span>' +
-                    ' <button class="btn-like" data-comment-id="' + comment.id + '">😑</button>' +
-                    ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' +
-                    ' <button class="btn-delete">삭제</button></div>'
-                );
-
-                $('.btn-like').click(function() {
-                    const commentId = $(this).data('comment-id');
-                    const button = $(this);
-                    toggleLike(commentId, function(response) {
-                        alert(response.message);
-                        if (response.status === "liked") {
-                            button.text('😍');
-                        } else if (response.status === "unliked") {
-                            button.text('😑');
-                        }
-                        // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
-                        getLikeCount(commentId, function(newLikeCount) {
-                            button.siblings('.like-count').text('좋아요: ' + newLikeCount);
-                        });
-                    });
-                });
-
-                $('.btn-edit').click(function() {
-                    const commentContent = $(this).data('content');
-                    const newContent = prompt('수정할 내용을 입력하세요:', commentContent);
-                    if (newContent !== null) {
-                        editComment(newContent, webtoonId);
-                    }
-                });
-
-                $('.btn-delete').click(function() {
-                    if (confirm('정말로 이 한줄평을 삭제하시겠습니까?')) {
-                        deleteComment(webtoonId);
-                    }
-                });
+        $(document).ready(function() {
+            $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                }
             });
-        } else {
-            $('#commentInputSection').show(); // 한줄평 입력 섹션 표시
-            $('#addComment').off('click').on('click', function() {
-                addComment(webtoonId);
+            loadComments(userId, webtoonId); // 페이지 로드 시 한줄평 목록을 불러옴
+            $('#addComment').click(function() {
+                addComment(userId, webtoonId);
+            });
+            $('.btn-ad').click(function() {
+                loadCommentsExceptMine(userId, webtoonId);
+            });
+        });
+
+        function toggleJjim(userId, webtoonId) {
+            if (!userId || userId === "guest") {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+            console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
+            const toggleUrl = `${pageContext.request.contextPath}/webtoonsalad/jjim/toggleJjim?userId=${userId}&webtoonId=${detail.id}`;
+            console.log("Toggle URL: " + toggleUrl);
+
+            $.get(toggleUrl, function(response) {
+                console.log("Response: ", response); // 응답 확인용 로그 출력
+
+                if (response.error) {
+                    console.log("Error: " + response.error);
+                    return;
+                }
+
+                let button = $("button.btn-jjim");
+
+                if (response.jjimExists) {
+                    button.html("찜꽁 ❤️ " + response.jjimCount);
+                } else {
+                    button.html("찜꽁 🤍 " + response.jjimCount);
+                }
             });
         }
-    });
-}
 
-function getMyComment(webtoonId, callback) {
-    $.ajax({
-        url: `${pageContext.request.contextPath}/comments/mycomment`,
-        type: 'GET',
-        data: {
-            webtoonId: webtoonId
-        },
-        success: function(response) {
-            callback(response);
-        },
-        error: function(xhr, status, error) {
-            alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+        function addComment(userId, webtoonId) {
+            alert('userId: ' + userId);
+            alert('webtoonId: ' + webtoonId);
+            const commentContent = $('#newComment').val();
+            if (!commentContent) {
+                alert('한줄평을 입력해주세요.');
+                return;
+            }
+
+            $.ajax({
+                url: '${pageContext.request.contextPath}/comments/write',
+                type: 'POST',
+                data: {
+                    content: commentContent,
+                    userId: userId,
+                    webtoonId: webtoonId
+                },
+                success: function(response) {
+                    alert('한줄평이 성공적으로 추가되었습니다.');
+                    // 입력 창 새로고침
+                    $('#newComment').val('');
+                    $('#commentInputSection').hide(); // 한줄평 입력 섹션 숨기기
+                    loadComments(userId, webtoonId); // 한줄평 목록 새로고침
+                },
+                error: function(xhr, status, error) {
+                    alert('한줄평 추가에 실패했습니다: ' + xhr.responseText);
+                }
+            });
         }
-    });
-}
 
-function getLikeCount(commentId, callback) {
-    $.ajax({
-        url: `${pageContext.request.contextPath}/comments/likes/count`,
-        type: 'GET',
-        data: {
-            commentId: commentId
-        },
-        success: function(response) {
-            callback(response);
-        },
-        error: function(xhr, status, error) {
-            alert('좋아요 수를 불러오는 데 실패했습니다: ' + xhr.responseText);
-        }
-    });
-}
+        function loadComments(userId, webtoonId) {
+            getMyComment(userId, webtoonId, function(comment) {
+                let commentsList = $('#commentsList');
+                commentsList.empty(); // 기존 한줄평 목록 삭제
 
-function toggleLike(commentId, callback) {
-    $.ajax({
-        url: `${pageContext.request.contextPath}/comments/likes/toggle`,
-        type: 'POST',
-        data: {
-            userId: 'test2', // 현재 사용자의 ID로 대체해야 함
-            commentId: commentId
-        },
-        success: function(response) {
-            callback(response);
-        },
-        error: function(xhr, status, error) {
-            alert('좋아요 상태를 변경하는 데 실패했습니다: ' + xhr.responseText);
-        }
-    });
-}
-
-
-function deleteComment(webtoonId) {
-    $.ajax({
-        url: `${pageContext.request.contextPath}/comments/delete`,
-        type: 'Delete',
-        data: {
-            webtoonId: webtoonId
-        },
-        success: function(response) {
-            alert('한줄평이 성공적으로 삭제되었습니다.');
-            loadComments(webtoonId); // 한줄평 목록 새로고침
-        },
-        error: function(xhr, status, error) {
-            alert('한줄평 삭제에 실패했습니다: ' + xhr.responseText);
-        }
-    });
-}
-
-function editComment(content, webtoonId) {
-    $.ajax({
-        url: `${pageContext.request.contextPath}/comments/edit`,
-        type: 'Put',
-        data: {
-            webtoonId: webtoonId,
-            content: content
-        },
-        success: function(response) {
-            alert('한줄평이 성공적으로 수정되었습니다.');
-            loadComments(webtoonId); // 한줄평 목록 새로고침
-        },
-        error: function(xhr, status, error) {
-            alert('한줄평 수정에 실패했습니다: ' + xhr.responseText);
-        }
-    });
-}
-
-function loadCommentsExceptMine(webtoonId) {
-    $.ajax({
-        url: `${pageContext.request.contextPath}/comments/list`,
-        type: 'GET',
-        data: {
-            webtoonId: webtoonId,
-        },
-        success: function(response) {
-            let commentsList = $('<div></div>'); // 새로운 div 생성하여 한줄평 목록 저장
-            if (response.length > 0) {
-                response.forEach(function(comment) {
-                    const userName = comment.user ? comment.user.name : 'Unknown';
+                if (comment) {
                     getLikeCount(comment.id, function(likeCount) {
-                        commentsList.append(
-                            '<div class="review-card">' +
-                            '<div class="user-info">' +
-                            '<div class="username">' + userName + '</div>' +
-                            '</div>' +
-                            '<div class="review-text">' + comment.content + '</div>' + // comment content 추가
-                            '<div class="like-section">' +
-                            '<span class="like-count">좋아요: ' + likeCount + '</span>' +
-                            ' <button class="btn-like" data-comment-id="' + comment.id + '">😑</button>' +
-                            '</div>' +
-                            '</div>'
-                        );
+                        commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + comment.content + ' <span class="like-count">좋아요: ' + likeCount + '</span>' + ' <button class="btn-like" data-comment-id="' + comment.id + '">😑</button>' + ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' + ' <button class="btn-delete">삭제</button></div>');
 
-                        $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
-                        $('.review-card').show(); // review-card 요소를 모두 보이도록 설정
-                        $('.btn-ad').hide(); // btn-ad 버튼 숨기기
-                        
-                        $('.btn-like').off('click').on('click', function() {
+                        $('.btn-like').click(function() {
                             const commentId = $(this).data('comment-id');
                             const button = $(this);
-                            toggleLike(commentId, function(response) {
+                            toggleLike(commentId, userId, function(response) {
                                 alert(response.message);
                                 if (response.status === "liked") {
                                     button.text('😍');
@@ -252,134 +120,281 @@ function loadCommentsExceptMine(webtoonId) {
                                 });
                             });
                         });
+
+                        $('.btn-edit').click(function() {
+                            console.log('댓글 수정 버튼 클릭됨');
+                            const commentContent = $(this).data('content');
+                            console.log('기존 댓글 내용:', commentContent);
+                            const newContent = prompt('수정할 내용을 입력하세요:', commentContent);
+                            console.log('새로운 댓글 내용:', newContent);
+                            if (newContent === null || newContent.trim() === '') {
+                                console.log('null값임');
+                                alert('null값임');
+                            } else {
+                                editComment(newContent, userId, webtoonId);
+                            }
+                        });
+
+                        $('.btn-delete').click(function() {
+                            if (confirm('정말로 이 한줄평을 삭제하시겠습니까?')) {
+                                alert('userid: ' + userId);
+                                deleteComment(userId, webtoonId);
+                            }
+                        });
                     });
-                });
-            } else {
-                commentsList.append('<div class="no-comments">한줄평이 없습니다.</div>');
-                $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
-                $('.btn-ad').hide(); // btn-ad 버튼 숨기기
-            }
-        },
-        error: function(xhr, status, error) {
-            alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+                } else {
+                    $('#commentInputSection').show(); // 한줄평 입력 섹션 표시
+                    $('#addComment').off('click').on('click', function() {
+                        addComment(userId, webtoonId);
+                    });
+                }
+            });
         }
-    });
-}
 
-
-function updateLastView(userId, webtoonId) {
-// 	var loggedInUserId = '<sec:authentication property="name" />';
-	var loggedInUserId = 'test2'; // 예비용. 추후 위 코드로.
-    $.ajax({
-        url: '${pageContext.request.contextPath}/jjim/updateLastView',
-        type: 'POST',
-        data: { 
-            userId: loggedInUserId, 
-            webtoonId: webtoonId,
-            _csrf: '${_csrf.token}' // CSRF 토큰 추가
-        },
-        success: function(response) {
-            if (response === "success") {
-            	if (userId === loggedInUserId)
-                    reloadWebtoonList(userId); // 웹툰 목록을 다시 불러옵니다.
-            } else {
-                alert("lastview 업데이트에 실패했습니다.");
-            }
-        },
-        error: function(xhr, status, error) {
-            alert("lastview 업데이트 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+        function getMyComment(userId, webtoonId, callback) {
+            $.ajax({
+                url: `${pageContext.request.contextPath}/comments/mycomment`,
+                type: 'GET',
+                data: {
+                    userId: userId,
+                    webtoonId: webtoonId
+                },
+                success: function(response) {
+                    callback(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+                }
+            });
         }
-    });
-}
 
-function reloadWebtoonList(userId) {
-    $.ajax({
-        url: '${pageContext.request.contextPath}/jjim/list',
-        type: 'GET',
-        data: { userId: userId },
-        success: function(response) {
-			// 응답을 파싱하여 필요한 부분을 추출합니다.
-            var tempDiv = $('<div>').html(response); // 응답을 임시로 div에 넣습니다.
-            var newContent = tempDiv.find('#webtoonItems').html();
-            $('#webtoon-items').html(newContent);
-        },
-        error: function(xhr, status, error) {
-            alert("웹툰 목록을 불러오는 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+        function getLikeCount(commentId, callback) {
+            $.ajax({
+                url: `${pageContext.request.contextPath}/comments/likes/count`,
+                type: 'GET',
+                data: {
+                    commentId: commentId
+                },
+                success: function(response) {
+                    callback(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('좋아요 수를 불러오는 데 실패했습니다: ' + xhr.responseText);
+                }
+            });
         }
-    });
-}
 
-$(document).ready(function() {
-    const webtoonId = `${detail.id}`;
-    loadComments(webtoonId); // 페이지 로드 시 한줄평 목록을 불러옴
-    $('#addComment').click(function() {
-        addComment(webtoonId);
-    });
-    $('.btn-ad').click(function() {
-        loadCommentsExceptMine(webtoonId);
-    });
-});
+        function toggleLike(commentId, userId, callback) {
+            $.ajax({
+                url: `${pageContext.request.contextPath}/comments/likes/toggle`,
+                type: 'POST',
+                data: {
+                    userId: userId, // 현재 사용자의 ID로 대체
+                    commentId: commentId
+                },
+                success: function(response) {
+                    callback(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('좋아요 상태를 변경하는 데 실패했습니다: ' + xhr.responseText);
+                }
+            });
+        }
 
-</script>
+        function deleteComment(userId, webtoonId) {
+            $.ajax({
+                url: `${pageContext.request.contextPath}/comments/delete`,
+                type: 'POST',
+                data: {
+                    userId: userId,
+                    webtoonId: webtoonId
+                },
+                success: function(response) {
+                    alert('한줄평이 성공적으로 삭제되었습니다.');
+                    loadComments(userId, webtoonId); // 한줄평 목록 새로고침
+                },
+                error: function(xhr, status, error) {
+                    alert('한줄평 삭제에 실패했습니다: ' + xhr.responseText);
+                }
+            });
+        }
+
+        function editComment(content, userId, webtoonId) {
+            $.ajax({
+                url: `${pageContext.request.contextPath}/comments/edit`,
+                type: 'POST',
+                data: {
+                    userId: userId,
+                    webtoonId: webtoonId,
+                    content: content
+                },
+                success: function(response) {
+                    alert('한줄평이 성공적으로 수정되었습니다.');
+                    loadComments(userId, webtoonId); // 한줄평 목록 새로고침
+                },
+                error: function(xhr, status, error) {
+                    alert('한줄평 수정에 실패했습니다: ' + xhr.responseText);
+                }
+            });
+        }
+
+
+        function loadCommentsExceptMine(userId, webtoonId) {
+            $.ajax({
+                url: `${pageContext.request.contextPath}/comments/list`,
+                type: 'GET',
+                data: {
+                    userId: userId,
+                    webtoonId: webtoonId,
+                },
+                success: function(response) {
+                    let commentsList = $('<div></div>'); // 새로운 div 생성하여 한줄평 목록 저장
+                    if (response.length > 0) {
+                        response.forEach(function(comment) {
+                            const userName = comment.user ? comment.user.name : 'Unknown';
+                            getLikeCount(comment.id, function(likeCount) {
+                                commentsList.append('<div class="review-card">' + '<div class="user-info">' + '<div class="username">' + userName + '</div>' + '</div>' + '<div class="review-text">' + comment.content + '</div>' + // comment content 추가
+                                    '<div class="like-section">' + '<span class="like-count">좋아요: ' + likeCount + '</span>' + ' <button class="btn-like" data-comment-id="' + comment.id + '">😑</button>' + '</div>' + '</div>');
+
+                                $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
+                                $('.review-card').show(); // review-card 요소를 모두 보이도록 설정
+                                $('.btn-ad').hide(); // btn-ad 버튼 숨기기
+
+                                $('.btn-like').off('click').on('click', function() {
+                                    const commentId = $(this).data('comment-id');
+                                    const button = $(this);
+                                    toggleLike(commentId, userId, function(response) {
+                                        alert(response.message);
+                                        if (response.status === "liked") {
+                                            button.text('😍');
+                                        } else if (response.status === "unliked") {
+                                            button.text('😑');
+                                        }
+                                        // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
+                                        getLikeCount(commentId, function(newLikeCount) {
+                                            button.siblings('.like-count').text('좋아요: ' + newLikeCount);
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    } else {
+                        commentsList.append('<div class="no-comments">한줄평이 없습니다.</div>');
+                        $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
+                        $('.btn-ad').hide(); // btn-ad 버튼 숨기기
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
+                }
+            });
+        }
+
+        function updateLastView(userId, webtoonId) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/jjim/updateLastView',
+                type: 'POST',
+                data: {
+                    userId: userId,
+                    webtoonId: webtoonId,
+                    _csrf: '${_csrf.token}' // CSRF 토큰 추가
+                },
+                success: function(response) {
+                    if (response === "success") {
+                        reloadWebtoonList(userId); // 웹툰 목록을 다시 불러옵니다.
+                    } else {
+                        alert("lastview 업데이트에 실패했습니다.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("lastview 업데이트 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+                }
+            });
+        }
+
+        function reloadWebtoonList(userId) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/jjim/list',
+                type: 'GET',
+                data: {
+                    userId: userId
+                },
+                success: function(response) {
+                    var tempDiv = $('<div>').html(response); // 응답을 임시로 div에 넣습니다.
+                    var newContent = tempDiv.find('#webtoonItems').html();
+                    $('#webtoon-items').html(newContent);
+                },
+                error: function(xhr, status, error) {
+                    alert("웹툰 목록을 불러오는 중 오류가 발생했습니다. 상태: " + status + ", 오류: " + error);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp" />
-	<main>
-	<jsp:include page="/WEB-INF/views/aside.jsp" />
-	<section class="webtoon-detail">
-		<h1>웹툰</h1>
-		<div class="webtoon-info">
-			<div class="thumbnail-container">
-				<img src="${detail.thumbnail1}" alt="thumbnail 1" class="thumbnail">
-				<c:if test="${not empty detail.thumbnail2}">
-					<img src="${detail.thumbnail2}" alt="thumbnail 2" class="thumbnail">
-				</c:if>
-			</div>
-			<div class="details">
-				<p>${detail.provider}</p>
-				<h2>${detail.title}</h2>
-				<p>연재 요일 | ${detail.updateDays}</p>
-				<p>글/그림 | ${detail.authors}</p>
-				<c:if test="${detail.isAdult == 1}">
-					<p>청소년 관람불가</p>
-				</c:if>
-				<c:if test="${detail.freeWaitHour == 1}">
-					<p>기다리면 무료</p>
-				</c:if>
-				<p>최근 업로드 일자 | ${detail.lastUp}</p>
-				<c:choose>
-					<c:when test="${jjimExists}">
-						<button class="btn-jjim" onclick="toggleJjim('${detail.id}')">찜꽁
-							❤️ ${detail.jjimCount}</button>
-					</c:when>
-					<c:otherwise>
-						<button class="btn-jjim" onclick="toggleJjim('${detail.id}')">찜꽁
-							🤍 ${detail.jjimCount}</button>
-					</c:otherwise>
-				</c:choose>
-				<button class="btn-view" onclick="updateLastView('${userId}', '${detail.id}'); window.open('${detail.url}', '_blank');">바로 보기</button>
-			</div>
-		</div>
-		<div class="comments-section">
-			<div id="commentInputSection" class="input-section"
-				style="display: none;">
-				<input type="text" id="newComment" placeholder="한줄평 입력">
-				<button id="addComment">추가</button>
-			</div>
-			<div id="commentsList"></div>
-		</div>
-		<div class="ad-placeholder" id="ad-placeholder">
-			<button class="btn-ad">스포 방지 버튼</button>
-		</div>
-		<!-- <div id="reviews-container">
-			<div class="review-stats">
-				<div class="likes"></div>
-			</div>
-			<div class="like-button">좋아요</div>
-		</div> -->
-	</section>
-	</main>
-	<aside class="sidebar right-sidebar"></aside>
-	<jsp:include page="/WEB-INF/views/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/header.jsp" />
+    <main>
+        <jsp:include page="/WEB-INF/views/aside.jsp" />
+        <section class="webtoon-detail">
+            <p>User ID: ${userId}</p>
+            <p>webtoon ID: ${detail.id}</p>
+            <h1>웹툰</h1>
+            <div class="webtoon-info">
+                <div class="thumbnail-container">
+                    <img src="${detail.thumbnail1}" alt="thumbnail 1" class="thumbnail">
+                    <c:if test="${not empty detail.thumbnail2}">
+                        <img src="${detail.thumbnail2}" alt="thumbnail 2" class="thumbnail">
+                    </c:if>
+                </div>
+                <div class="details">
+                    <p>${detail.provider}</p>
+                    <h2>${detail.title}</h2>
+                    <p>연재 요일 | ${detail.updateDays}</p>
+                    <p>글/그림 | ${detail.authors}</p>
+                    <c:if test="${detail.isAdult == 1}">
+                        <p>청소년 관람불가</p>
+                    </c:if>
+                    <c:if test="${detail.freeWaitHour == 1}">
+                        <p>기다리면 무료</p>
+                    </c:if>
+                    <p>최근 업로드 일자 | ${detail.lastUp}</p>
+
+                    <c:choose>
+                        <c:when test="${userId == 'guest'}">
+                            <button class="btn-jjim"
+                                onclick="toggleJjim('${userId}', '${detail.id}')">찜꽁 🤍
+                                ${detail.jjimCount}</button>
+                        </c:when>
+                        <c:when test="${jjimExists}">
+                            <button class="btn-jjim"
+                                onclick="toggleJjim('${userId}', '${detail.id}')">찜꽁 ❤️
+                                ${detail.jjimCount}</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="btn-jjim"
+                                onclick="toggleJjim('${userId}', '${detail.id}')">찜꽁 🤍
+                                ${detail.jjimCount}</button>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <button class="btn-view"
+                        onclick="updateLastView('${userId}', '${detail.id}'); window.open('${detail.url}', '_blank');">바로
+                        보기</button>
+                </div>
+            </div>
+            <div class="comments-section">
+                <div id="commentInputSection" class="input-section" style="display: none;">
+                    <input type="text" id="newComment" placeholder="한줄평 입력">
+                    <button id="addComment">추가</button>
+                </div>
+                <div id="commentsList"></div>
+            </div>
+            <div class="ad-placeholder" id="ad-placeholder">
+                <button class="btn-ad">스포 방지 버튼</button>
+            </div>
+        </section>
+    </main>
+    <aside class="sidebar right-sidebar"></aside>
+    <jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>
 </html>

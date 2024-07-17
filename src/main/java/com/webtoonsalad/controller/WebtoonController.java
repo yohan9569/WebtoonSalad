@@ -1,5 +1,6 @@
 package com.webtoonsalad.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,18 +50,21 @@ public class WebtoonController {
 	}
 	
 	@GetMapping("/webtoon/detail")
-    public String getWebtoonDetail(@RequestParam("id") String id, Model model) throws Exception {
+    public String getWebtoonDetail(@RequestParam("id") String id, Principal principal, Model model) throws Exception {
         try {
             WebtoonDTO webtoon = webtoonService.getDetail(id);
-            String userId = "test2"; // 로그인 시스템이 없으므로 user_id를 test2로 설정
+            String userId = (principal != null) ? principal.getName() : "guest"; // 로그인 여부 확인
+            System.out.println("사용자 아이디~~~~~~~~~~~~~~"+ userId);
             boolean jjimExists = jjimService.checkJJimExists(userId, id);
             model.addAttribute("detail", webtoon);
             model.addAttribute("jjimExists", jjimExists);
+            model.addAttribute("userId", userId);
             return "webtoon/detail";
         } catch (Exception e) {
-        	throw e;
+            throw e;
         }
     }
+
 	
 	@PostMapping("/webtoon/updateLastView")
     @ResponseBody

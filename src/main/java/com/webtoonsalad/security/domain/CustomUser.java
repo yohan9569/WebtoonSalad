@@ -1,6 +1,7 @@
 package com.webtoonsalad.security.domain;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +19,7 @@ public class CustomUser extends User{
     private static final long serialVersionUID = 1L;
    
     private UserDTO member;
-   
+    
     public CustomUser(String id, String pw, Collection<? extends GrantedAuthority> authorities) {
         super(id, pw, authorities);
     }//end CustomUser...

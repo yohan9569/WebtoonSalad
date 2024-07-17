@@ -7,8 +7,8 @@
 
 	<insert id="writeComment" parameterType="map">
 		INSERT INTO tbl_comment
-		(content, tbl_user_id, tbl_webtoon_id)
-		VALUES (#{content}, #{userId}, #{webtoonId})
+		(content, tbl_user_id, tbl_webtoon_id,create_date)
+		VALUES (#{content}, #{userId}, #{webtoonId},sysdate)
 	</insert>
 
 	<delete id="deleteComment" parameterType="map">
