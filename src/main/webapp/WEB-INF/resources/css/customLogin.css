@@ -44,6 +44,17 @@ body {
     color: #333333;
 }
 
+.err-msg {
+    color: #fff;
+    background-color: #ff4d4d; /* 빨간색 배경 */
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .input-group {
     margin-bottom: 20px;
     text-align: left;

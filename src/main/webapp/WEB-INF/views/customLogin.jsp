@@ -19,6 +19,9 @@
 		</div>
         <div class="login-box">
             <h2>로그인</h2>
+			<c:if test="${not empty error}">
+		        <p class="err-msg"><c:out value="${error}"/></p>
+		    </c:if>
             <form action="/webtoonsalad/login" method="post">
                 <div class="input-group">
                     <label for="username">아이디</label>
