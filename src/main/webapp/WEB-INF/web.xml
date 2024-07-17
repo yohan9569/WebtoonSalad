@@ -36,8 +36,6 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-
-
 	<!-- Hint: http://wiki.apache.org/tomcat/FAQ/CharacterEncoding#Q8 -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>

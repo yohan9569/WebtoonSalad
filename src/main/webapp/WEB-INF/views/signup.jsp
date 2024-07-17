@@ -4,20 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
    <head>
-      <!-- 합쳐지고 최소화된 최신 CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-      <!-- 부가적인 테마 -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <title>회원가입</title>
    </head>
    <script type="text/javascript">
       $(document).ready(function(){
-         // 취소
+         // 취소 버튼 클릭 시 페이지 이동
          $(".cancel").on("click", function(){
-            location.href = "/customLogin";
+        	 location.href = "${pageContext.request.contextPath}/home";
          });
-
+         
+         // 제출 버튼 클릭 시 폼 유효성 검사
          $("#submit").on("click", function(){
             if($("#id").val() == ""){
                alert("아이디를 입력해주세요.");
