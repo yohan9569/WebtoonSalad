@@ -23,7 +23,8 @@
 		<div class="wagleList">
 			<div class="wagleSection">
 				<h2 class="pageTitle">게시판 글쓰기</h2>
-				<form role="form" action="register" method="post">
+				<form role="form" action="register" method="post" accept-charset="UTF-8">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="wagleTitleSection">
 						<label>제목</label>
 						<input class="input" id="titleInput" type="text" name="title"

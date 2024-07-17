@@ -64,7 +64,7 @@
         VALUES (
             #{content},
             sysdate,
-            'test1',
+            #{user_id},
             #{tbl_wagle_id}
         )
     </insert>

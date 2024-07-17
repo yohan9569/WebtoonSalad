@@ -17,5 +17,6 @@ public class WagleDetailDTO {
 	private Long recommend_cnt;
 	private String content;
 	private String content_file;
+	private String tbl_user_id;
 	
 }
