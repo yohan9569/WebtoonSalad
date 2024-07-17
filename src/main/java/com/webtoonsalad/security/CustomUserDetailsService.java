@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         System.out.println("Load User By UserName :" +id);
        
         UserDTO vo = usermapper.read(id);      
-        System.out.println("Query by memebr maper :" +vo);
+        System.out.println("Query by user mapper :" +vo);
            
         //삼항식
         return ( vo == null

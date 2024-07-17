@@ -13,63 +13,72 @@ import com.webtoonsalad.service.CommentService;
 @RequestMapping("/comments")
 public class CommentController {
 
-    @Autowired
-    private CommentService commentService;
+	@Autowired
+	private CommentService commentService;
 
-    @PostMapping("/write")
-    public ResponseEntity<String> writeComment(@RequestParam String content, @RequestParam("userId") String userId, 
-                                               @RequestParam String webtoonId) {
-        try {
+	@PostMapping("/write")
+	public ResponseEntity<String> writeComment(@RequestParam String content, @RequestParam String userId,
+			@RequestParam String webtoonId) {
+		try {
 //        	String userId = "test2"; 
-            commentService.writeComment(content, userId, webtoonId);
-            return ResponseEntity.ok("Comment added successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to add comment: " + e.getMessage());
-        }
-    }
+			commentService.writeComment(content, userId, webtoonId);
+			return ResponseEntity.ok("Comment added successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Failed to add comment: " + e.getMessage());
+		}
+	}
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteComment(@RequestParam("userId") String userId, @RequestParam String webtoonId) {
-        try {
+	@PostMapping("/delete")
+	public ResponseEntity<String> deleteComment(@RequestParam("userId") String userId,
+			@RequestParam("webtoonId") String webtoonId) {
+		try {
 //        	String userId = "test2";
-            commentService.deleteComment(userId, webtoonId);
-            return ResponseEntity.ok("Comment deleted successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to delete comment: " + e.getMessage());
-        }
-    }
+			commentService.deleteComment(userId, webtoonId);
+			return ResponseEntity.ok("Comment deleted successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Failed to delete comment: " + e.getMessage());
+		}
+	}
 
-    @PutMapping("/edit")
-    public ResponseEntity<String> editComment(@RequestParam String content, @RequestParam("userId") String userId,
-                                              @RequestParam String webtoonId) {
-        try {
-//        	String userId = "test2";
-            commentService.editComment(content, userId, webtoonId);
-            return ResponseEntity.ok("Comment edited successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to edit comment: " + e.getMessage());
-        }
-    }
+	@PostMapping("/edit")
+	public ResponseEntity<String> editComment(@RequestParam("content") String content,
+			@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
+		try {
+			// 로그 추가
+			System.out.println("editComment 호출됨");
+			System.out.println("userId: " + userId);
+			System.out.println("webtoonId: " + webtoonId);
+			System.out.println("content: " + content);
 
-    @GetMapping("/list")
-    public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam("userId") String userId, @RequestParam String webtoonId) {
-        try {
-//        	String userId = "test2";
-            List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
-            return ResponseEntity.ok(comments);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
-        }
-    }
+			// 서비스 호출
+			commentService.editComment(content, userId, webtoonId);
+			return ResponseEntity.ok("Comment edited successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Failed to edit comment: " + e.getMessage());
+		}
+	}
 
-    @GetMapping("/mycomment")
-    public ResponseEntity<CommentDTO> getMyComment(@RequestParam("userId") String userId, @RequestParam String webtoonId) {
-        try {
+	@GetMapping("/list")
+	public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam("userId") String userId,
+			@RequestParam String webtoonId) {
+		try {
 //        	String userId = "test2";
-            CommentDTO content = commentService.getMyComment(userId, webtoonId);
-            return ResponseEntity.ok(content);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
-        }
-    }
+			List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
+			return ResponseEntity.ok(comments);
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
+	@GetMapping("/mycomment")
+	public ResponseEntity<CommentDTO> getMyComment(@RequestParam("userId") String userId,
+			@RequestParam String webtoonId) {
+		try {
+//        	String userId = "test2";
+			CommentDTO content = commentService.getMyComment(userId, webtoonId);
+			return ResponseEntity.ok(content);
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
 }
