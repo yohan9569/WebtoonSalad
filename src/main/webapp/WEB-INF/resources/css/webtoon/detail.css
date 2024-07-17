@@ -64,36 +64,65 @@ section.webtoon-detail {
 	border: none;
 }
 
+#commentInputSection {
+	display: none;
+	border: 1px solid #E74C3C; /* 빨간색 테두리 */
+	padding: 10px; /* 내부 여백 */
+	border-radius: 5px; /* 둥근 모서리 */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px; /* 댓글 간 간격 */
+}
+
+#commentInputSection input[type="text"] {
+	flex: 1;
+	margin-right: 10px;
+	padding: 5px;
+	font-size: 14px;
+}
+
+#commentInputSection button {
+	background-color: transparent; /* 투명한 배경 */
+	border: 1px solid #E74C3C; /* 빨간색 테두리 */
+	color: #E74C3C; /* 빨간색 버튼 텍스트 */
+	cursor: pointer; /* 호버 시 포인터 커서 */
+	font-size: 14px; /* 버튼 텍스트 크기 */
+	padding: 5px 10px;
+	border-radius: 5px; /* 둥근 모서리 */
+}
+
+#commentInputSection button:hover {
+	text-decoration: underline; /* 호버 시 밑줄 */
+}
+
 .comment {
-    border: 1px solid #E74C3C; /* 빨간색 테두리 */
-    padding: 10px; /* 내부 여백 */
-    border-radius: 5px; /* 둥근 모서리 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px; /* 댓글 간 간격 */
+	border: 1px solid #E74C3C; /* 빨간색 테두리 */
+	padding: 10px; /* 내부 여백 */
+	border-radius: 5px; /* 둥근 모서리 */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px; /* 댓글 간 간격 */
 }
 
 .comment strong {
-    font-size: 16px; /* "내 댓글:" 텍스트 크기 */
-    margin-right: 10px; /* strong과 댓글 내용 간격 */
+	font-size: 16px; /* "내 댓글:" 텍스트 크기 */
+	margin-right: 10px; /* strong과 댓글 내용 간격 */
 }
 
-.comment .btn-edit,
-.comment .btn-delete {
-    background-color: transparent; /* 투명한 배경 */
-    border: none; /* 버튼 테두리 없음 */
-    color: none; /* 빨간색 버튼 텍스트 */
-    cursor: pointer; /* 호버 시 포인터 커서 */
-    font-size: 14px; /* 버튼 텍스트 크기 */
-    margin-left: 1px; /* 버튼 간 간격 */
+.comment .btn-edit, .comment .btn-delete {
+	background-color: transparent; /* 투명한 배경 */
+	border: none; /* 버튼 테두리 없음 */
+	color: none; /* 빨간색 버튼 텍스트 */
+	cursor: pointer; /* 호버 시 포인터 커서 */
+	font-size: 14px; /* 버튼 텍스트 크기 */
+	margin-left: 1px; /* 버튼 간 간격 */
 }
 
-.comment .btn-edit:hover,
-.comment .btn-delete:hover {
-    text-decoration: underline; /* 호버 시 밑줄 */
+.comment .btn-edit:hover, .comment .btn-delete:hover {
+	text-decoration: underline; /* 호버 시 밑줄 */
 }
-
 
 .ad-placeholder {
 	margin-top: 20px;

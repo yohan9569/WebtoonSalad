@@ -64,9 +64,8 @@ public class WebtoonController {
 	
 	@PostMapping("/webtoon/updateLastView")
     @ResponseBody
-    public String updateLastView(@RequestParam("id") String id, @RequestParam("webtoonId") String webtoonId) {
-		//String userId = "test2";
-		jjimService.updateLastView(id, webtoonId);
+    public String updateLastView(@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
+		jjimService.updateLastView(userId, webtoonId);
         return "success";
     }
 	
