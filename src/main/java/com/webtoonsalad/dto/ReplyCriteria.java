@@ -13,7 +13,7 @@ public class ReplyCriteria {
 	private int amount;
 	
 	public ReplyCriteria() {
-		this(1, 3);
+		this(1, 10);
 	}
 	
 	public ReplyCriteria(int pageNum, int amount) {

@@ -13,7 +13,7 @@ public class WagleCriteria {
 	private int amount;
 	
 	public WagleCriteria() {
-		this(1, 10);
+		this(1, 15);
 	}
 	
 	public WagleCriteria(int pageNum, int amount) {

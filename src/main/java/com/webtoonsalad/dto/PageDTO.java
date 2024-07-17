@@ -36,7 +36,7 @@ public class PageDTO {
         this.next = (this.endPage < realEnd);      
     }
     
-public PageDTO(ReplyCriteria cri, int total) {
+    public PageDTO(ReplyCriteria cri, int total) {
         
         this.total = total;
         this.replyCri = cri;

@@ -78,7 +78,7 @@
 		   , 1
 		   , #{content}
 		   , #{content_file, jdbcType=VARCHAR}
-		   , 'test1'
+		   , #{user_id}
         )
     </insert>
     
@@ -90,7 +90,8 @@
 		    w.create_date,
 		    w.content,
 		    w.content_file,
-		    NVL(l.like_cnt, 0) AS recommend_cnt
+		    NVL(l.like_cnt, 0) AS recommend_cnt,
+		    w.tbl_user_id
 		FROM 
 		    TBL_WAGLE w,
 		    TBL_USER u,

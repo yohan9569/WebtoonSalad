@@ -10,12 +10,10 @@ import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.ReplyDTO;
 import com.webtoonsalad.mapper.ReplyMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-@AllArgsConstructor
 public class ReplyServiceImpl implements ReplyService{
 
 	@Autowired
@@ -50,6 +48,4 @@ public class ReplyServiceImpl implements ReplyService{
 		log.info("getList" + cri + ", " + tbl_wagle_id);
 		return replyMapper.getListWithPaging(cri, tbl_wagle_id);
 	}
-	
-	
 }

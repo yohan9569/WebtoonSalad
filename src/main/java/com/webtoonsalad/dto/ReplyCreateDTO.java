@@ -15,6 +15,6 @@ public class ReplyCreateDTO {
 	private String content;
 	private Date create_date;
 	private String user_id;
-	private Long wagle_id;
+	private Long tbl_wagle_id;
 	
 }
