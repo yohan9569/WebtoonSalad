@@ -14,17 +14,22 @@ header {
     align-items: center;
 }
 
-.logo .webtoon {
-    color: #FFBC00;
-}
+/* .logo .webtoon { */
+/*     color: #FFBC00; */
+/* } */
 
-.logo .salad {
-    color: #4CAF50;
-}
+/* .logo .salad { */
+/*     color: #4CAF50; */
+/* } */
 
-.logo .logo-image {
-    margin-right: 10px; /* 텍스트와 이미지 사이의 간격 조절 */
-    height: 30px; /* 로고 이미지 높이 조절, 필요에 따라 변경 */
+/* .logo .logo-image { */
+/*     margin-right: 10px; */
+/*     height: 100px; */
+/* } */
+
+.logo .text-logo-image {
+    margin-right: 10px;
+    height: 80px;
 }
 
 .search-bar input {

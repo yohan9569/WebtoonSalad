@@ -19,11 +19,9 @@
 </head>
 <body>
 	<header>
-		<div class="logo">
-			<img
-				src="${pageContext.request.contextPath}/resources/images/logo.png"
-				alt="로고 이미지" class="logo-image"> <span class="webtoon">웹툰</span>
-			<span class="salad">샐러드</span>
+		<div class="logo"> 
+			<img src="${pageContext.request.contextPath}/resources/images/text_logo.png" alt="텍스트 로고 이미지" class="text-logo-image">
+<%-- 			<img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고 이미지" class="logo-image"> --%>
 		</div>
 		<div class="search-bar">
 			<input type="text" id="searchInput" placeholder="제목, 작가로 검색"
