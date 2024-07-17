@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <aside class="advertisement">
     <div class="ad">
-        <img src="${pageContext.request.contextPath}/resources/images/hire_me.jpg" alt="광고">
+    	<a href="${pageContext.request.contextPath}/resources/images/hire_me.jpg" target="_blank" class="img-link">
+    	    <img src="${pageContext.request.contextPath}/resources/images/hire_me.jpg" alt="광고">
+    	</a>
         <p>$0</p>
     </div>
     <div class="ad">
