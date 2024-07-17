@@ -36,10 +36,10 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		} // end if
 
 		if (roleNames.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/home");
+			response.sendRedirect("/webtoonsalad/home");
 			return;
 		} // end if
 
-		response.sendRedirect("/");
+		response.sendRedirect("/webtoonsalad/");
 	}// endonAuthenticationSuccess
 }// end class

@@ -35,6 +35,7 @@ public class WagleController {
 	public void list(WagleCriteria wagleCri, Model model) throws Exception {
 		log.info("list" + wagleCri);
 		model.addAttribute("list", wagleService.getList(wagleCri));
+		
 		int total = wagleService.getTotal(wagleCri);
 		model.addAttribute("pageMaker", new PageDTO(wagleCri, total));
 	}
@@ -62,7 +63,9 @@ public class WagleController {
 		log.info("detail");
 		model.addAttribute("detailList", wagleService.getDetailWagle(id));
 		model.addAttribute("replyList", replyService.getList(replyCri, id));
-		model.addAttribute("pageMaker", new PageDTO(replyCri, 123));
+		
+		int total = replyService.getTotal(replyCri, id);
+		model.addAttribute("pageMaker", new PageDTO(replyCri, total));
 	}
 	
 	

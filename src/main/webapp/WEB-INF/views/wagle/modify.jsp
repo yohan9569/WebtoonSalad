@@ -9,12 +9,6 @@
 <title>와글 수정</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/wagle/wagleModify.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/header.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/aside.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/footer.css">
 </head>
 <body>
 	<!-- header -->
