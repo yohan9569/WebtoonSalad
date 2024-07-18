@@ -34,7 +34,7 @@
 
 	<select id="getCommentList" parameterType="map"
 		resultMap="CommentResultMap">
-		SELECT c.id as id, content, u.name
+		SELECT c.id as id, content, create_date, u.name
 		FROM tbl_comment c
 			LEFT JOIN tbl_user u ON c.tbl_user_id = u.id
 		WHERE tbl_webtoon_id = #{webtoonId}
@@ -45,7 +45,7 @@
 
 	<select id="getMyComment" parameterType="map"
 		resultType="com.webtoonsalad.dto.CommentDTO">
-		SELECT id, content
+		SELECT id, content, create_date
 		FROM tbl_comment
 		WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
 	</select>

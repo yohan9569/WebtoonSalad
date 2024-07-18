@@ -113,6 +113,7 @@
                     	+ (comment.exists ? '😍' : '😀') + '</button>';
 
                         commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + comment.content 
+                        		+ ' <span class="create-date">' + new Date(comment.create_date).toLocaleString() + '</span>'
                         		+ ' <span class="like-count">좋아요: ' + likeCount + '</span>' 
                         		+ likeButton 
                         		+ ' <button class="btn-edit" data-content="' + comment.content 
@@ -278,6 +279,7 @@
                                 		'<div class="review-card">' 
                                 		+ '<div class="user-info">' 
                                 			+ '<div class="username">' + userName + '</div>' 
+                                			+ '<div class="create-date">' + new Date(comment.create_date).toLocaleString() +  '</div>'
                                 		+ '</div>' +
                                 		'<div class="review-text">' + comment.content + '</div>' + // comment content 추가
                                     	'<div class="like-section">' 

@@ -1,5 +1,6 @@
 package com.webtoonsalad.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +51,6 @@ public class CommentController {
 	public ResponseEntity<String> editComment(@RequestParam("content") String content,
 			@RequestParam("userId") String userId, @RequestParam("webtoonId") String webtoonId) {
 		try {
-			// 로그 추가
-			System.out.println("editComment 호출됨");
-			System.out.println("userId: " + userId);
-			System.out.println("webtoonId: " + webtoonId);
-			System.out.println("content: " + content);
-
-			// 서비스 호출
 			commentService.editComment(content, userId, webtoonId);
 			return ResponseEntity.ok("Comment edited successfully");
 		} catch (Exception e) {
@@ -66,13 +60,12 @@ public class CommentController {
 
 	@GetMapping("/list")
 	public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam("userId") String userId,
-			@RequestParam String webtoonId) {
+			@RequestParam("webtoonId") String webtoonId) {
 		try {
-			System.out.println("로그인 안한 사용자 아이디: "+userId);
 			List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
-			System.out.println("Returned comments: " + comments);
-			// 각 댓글에 대해 좋아요 상태를 확인하고 설정
-	        for (CommentDTO comment : comments) {
+	         System.out.println("코멘트들 "+ comments);
+	        
+			for (CommentDTO comment : comments) {
 	            boolean exists = likecommentService.checkCLikeExists(userId, comment.getId());
 	            comment.setExists(exists);
 	        }
