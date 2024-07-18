@@ -28,8 +28,9 @@
 		});
 
 		var idChecked = false; // 아이디 중복 체크 여부
+        var nameChecked = false; // 닉네임 중복 체크 여부
 
-		// 중복 확인 버튼 클릭 시 AJAX 요청
+		// 아이디 중복 확인 버튼 클릭 시 AJAX 요청
 		$("#checkId").on("click", function() {
 			var id = $("#id").val();
 			console.log(id);
@@ -61,11 +62,11 @@
 			});
 		});
 		
-		// 중복 확인 버튼 클릭 시 AJAX 요청
+		// 닉네임 중복 확인 버튼 클릭 시 AJAX 요청
 		$("#checkName").on("click", function() {
 			var name = $("#name").val();
 			if (name == "") {
-				alert("이름을 입력해주세요.");
+				alert("닉네임을 입력해주세요.");
 				$("#name").focus();
 				return false;
 			}
@@ -78,16 +79,16 @@
 				},
 				success : function(response) {
 					if (response == "true") {
-						alert("사용할 수 있는 이름입니다.");
+						alert("사용할 수 있는 닉네임입니다.");
 						nameChecked = true;
 					} else {
-						alert("이미 존재하는 이름입니다.");
+						alert("이미 존재하는 닉네임입니다.");
 						nameChecked = false;
 						$("#name").focus();
 					}
 				},
 				error : function() {
-					alert("이름 중복 확인 중 오류가 발생했습니다.");
+					alert("닉네임 중복 확인 중 오류가 발생했습니다.");
 				}
 			});
 		});
@@ -110,7 +111,7 @@
 				return false;
 			}
 			if (!nameChecked) {
-				alert("이름 중복 확인을 해주세요.");
+				alert("닉네임 중복 확인을 해주세요.");
 				$("#name").focus();
 				return false;
 			}
@@ -130,7 +131,7 @@
 				return false;
 			}
 			if ($("#name").val() == "") {
-				alert("이름을 입력해주세요.");
+				alert("닉네임을 입력해주세요.");
 				$("#name").focus();
 				return false;
 			}
@@ -145,20 +146,20 @@
 				value="${_csrf.token}" />
 			<div class="form-group has-feedback">
 				<label class="control-label" for="id">아이디</label>
-				<form:input path="id" id="id" placeholder="ID" />
+				<form:input path="id" id="id" autofocus="autofocus" placeholder="4~16자 이내로 입력" />
 				<button type="button" id="checkId">중복 확인</button>
 			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="pw">비밀번호</label>
-				<form:input path="pw" id="pw" type="password" placeholder="Password" />
+				<form:input path="pw" id="pw" type="password" placeholder="4~16자 이내로 입력"/>
 			</div>
 			<div class="form-group has-feedback">
-				<label class="control-label" for="pwConfirm">비밀번호 확인</label> <input
-					type="password" id="pwConfirm" placeholder="Password Check" />
+				<label class="control-label" for="pwConfirm">비밀번호 확인</label> 
+				<input type="password" id="pwConfirm" placeholder="4~16자 이내로 입력"/>
 			</div>
 			<div class="form-group has-feedback">
-				<label class="control-label" for="name">이름</label>
-				<form:input path="name" id="name" placeholder="Name" />
+				<label class="control-label" for="name">닉네임</label>
+				<form:input path="name" id="name" placeholder="3~8자 이내로 입력"/>
 				<button type="button" id="checkName">중복 확인</button>
 			</div>
 
