@@ -25,7 +25,7 @@ public class SignupServiceImpl implements SignupService {
 		if ("guest".equalsIgnoreCase(id)) {
 			throw new Exception("사용할 수 없는 아이디입니다.");
 		}
-
+		
 		// 비밀번호 암호화
 		String encodedPassword = passwordEncoder.encode(password);
 
@@ -36,10 +36,10 @@ public class SignupServiceImpl implements SignupService {
 
 	@Override
 	public boolean idChk(String id) {
-		// "guest" ID 체크
-		if ("guest".equalsIgnoreCase(id)) {
-			return true; // "guest"는 이미 사용 중인 것으로 간주
-		}
+		 // "guest" ID 체크
+        if ("guest".equalsIgnoreCase(id)) {
+            return true; // "guest"는 이미 사용 중인 것으로 간주
+        }
 		return signupMapper.idChk(id);
 	};
 
