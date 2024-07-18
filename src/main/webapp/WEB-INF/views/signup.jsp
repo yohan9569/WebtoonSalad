@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>회원가입</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title>회원가입</title>
 </head>
 <script type="text/javascript">
     const csrfToken = '${_csrf.token}';
@@ -139,36 +142,47 @@
                 return false;
             }
         });
+        
+     // 취소 버튼 클릭 시 페이지 이동
+		$(".cancel").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/home";
+		});
+     
     });
 </script>
 <body>
-    <section id="container">
-        <form:form action="${pageContext.request.contextPath}/signup" method="post" modelAttribute="userDTO">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <div class="form-group has-feedback">
-                <label class="control-label" for="id">아이디</label>
-                <form:input path="id" id="id" maxlength="16" autofocus="autofocus" placeholder="4~16자 이내로 입력" />
-                <button type="button" id="checkId">중복 확인</button>
-            </div>
-            <div class="form-group has-feedback">
-                <label class="control-label" for="pw">비밀번호</label>
-                <form:input path="pw" id="pw" type="password" maxlength="16" placeholder="4~16자 이내로 입력"/>
-            </div>
-            <div class="form-group has-feedback">
-                <label class="control-label" for="pwConfirm">비밀번호 확인</label> 
-                <input type="password" id="pwConfirm" maxlength="16" placeholder="4~16자 이내로 입력"/>
-            </div>
-            <div class="form-group has-feedback">
-                <label class="control-label" for="name">닉네임</label>
-                <form:input path="name" id="name" maxlength="8" placeholder="3~8자 이내로 입력"/>
-                <button type="button" id="checkName">중복 확인</button>
-            </div>
+	<section id="container">
+		<form:form action="${pageContext.request.contextPath}/signup"
+			method="post" modelAttribute="userDTO">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<div class="form-group has-feedback">
+				<label class="control-label" for="id">아이디</label>
+				<form:input path="id" id="id" maxlength="16" autofocus="autofocus"
+					placeholder="4~16자 이내로 입력" />
+				<button type="button" id="checkId">중복 확인</button>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label" for="pw">비밀번호</label>
+				<form:input path="pw" id="pw" type="password" maxlength="16"
+					placeholder="4~16자 이내로 입력" />
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label" for="pwConfirm">비밀번호 확인</label> 
+				<input type="password" id="pwConfirm" maxlength="16" placeholder="4~16자 이내로 입력" />
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label" for="name">닉네임</label>
+				<form:input path="name" id="name" maxlength="8"
+					placeholder="3~8자 이내로 입력" />
+				<button type="button" id="checkName">중복 확인</button>
+			</div>
 
-            <div class="form-group has-feedback">
-                <button type="submit" id="submit">가입하기</button>
-                <button class="cancel" type="button">취소</button>
-            </div>
-        </form:form>
-    </section>
+			<div class="form-group has-feedback">
+				<button type="submit" id="submit">가입하기</button>
+				<button class="cancel" type="button">취소</button>
+			</div>
+		</form:form>
+	</section>
 </body>
 </html>
