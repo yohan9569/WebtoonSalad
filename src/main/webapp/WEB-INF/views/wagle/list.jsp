@@ -35,7 +35,7 @@
 					<c:forEach items="${list}" var="wagle">
 						<tr>
 							<td><c:out value="${wagle.row_number}" /></td>
-							<td><a href='detail?id=<c:out value="${wagle.id}"/>'> <c:out
+							<td><a href='${pageContext.request.contextPath}/wagle/detail?id=${wagle.id}'> <c:out
 										value="${wagle.title}" /></a></td>
 							<td><c:out value="${wagle.name}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"

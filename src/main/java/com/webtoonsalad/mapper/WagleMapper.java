@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleCriteria;
@@ -22,5 +23,7 @@ public interface WagleMapper {
 	public WagleDetailDTO detailWagle(Long id) throws SQLException;
 	public int updateWagle(WagleDetailDTO dto) throws SQLException;
 	public int deleteWagle(Long id) throws SQLException;
+	
+	public void incrementViewCount(@Param("id") Long id) throws SQLException;
 	
 }

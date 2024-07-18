@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webtoonsalad.mapper.LikeReplyMapper">
+
+    <select id="isLiked" parameterType="map" resultType="int">
+        SELECT COUNT(*) 
+        FROM tbl_like_reply 
+        WHERE tbl_user_id = #{tbl_user_id} 
+          AND tbl_reply_id = #{tbl_reply_id}
+    </select>
+
+    <insert id="addLike" parameterType="com.webtoonsalad.dto.LikeReplyDTO">
+        INSERT INTO tbl_like_reply (tbl_user_id, tbl_reply_id)
+        VALUES (#{tbl_user_id}, #{tbl_reply_id})
+    </insert>
+    
+    <delete id="deleteLike" parameterType="com.webtoonsalad.dto.LikeReplyDTO">
+        DELETE FROM tbl_like_reply
+        WHERE tbl_user_id = #{tbl_user_id} 
+          AND tbl_reply_id = #{tbl_reply_id}
+    </delete>
+
+    <select id="getRecommendCount" parameterType="Long" resultType="int">
+        SELECT COUNT(*) 
+        FROM tbl_like_reply 
+        WHERE tbl_reply_id = #{tbl_reply_id}
+    </select>
+
+</mapper>

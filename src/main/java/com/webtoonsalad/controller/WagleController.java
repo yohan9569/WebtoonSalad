@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.webtoonsalad.dto.LikeReplyDTO;
+import com.webtoonsalad.dto.LikeWagleDTO;
 import com.webtoonsalad.dto.PageDTO;
 import com.webtoonsalad.dto.ReplyCreateDTO;
 import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleDetailDTO;
+import com.webtoonsalad.service.LikeReplyService;
+import com.webtoonsalad.service.LikeWagleService;
 import com.webtoonsalad.service.ReplyService;
 import com.webtoonsalad.service.WagleService;
 
@@ -34,6 +39,12 @@ public class WagleController {
 	@Autowired
 	private ReplyService replyService;
 	
+	@Autowired
+	private LikeWagleService likeWagleService;
+	
+	@Autowired
+	private LikeReplyService likeReplyService;
+	
 	@GetMapping("list")
 	public void list(WagleCriteria wagleCri, Model model) throws Exception {
 		log.info("list" + wagleCri);
@@ -42,7 +53,6 @@ public class WagleController {
 		int total = wagleService.getTotal(wagleCri);
 		model.addAttribute("pageMaker", new PageDTO(wagleCri, total));
 	}
-	
 	
 	@GetMapping("register")
 	public String register() {
@@ -67,15 +77,16 @@ public class WagleController {
 		return "redirect:list";
 	}
 	
-	
 	@GetMapping("detail")
 	public void get(@RequestParam("id") Long id, ReplyCriteria replyCri, Model model) throws Exception {
 	    
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String username = auth.getName();
 	    
-		log.info("detail");
-		
+		System.out.println("detail");
+
+		wagleService.incrementViewCount(id);
+        
 		model.addAttribute("loggedInUser", username);
 		model.addAttribute("detailList", wagleService.getDetailWagle(id));
 		model.addAttribute("replyList", replyService.getList(replyCri, id));
@@ -113,7 +124,6 @@ public class WagleController {
 	    return "redirect:/wagle/detail?id=" + tblWagleId;
 	}
 	
-	
 	@GetMapping("modify")
 	public String modify(@RequestParam("id") Long id, Model model) throws Exception {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -137,7 +147,6 @@ public class WagleController {
 		return "redirect:/wagle/detail?id=" + dto.getId();
 	}
 	
-	
 	@PostMapping("remove")
 	public String remove(@RequestParam("id") Long id, RedirectAttributes rttr) throws Exception {
 		
@@ -149,4 +158,53 @@ public class WagleController {
 		
 		return "redirect:list";
 	}
+	
+	@PostMapping("recommendWagle")
+	@ResponseBody
+	public String toggleRecommend(@RequestParam("id") Long wagleId) throws Exception {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName();
+
+	    if (username == null) {
+	        return "customLogin";
+	    }
+
+	    LikeWagleDTO likeWagleDTO = new LikeWagleDTO();
+	    likeWagleDTO.setTbl_user_id(username);
+	    likeWagleDTO.setTbl_wagle_id(wagleId);
+
+	    boolean isRecommended = likeWagleService.toggleLikeWagle(likeWagleDTO);
+	    return isRecommended ? "recommended" : "unrecommended";
+	}
+
+	@GetMapping("recommendWagleCount")
+	@ResponseBody
+	public int getRecommendCount(@RequestParam("id") Long wagleId) throws Exception {
+	    return likeWagleService.getRecommendCount(wagleId);
+	}
+
+	@PostMapping("recommendReply")
+	@ResponseBody
+	public String toggleReplyRecommend(@RequestParam("replyId") Long replyId) throws Exception {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName();
+
+	    if (username == null) {
+	        return "customLogin";
+	    }
+
+	    LikeReplyDTO likeReplyDTO = new LikeReplyDTO();
+	    likeReplyDTO.setTbl_user_id(username);
+	    likeReplyDTO.setTbl_reply_id(replyId);
+
+	    boolean isRecommended = likeReplyService.toggleLikeReply(likeReplyDTO);
+	    return isRecommended ? "recommended" : "unrecommended";
+	}
+
+	@GetMapping("recommendReplyCount")
+	@ResponseBody
+	public int getReplyRecommendCount(@RequestParam("replyId") Long replyId) throws Exception {
+	    return likeReplyService.getRecommendCount(replyId);
+	}
+
 }

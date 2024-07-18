@@ -116,5 +116,11 @@
     <delete id="deleteWagle">
     	DELETE tbl_Wagle WHERE id = #{id}
     </delete>
+    
+    <update id="incrementViewCount" parameterType="Long">
+    	UPDATE tbl_wagle
+		SET view_cnt = view_cnt + 1
+		WHERE id = #{id}
+    </update>
 
 </mapper>

@@ -1,4 +1,4 @@
-	package com.webtoonsalad.service;
+package com.webtoonsalad.service;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleDetailDTO;
 import com.webtoonsalad.dto.WagleListDTO;
-import com.webtoonsalad.dto.WagleUpdateDTO;
 
 public interface WagleService {
 
@@ -17,5 +16,6 @@ public interface WagleService {
 	public WagleDetailDTO getDetailWagle(Long id) throws Exception;
 	public boolean modify(WagleDetailDTO dto) throws Exception;
 	public boolean remove(Long id) throws Exception;
+	public void incrementViewCount(Long id) throws Exception;
 	
 }
