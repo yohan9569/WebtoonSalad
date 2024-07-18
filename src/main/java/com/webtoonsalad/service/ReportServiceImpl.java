@@ -21,23 +21,16 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Map<String, Object>> getPlatformRatio(String userId) {
-    	System.out.println("ReportServiceImpl - getPlatformRatio 호출");
-    	List<Map<String, Object>> temp = reportMapper.getPlatformRatio(userId);
-    	System.out.println(temp);
         return reportMapper.getPlatformRatio(userId);
     }
 
     @Override
     public List<Map<String, Object>> getWeekdayRatio(String userId) {
-    	System.out.println("ReportServiceImpl - getWeekdayRatio 호출");
-    	List<Map<String, Object>> temp = reportMapper.getWeekdayRatio(userId);
-    	System.out.println(temp);
         return reportMapper.getWeekdayRatio(userId);
     }
 
     @Override
     public Map<String, Object> getUserJjimCountRank(String userId) {
-    	System.out.println("ReportServiceImpl - getUserJjimCountRank 호출");
         List<Map<String, Object>> ranks = reportMapper.getUserJjimCountRank();
 
         if (ranks == null || ranks.isEmpty()) {
