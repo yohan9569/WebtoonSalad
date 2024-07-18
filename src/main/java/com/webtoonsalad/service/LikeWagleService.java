@@ -1,11 +1,8 @@
 package com.webtoonsalad.service;
 
-import java.sql.SQLException;
-
 import com.webtoonsalad.dto.LikeWagleDTO;
 
 public interface LikeWagleService {
-
-	public boolean toggleLikeWagle(LikeWagleDTO dto) throws SQLException;
-	
+    boolean toggleLikeWagle(LikeWagleDTO dto) throws Exception;
+    int getRecommendCount(Long wagleId) throws Exception;
 }

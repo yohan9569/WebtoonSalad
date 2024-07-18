@@ -1,23 +1,23 @@
 package com.webtoonsalad.service;
 
+import com.webtoonsalad.dto.LikeWagleDTO;
+import com.webtoonsalad.mapper.LikeWagleMapper;
+
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.webtoonsalad.dto.LikeWagleDTO;
-import com.webtoonsalad.mapper.LikeWagleMapper;
-
 @Service
 public class LikeWagleServiceImpl implements LikeWagleService {
-	
-	@Autowired
-	private LikeWagleMapper likeWagleMapper;
 
-	@Transactional
+    @Autowired
+    private LikeWagleMapper likeWagleMapper;
+
+    @Transactional
     @Override
-    public boolean toggleLikeWagle(LikeWagleDTO dto) throws SQLException {
+    public boolean toggleLikeWagle(LikeWagleDTO dto) throws Exception {
         int count = likeWagleMapper.isLiked(dto.getTbl_user_id(), dto.getTbl_wagle_id());
         if (count > 0) {
             likeWagleMapper.deleteLike(dto);
@@ -28,4 +28,8 @@ public class LikeWagleServiceImpl implements LikeWagleService {
         }
     }
 
+    @Override
+    public int getRecommendCount(Long wagleId) {
+        return likeWagleMapper.getRecommendCount(wagleId);
+    }
 }

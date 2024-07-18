@@ -160,7 +160,7 @@ public class WagleController {
 	
 	@PostMapping("/recommend")
     @ResponseBody
-    public String toggleRecommend(@RequestParam("id") Long wagleId) throws SQLException {
+    public String toggleRecommend(@RequestParam("id") Long wagleId) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
@@ -174,5 +174,11 @@ public class WagleController {
 
         boolean isRecommended = likeWagleService.toggleLikeWagle(likeWagleDTO);
         return isRecommended ? "recommended" : "unrecommended";
+    }
+
+    @GetMapping("/recommendCount")
+    @ResponseBody
+    public int getRecommendCount(@RequestParam("id") Long wagleId) throws Exception {
+        return likeWagleService.getRecommendCount(wagleId);
     }
 }
