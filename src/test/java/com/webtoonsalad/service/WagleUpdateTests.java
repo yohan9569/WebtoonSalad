@@ -24,6 +24,7 @@ public class WagleUpdateTests {
 		dto.setId(3L);
 		dto.setTitle("서비스 업데이트 테스트");
 		dto.setContent("서비스 업데이트 테스트");
+		dto.setContent_file(null);
 		log.info(wagleService.modify(dto));
 	}
 }

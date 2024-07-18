@@ -35,7 +35,7 @@
                         </div>
                         <div class="buttonSection">
                             <button class="wagleButton" type="button" onclick="location.href='${pageContext.request.contextPath}/wagle/list'">목록</button>
-                            <button class="wagleButton" type="button" onclick="location.href='detail?id=${detailList.id}'">확인</button>
+                            <button class="wagleButton" type="submit">확인</button>
                         </div>
                     </div>
                     <input type="hidden" name="id" value="${detailList.id}">

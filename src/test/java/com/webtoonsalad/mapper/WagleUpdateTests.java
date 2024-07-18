@@ -24,9 +24,10 @@ public class WagleUpdateTests {
 	@Test
 	public void test() throws SQLException {
 		WagleDetailDTO dto = new WagleDetailDTO();
-		dto.setId(30L);
+		dto.setId(2L);
 		dto.setTitle("업데이트");
 		dto.setContent("업데이트");
+		dto.setContent_file(null);
 		log.info("update count: " + wagleMapper.updateWagle(dto));
 	}
 }

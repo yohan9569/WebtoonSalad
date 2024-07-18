@@ -134,7 +134,7 @@ public class WagleController {
 		wagleService.modify(dto);
 		rttr.addFlashAttribute("result", "success");
 		
-		return "redirect:list";
+		return "redirect:/wagle/detail?id=" + dto.getId();
 	}
 	
 	

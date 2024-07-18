@@ -109,7 +109,7 @@
 		SET title = #{title}
 		  , content = #{content}
 		  , create_date = sysdate
-		  , content_file = #{content_file}
+		  , content_file = #{content_file, jdbcType=VARCHAR}
 		WHERE id = #{id}
     </update>
     
