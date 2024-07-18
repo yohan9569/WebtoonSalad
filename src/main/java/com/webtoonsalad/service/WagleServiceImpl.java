@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
+import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleDetailDTO;
 import com.webtoonsalad.dto.WagleListDTO;
-import com.webtoonsalad.dto.WagleUpdateDTO;
 import com.webtoonsalad.mapper.WagleMapper;
 
 import lombok.AllArgsConstructor;
@@ -54,7 +53,7 @@ public class WagleServiceImpl implements WagleService {
 	}
 
 	@Override
-	public boolean modify(WagleUpdateDTO dto) throws Exception{
+	public boolean modify(WagleDetailDTO dto) throws Exception{
 		log.info("modify" + dto);
 		return wagleMapper.updateWagle(dto) == 1;
 	}

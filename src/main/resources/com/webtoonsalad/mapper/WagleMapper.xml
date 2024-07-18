@@ -104,7 +104,7 @@
 		    AND w.id = #{id}
     </select>
     
-    <update id="updateWagle" parameterType="com.webtoonsalad.dto.WagleUpdateDTO">
+    <update id="updateWagle" parameterType="com.webtoonsalad.dto.WagleDetailDTO">
     	UPDATE tbl_wagle
 		SET title = #{title}
 		  , content = #{content}

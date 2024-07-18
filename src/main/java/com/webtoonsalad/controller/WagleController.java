@@ -17,7 +17,7 @@ import com.webtoonsalad.dto.ReplyCreateDTO;
 import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleCriteria;
-import com.webtoonsalad.dto.WagleUpdateDTO;
+import com.webtoonsalad.dto.WagleDetailDTO;
 import com.webtoonsalad.service.ReplyService;
 import com.webtoonsalad.service.WagleService;
 
@@ -100,14 +100,34 @@ public class WagleController {
 		return "redirect:/wagle/detail?id=" + dto.getTbl_wagle_id();
 	}
 	
-	
-	@GetMapping("modify")
-	public String mofidy() {
-		return "wagle/modify";
+	@PostMapping("reply/remove")
+	public String removeReply(@RequestParam("id") Long id, @RequestParam("tbl_wagle_id") Long tblWagleId, RedirectAttributes rttr) throws Exception {
+	    log.info("removeReply: " + id);
+
+	    if (replyService.remove(id)) {
+	        rttr.addFlashAttribute("result", "success");
+	    } else {
+	        rttr.addFlashAttribute("result", "failure");
+	    }
+
+	    return "redirect:/wagle/detail?id=" + tblWagleId;
 	}
 	
+	
+	@GetMapping("modify")
+	public String modify(@RequestParam("id") Long id, Model model) throws Exception {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName();
+	    
+	    WagleDetailDTO detail = wagleService.getDetailWagle(id);
+	    model.addAttribute("loggedInUser", username);
+	    model.addAttribute("detailList", detail);
+	    
+	    return "wagle/modify";
+	}	
+	
 	@PostMapping("modify")
-	public String modify(WagleUpdateDTO dto, RedirectAttributes rttr) throws Exception {
+	public String modify(WagleDetailDTO dto, RedirectAttributes rttr) throws Exception {
 		
 		log.info("modify: " + dto);
 		
