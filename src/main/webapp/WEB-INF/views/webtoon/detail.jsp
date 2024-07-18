@@ -115,7 +115,7 @@
                         let likeButton = '<button class="btn-like" data-comment-id="' + comment.id + '">' 
                                         + (comment.exists ? '😍 ' : '😀 ') + likeCount + '</button>';
 
-                        commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + comment.content 
+                        commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + '<div class="comment-content">' + comment.content + '</div>' 
                                             + ' ' 
                                             + likeButton 
                                             + ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' 
@@ -134,7 +134,7 @@
                                 }
                                 // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
                                 getLikeCount(commentId, function(newLikeCount) {
-                                    button.text((response.status === "liked" ? '😍' : '😀') + ' 좋아요: ' + newLikeCount);
+                                    button.text((response.status === "liked" ? '😍' : '😀') + newLikeCount);
                                 });
                             });
                         });
@@ -284,7 +284,7 @@
                 success: function(response) {
                 	console.log('서버 응답:', response);
 
-                    let commentsList = $('<div></div>'); // 새로운 div 생성하여 한줄평 목록 저장
+                    let commentsList = $('<div class="review-card-section"></div>'); // 새로운 div 생성하여 한줄평 목록 저장
                     if (response.length > 0) {
                         response.forEach(function(comment) {
                             const userName = comment.user ? comment.user.name : 'Unknown';
@@ -293,8 +293,8 @@
                                 const likeButtonInitialText = comment.exists ? '😍 ' + likeCount : '😀 ' + likeCount;
 
                                 commentsList.append(
-                                		'<div class="review-container">'
-                                	    + '<div class="review-card">' 
+                                		
+                                	    '<div class="review-card">' 
                                 	    + '<div class="user-info">' 
                                 	        + '<div class="username">' + '👤 ' + userName + '</div>' 
                                 	    + '</div>' 
@@ -305,7 +305,7 @@
                                 	    + '</div>' 
                                 	    + '<div class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</div>'
                                 	    + '</div>'
-                                	    + '</div>'
+                                	    
                                 	);
 
                                 $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
