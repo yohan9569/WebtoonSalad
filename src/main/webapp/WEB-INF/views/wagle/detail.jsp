@@ -125,42 +125,40 @@
     <input type="hidden" id="csrfParameterName" value="${_csrf.parameterName}" />
     <input type="hidden" id="csrfToken" value="${_csrf.token}" />
 
-    <script>
-        function toggleRecommend(id) {
-            const csrfParameterName = document.getElementById('csrfParameterName').value;
-            const csrfToken = document.getElementById('csrfToken').value;
-            const params = new URLSearchParams();
-            params.append('id', id);
-            params.append(csrfParameterName, csrfToken);
-            
-            fetch('${pageContext.request.contextPath}/wagle/recommend', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: params
-            }).then(response => response.text())
-            .then(result => {
-                if (result === "recommended") {
-                    alert('추천되었습니다.');
-                } else if (result === "unrecommended") {
-                    alert('추천이 취소되었습니다.');
-                } else if (result === "login") {
-                    alert('로그인이 필요합니다.');
-                } else {
-                    alert('오류가 발생했습니다.');
-                }
-                updateRecommendCount(id);
-            });
-        }
+<script>
+    function toggleRecommend(id) {
+        const csrfParameterName = document.getElementById('csrfParameterName').value;
+        const csrfToken = document.getElementById('csrfToken').value;
+        const params = new URLSearchParams();
+        params.append('id', id);
+        params.append(csrfParameterName, csrfToken);
+        
+        fetch('${pageContext.request.contextPath}/wagle/recommend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params
+        }).then(response => response.text())
+        .then(result => {
+            if (result === "recommended") {
+                alert('추천되었습니다.');
+            } else if (result === "unrecommended") {
+                alert('추천이 취소되었습니다.');
+            } else {
+                window.location.href = '${pageContext.request.contextPath}/customLogin';
+            }
+            updateRecommendCount(id);
+        });
+    }
 
-        function updateRecommendCount(id) {
-            fetch('${pageContext.request.contextPath}/wagle/recommendCount?id=' + id)
-            .then(response => response.text())
-            .then(count => {
-                document.getElementById('recommendCount').textContent = count;
-            });
-        }
-    </script>
+    function updateRecommendCount(id) {
+        fetch('${pageContext.request.contextPath}/wagle/recommendCount?id=' + id)
+        .then(response => response.text())
+        .then(count => {
+            document.getElementById('recommendCount').textContent = count;
+        });
+    }
+</script>
 </body>
 </html>
