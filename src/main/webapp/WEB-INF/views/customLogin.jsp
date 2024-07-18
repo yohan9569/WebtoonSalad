@@ -25,7 +25,7 @@
             <form action="/webtoonsalad/login" method="post">
                 <div class="input-group">
                     <label for="username">아이디</label>
-                    <input type="text" id="username" name="username" placeholder="Email" required>
+                    <input type="text" id="username" name="username" placeholder="ID" required>
                 </div>
                 <div class="input-group">
                     <label for="password">비밀번호</label>
