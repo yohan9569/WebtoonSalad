@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.webtoonsalad.dto.WagleDetailDTO;
 import com.webtoonsalad.dto.WagleUpdateDTO;
 
 import lombok.extern.log4j.Log4j;
@@ -22,8 +23,8 @@ public class WagleUpdateTests {
 	
 	@Test
 	public void test() throws SQLException {
-		WagleUpdateDTO dto = new WagleUpdateDTO();
-		dto.setId(3L);
+		WagleDetailDTO dto = new WagleDetailDTO();
+		dto.setId(30L);
 		dto.setTitle("업데이트");
 		dto.setContent("업데이트");
 		log.info("update count: " + wagleMapper.updateWagle(dto));

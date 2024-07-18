@@ -48,7 +48,6 @@
 					                onclick="location.href='${pageContext.request.contextPath}/wagle/list'">목록</button>
 					            <button class="wagleButton" type="button"
 					                onclick="location.href='modify?id=<c:out value="${detailList.id}"/>'">수정</button>
-					            <!-- Delete button form -->
 					            <form id="deleteForm" action="${pageContext.request.contextPath}/wagle/remove" method="post">
 					            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					                <input type="hidden" name="id" value="${detailList.id}">

@@ -15,7 +15,7 @@ public interface WagleService {
 	public List<WagleListDTO> getList(WagleCriteria cri) throws Exception;
 	public int getTotal(WagleCriteria cri) throws Exception; 
 	public WagleDetailDTO getDetailWagle(Long id) throws Exception;
-	public boolean modify(WagleUpdateDTO dto) throws Exception;
+	public boolean modify(WagleDetailDTO dto) throws Exception;
 	public boolean remove(Long id) throws Exception;
 	
 }
