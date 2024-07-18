@@ -1,0 +1,63 @@
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 레이아웃 */
+.middleSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto; /* 높이를 자동으로 설정 */
+    box-sizing: border-box;
+    padding: 20px 0;
+}
+
+/* content 영역 스타일 */
+.content {
+    flex-grow: 1;
+    min-width: 800px; /* 최소 너비를 설정하여 창 크기가 줄어도 쭈글어들지 않게 */
+    padding: 20px;
+    overflow: auto; /* 창이 줄어들면 스크롤바가 나타나도록 설정 */
+}
+
+/* tab 스타일 */
+nav.tab {
+    width: 33%;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px; /* 다음 내용과의 간격 */
+}
+
+nav.tab ul {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #333;
+}
+
+
+nav.tab ul li {
+    margin: 0 10px;
+}
+
+nav.tab ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+nav.tab ul li a:hover {
+    background-color: #444;
+}
+
+
+/* tab-content 스타일 */
+.tab-content {
+    margin-top: 20px; /* 탭 아래 내용과의 간격 */
+}
