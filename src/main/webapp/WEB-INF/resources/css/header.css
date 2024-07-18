@@ -12,6 +12,7 @@ header {
     font-weight: bold;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .logo .icon-logo-image {
@@ -52,17 +53,27 @@ header {
 
 .auth-buttons button {
     margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 16px;
+    padding: 10px 20px;
     cursor: pointer;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.auth-buttons button:hover {
+	background-color: #ddd;
+    transform: scale(1.05); /* 호버 시 확대 효과 */
 }
 
 nav ul {
     display: flex;
+    justify-content: center;
     list-style-type: none;
     padding: 0;
     margin: 0;
-    background-color: #333;
+    background-color: rgb(69 198 141);
 }
 
 nav ul li {
@@ -71,13 +82,15 @@ nav ul li {
 
 nav ul li a {
     display: block;
-    padding: 10px 20px;
+    padding: 15px 30px;
     color: white;
     text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 nav ul li a:hover {
-    background-color: #444;
+	color: #515151;
+    background-color: rgb(198 234 75);
 }
 
 .search-bar {

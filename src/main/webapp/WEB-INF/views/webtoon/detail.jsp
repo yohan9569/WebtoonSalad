@@ -394,7 +394,7 @@
     <jsp:include page="/WEB-INF/views/header.jsp" /> 
     <jsp:include page="/WEB-INF/views/modal.jsp" />
     <main>
-        <jsp:include page="/WEB-INF/views/aside.jsp" />
+        <jsp:include page="/WEB-INF/views/leftaside.jsp" />
         <section class="webtoon-detail">
             <p>User ID: ${userId}</p>
             <p>webtoon ID: ${detail.id}</p>

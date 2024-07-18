@@ -16,7 +16,7 @@
 
 	<div class="middleSection">
 		<!-- aside -->
-		<jsp:include page="/WEB-INF/views/aside.jsp" />
+		<jsp:include page="/WEB-INF/views/leftaside.jsp" />
 
 		<div class="wagleList">
 			<div class="wagleSection">

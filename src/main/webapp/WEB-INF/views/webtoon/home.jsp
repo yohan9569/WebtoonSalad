@@ -14,6 +14,8 @@
 	href="${pageContext.request.contextPath}/css/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/rightaside.css">
 <script>
     function filterByDay(day) {
         // 한글 요일을 영어 요일로 변환하는 객체
@@ -41,7 +43,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp" />
-	<main> <jsp:include page="/WEB-INF/views/aside.jsp" />
+	<main> <jsp:include page="/WEB-INF/views/leftaside.jsp" />
 	<section class="webtoon-list">
 		<form id="dayForm" action="${pageContext.request.contextPath}/home"
 			method="get">
@@ -90,6 +92,7 @@
     </c:forEach>
 </div>
 	</section>
+	<jsp:include page="/WEB-INF/views/rightaside.jsp" />
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>
