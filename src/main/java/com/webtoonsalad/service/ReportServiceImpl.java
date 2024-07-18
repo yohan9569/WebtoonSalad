@@ -39,8 +39,8 @@ public class ReportServiceImpl implements ReportService {
 
         int totalUsers = ranks.size();
         Integer userRank = ranks.stream()
-                            .filter(rank -> rank.get("tbl_user_id") != null && rank.get("tbl_user_id").equals(userId))
-                            .map(rank -> (Number) rank.get("rank"))
+                            .filter(rank -> rank.get("TBL_USER_ID") != null && rank.get("TBL_USER_ID").equals(userId))
+                            .map(rank -> (Number) rank.get("RANK"))
                             .map(Number::intValue)
                             .findFirst()
                             .orElse(null);
