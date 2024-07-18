@@ -12,25 +12,29 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+
 	<!-- component 스캔 -->
-	<context:component-scan base-package="com.webtoonsalad"></context:component-scan>
+	<context:component-scan
+		base-package="com.webtoonsalad"></context:component-scan>
 
 	<!-- MyBatis Mapper 스캔 -->
-	<mybatis-spring:scan base-package="com.webtoonsalad.mapper"/>
-	
+	<mybatis-spring:scan
+		base-package="com.webtoonsalad.mapper" />
+
 	<!-- MyBatis SqlSessionFactory 설정 -->
-    <bean id="sqlSessionFactory"
-        class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:com/webtoonsalad/mapper/*.xml" />
-    </bean>
-    
-    <!-- MyBatis SqlSessionTemplate 설정 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-	    <constructor-arg index="0" ref="sqlSessionFactory" />
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:com/webtoonsalad/mapper/*.xml" />
 	</bean>
-    
+
+	<!-- MyBatis SqlSessionTemplate 설정 -->
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
 	<!-- hikari 설정 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName"
@@ -40,7 +44,7 @@
 		<property name="username" value="webtoon"></property>
 		<property name="password" value="webtoon"></property>
 	</bean>
-	
+
 	<!-- DataSource 설정 -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
@@ -50,18 +54,24 @@
 
 
 	<!-- 트랜잭션 관리자 설정 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	    <property name="dataSource" ref="dataSource" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<!-- 트랜잭션 어노테이션 활성화 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
 
 
 	<!-- RestTemplate 빈 정의 -->
-    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+	<bean id="restTemplate"
+		class="org.springframework.web.client.RestTemplate" />
 
-    <!-- 스케줄링 활성화 -->
-    <task:annotation-driven/>
+	<!-- 스케줄링 활성화 -->
+	<task:annotation-driven />
 
+	<!-- PasswordEncoder 빈 정의 -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans>
