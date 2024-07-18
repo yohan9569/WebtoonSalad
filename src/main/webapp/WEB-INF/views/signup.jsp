@@ -14,32 +14,43 @@
 <title>회원가입</title>
 </head>
 <script type="text/javascript">
-      $(document).ready(function(){
-         // 취소 버튼 클릭 시 페이지 이동
-         $(".cancel").on("click", function(){
-        	 location.href = "${pageContext.request.contextPath}/home";
-         });
-         
-         // 제출 버튼 클릭 시 폼 유효성 검사
-         $("#submit").on("click", function(event){
-            if($("#id").val() == ""){
-               alert("아이디를 입력해주세요.");
-               $("#id").focus();
-               return false;
-            }
-            if($("#pw").val() == ""){
-               alert("비밀번호를 입력해주세요.");
-               $("#pw").focus();
-               return false;   
-            }
-            if($("#name").val() == ""){
-               alert("이름을 입력해주세요.");
-               $("#name").focus();
-               return false;
-            }
-         });
-      });
-   </script>
+	$(document).ready(function() {
+		// 취소 버튼 클릭 시 페이지 이동
+		$(".cancel").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/home";
+		});
+
+		// 제출 버튼 클릭 시 폼 유효성 검사
+		$("#submit").on("click", function(event) {
+			if ($("#id").val() == "") {
+				alert("아이디를 입력해주세요.");
+				$("#id").focus();
+				return false;
+			}
+			if ($("#pw").val() == "") {
+				alert("비밀번호를 입력해주세요.");
+				$("#pw").focus();
+				return false;
+			}
+			if ($("#pwConfirm").val() == "") {
+				alert("비밀번호 확인을 입력해주세요.");
+				$("#pwConfirm").focus();
+				return false;
+			}
+			if ($("#pw").val() !== $("#pwConfirm").val()) {
+				alert("비밀번호 확인이 일치하지 않습니다.");
+				$("#pwConfirm").focus();
+				return false;
+			}
+			if ($("#name").val() == "") {
+				alert("이름을 입력해주세요.");
+				$("#name").focus();
+				return false;
+			}
+			
+		});
+	});
+</script>
 <body>
 	<section id="container">
 		<form:form action="${pageContext.request.contextPath}/signup"
@@ -48,15 +59,19 @@
 				value="${_csrf.token}" />
 			<div class="form-group has-feedback">
 				<label class="control-label" for="id">아이디</label>
-				<form:input path="id" id="id" />
+				<form:input path="id" id="id" placeholder="Email" />
 			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="pw">비밀번호</label>
-				<form:input path="pw" id="pw" type="password" />
+				<form:input path="pw" id="pw" type="password" placeholder="Password"/>
 			</div>
+			 <div class="form-group has-feedback">
+                <label class="control-label" for="pwConfirm">비밀번호 확인</label>
+                <input type="password" id="pwConfirm" placeholder="Password Check"/>
+            </div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="name">이름</label>
-				<form:input path="name" id="name" />
+				<form:input path="name" id="name" placeholder="Name"/>
 			</div>
 			<div class="form-group has-feedback">
 				<button type="submit" id="submit">가입하기</button>
