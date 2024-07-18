@@ -1,7 +1,5 @@
 package com.webtoonsalad.controller;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.webtoonsalad.dto.LikeReplyDTO;
 import com.webtoonsalad.dto.LikeWagleDTO;
 import com.webtoonsalad.dto.PageDTO;
 import com.webtoonsalad.dto.ReplyCreateDTO;
@@ -22,6 +21,7 @@ import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleDetailDTO;
+import com.webtoonsalad.service.LikeReplyService;
 import com.webtoonsalad.service.LikeWagleService;
 import com.webtoonsalad.service.ReplyService;
 import com.webtoonsalad.service.WagleService;
@@ -41,6 +41,9 @@ public class WagleController {
 	
 	@Autowired
 	private LikeWagleService likeWagleService;
+	
+	@Autowired
+	private LikeReplyService likeReplyService;
 	
 	@GetMapping("list")
 	public void list(WagleCriteria wagleCri, Model model) throws Exception {
@@ -158,27 +161,53 @@ public class WagleController {
 		return "redirect:list";
 	}
 	
-	@PostMapping("/recommend")
-    @ResponseBody
-    public String toggleRecommend(@RequestParam("id") Long wagleId) throws Exception {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+	@PostMapping("recommendWagle")
+	@ResponseBody
+	public String toggleRecommend(@RequestParam("id") Long wagleId) throws Exception {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName();
 
-        if (username == null) {
-            return "customLogin";
-        }
+	    if (username == null) {
+	        return "customLogin";
+	    }
 
-        LikeWagleDTO likeWagleDTO = new LikeWagleDTO();
-        likeWagleDTO.setTbl_user_id(username);
-        likeWagleDTO.setTbl_wagle_id(wagleId);
+	    LikeWagleDTO likeWagleDTO = new LikeWagleDTO();
+	    likeWagleDTO.setTbl_user_id(username);
+	    likeWagleDTO.setTbl_wagle_id(wagleId);
 
-        boolean isRecommended = likeWagleService.toggleLikeWagle(likeWagleDTO);
-        return isRecommended ? "recommended" : "unrecommended";
-    }
+	    boolean isRecommended = likeWagleService.toggleLikeWagle(likeWagleDTO);
+	    return isRecommended ? "recommended" : "unrecommended";
+	}
 
-    @GetMapping("/recommendCount")
-    @ResponseBody
-    public int getRecommendCount(@RequestParam("id") Long wagleId) throws Exception {
-        return likeWagleService.getRecommendCount(wagleId);
-    }
+	@GetMapping("recommendWagleCount")
+	@ResponseBody
+	public int getRecommendCount(@RequestParam("id") Long wagleId) throws Exception {
+	    return likeWagleService.getRecommendCount(wagleId);
+	}
+
+	@PostMapping("recommendReply")
+	@ResponseBody
+	public String toggleReplyRecommend(@RequestParam("replyId") Long replyId) throws Exception {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName();
+
+	    if (username == null) {
+	        return "customLogin";
+	    }
+
+	    LikeReplyDTO likeReplyDTO = new LikeReplyDTO();
+	    likeReplyDTO.setTbl_user_id(username);
+	    likeReplyDTO.setTbl_reply_id(replyId);
+
+	    boolean isRecommended = likeReplyService.toggleLikeReply(likeReplyDTO);
+	    return isRecommended ? "recommended" : "unrecommended";
+	}
+
+	@GetMapping("recommendReplyCount")
+	@ResponseBody
+	public int getReplyRecommendCount(@RequestParam("replyId") Long replyId) throws Exception {
+	    return likeReplyService.getRecommendCount(replyId);
+	}
+
+
 }
