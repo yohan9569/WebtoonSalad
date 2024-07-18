@@ -8,4 +8,6 @@ public interface SignupMapper {
 	
 	void signup(@Param("id") String id, @Param("pw") String pw, @Param("name") String name );
 	void insertAuthority(@Param("tbl_user_id") String tbl_user_id, @Param("authority") String authority);
+	boolean idChk(@Param("id") String id);
+	boolean nameChk(@Param("name") String name);
 }
