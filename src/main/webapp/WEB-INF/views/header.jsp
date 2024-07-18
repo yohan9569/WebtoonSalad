@@ -25,7 +25,7 @@
 			<img src="${pageContext.request.contextPath}/resources/images/icon_logo2.png" alt="로고 이미지" class="icon-logo-image">
 		</div>
 		<div class="search-bar">
-			<input type="text" id="searchInput" placeholder="제목, 작가로 검색"
+			<input type="text" id="searchInput" placeholder="  제목, 작가로 검색"
 				onkeyup="search()">
 			<div class="results" id="results"></div>
 		</div>

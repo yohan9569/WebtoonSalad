@@ -48,7 +48,8 @@
 
         function toggleJjim(userId, webtoonId) {
             if (!userId || userId === "guest") {
-                alert('로그인이 필요합니다.');
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
                 return;
             }
             console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
@@ -112,28 +113,28 @@
                 if (comment) {
                     getLikeCount(comment.id, function(likeCount) {
                         let likeButton = '<button class="btn-like" data-comment-id="' + comment.id + '">' 
-                        + (comment.exists ? '😍' : '😀') + '</button>';
+                                        + (comment.exists ? '😍 ' : '😀 ') + likeCount + '</button>';
 
                         commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + comment.content 
-                                + ' <span class="create-date">' + new Date(comment.create_date).toLocaleString() + '</span>'
-                                + ' <span class="like-count">좋아요: ' + likeCount + '</span>' 
-                                + likeButton 
-                                + ' <button class="btn-edit" data-content="' + comment.content 
-                                + '">수정</button>' 
-                                + ' <button class="btn-delete">삭제</button></div>');
+                                            + ' ' 
+                                            + likeButton 
+                                            + ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' 
+                                            + ' <button class="btn-delete">삭제</button>' 
+                                            + ' <span class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</span></div>');
+
                         $('.btn-like').click(function() {
                             const commentId = $(this).data('comment-id');
                             const button = $(this);
                             toggleLike(commentId, userId, function(response) {
                                 alert(response.message);
                                 if (response.status === "liked") {
-                                    button.text('😍');
+                                    button.text('😍 ' + likeCount);
                                 } else if (response.status === "unliked") {
-                                    button.text('😀');
+                                    button.text('😀 ' + likeCount);
                                 }
                                 // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
                                 getLikeCount(commentId, function(newLikeCount) {
-                                    button.siblings('.like-count').text('좋아요: ' + newLikeCount);
+                                    button.text((response.status === "liked" ? '😍' : '😀') + ' 좋아요: ' + newLikeCount);
                                 });
                             });
                         });
@@ -287,30 +288,36 @@
                     if (response.length > 0) {
                         response.forEach(function(comment) {
                             const userName = comment.user ? comment.user.name : 'Unknown';
-                            const likeButtonInitialText = comment.exists ? '😍' : '😀';
+                            
                             getLikeCount(comment.id, function(likeCount) {
+                                const likeButtonInitialText = comment.exists ? '😍 ' + likeCount : '😀 ' + likeCount;
+
                                 commentsList.append(
-                                		'<div class="review-card">' 
-                                		+ '<div class="user-info">' 
-                                			+ '<div class="username">' + userName + '</div>' 
-                                			+ '<div class="create-date">' + new Date(comment.create_date).toLocaleString() +  '</div>'
-                                		+ '</div>' +
-                                		'<div class="review-text">' + comment.content + '</div>' + // comment content 추가
-                                    	'<div class="like-section">' 
-                                    	+ '<span class="like-count">좋아요: ' + likeCount + '</span>' 
-                                    + ' <button class="btn-like" data-comment-id="' + comment.id + '">' + likeButtonInitialText + '</button>' 
-                                    	+ '</div>' 
-                                    + '</div>');
+                                		'<div class="review-container">'
+                                	    + '<div class="review-card">' 
+                                	    + '<div class="user-info">' 
+                                	        + '<div class="username">' + '👤 ' + userName + '</div>' 
+                                	    + '</div>' 
+                                	    + '<div class="review-text">' + comment.content + '</div>' 
+                                	    + '<hr class="divider">' 
+                                	    + '<div class="like-section">' 
+                                	        + ' <button class="btn-like" data-comment-id="' + comment.id + '">' + likeButtonInitialText + '</button>' 
+                                	    + '</div>' 
+                                	    + '<div class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</div>'
+                                	    + '</div>'
+                                	    + '</div>'
+                                	);
 
                                 $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
                                 $('.review-card').show(); // review-card 요소를 모두 보이도록 설정
                                 $('.btn-ad').hide(); // btn-ad 버튼 숨기기
 
                                 $('.btn-like').off('click').on('click', function() {
-                                	console.log('array id 값: ', userId);
+                                    console.log('array id 값: ', userId);
                                     if (userId === "guest") {
-                                        alert('로그인 후 좋아요를 누를 수 있습니다.');
-                                        window.location.href = `${pageContext.request.contextPath}/customLogin`; // 로그인 페이지로 리디렉션
+                                    	// 모달 열기
+                                        var modal = document.getElementById("myModal");
+                                        modal.style.display = "block";
                                         return;
                                     }
 
@@ -318,14 +325,13 @@
                                     const button = $(this);
                                     toggleLike(commentId, userId, function(response) {
                                         alert(response.message);
-                                        if (response.status === "liked") {
-                                            button.text('😍');
-                                        } else if (response.status === "unliked") {
-                                            button.text('😀');
-                                        }
                                         // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
                                         getLikeCount(commentId, function(newLikeCount) {
-                                            button.siblings('.like-count').text('좋아요: ' + newLikeCount);
+                                            if (response.status === "liked") {
+                                                button.text('😍  ' + newLikeCount);
+                                            } else if (response.status === "unliked") {
+                                                button.text('😀   ' + newLikeCount);
+                                            }
                                         });
                                     });
                                 });
@@ -385,7 +391,8 @@
     </script>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/header.jsp" />
+    <jsp:include page="/WEB-INF/views/header.jsp" /> 
+    <jsp:include page="/WEB-INF/views/modal.jsp" />
     <main>
         <jsp:include page="/WEB-INF/views/aside.jsp" />
         <section class="webtoon-detail">
@@ -436,17 +443,19 @@
                 </div>
             </div>
             <div class="comments-section">
+            <h1>한줄평✍️</h1>
                 <div id="commentInputSection" class="input-section" style="display: none;">
                     <input type="text" id="newComment" placeholder="한줄평 입력">
                     <button id="addComment">추가</button>
                 </div>
                 <div id="loginMessage" class="input-section" style="display: none;">
-        			<p>로그인 후 이용 가능합니다.</p>
+        			<p>한줄평 작성은 로그인 후, 이용 가능합니다.</p>
     			</div>
                 <div id="commentsList"></div>
             </div>
             <div class="ad-placeholder" id="ad-placeholder">
                 <button class="btn-ad">스포 방지 버튼</button>
+                
             </div>
         </section>
     </main>
