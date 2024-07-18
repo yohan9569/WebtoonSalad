@@ -71,15 +71,8 @@ public class CommentMapperTests {
 
     @Test
     public void testGetCommentList() throws SQLException {
-    	String content1 = "그림이 예쁨";
-        String userId1 = "test2";
-        String webtoonId = "kakao_3071";
-
-        String content2 = "배고픔";
-        String userId2 = "test1";
-
-        mapper.writeComment(content1, userId1, webtoonId);
-        mapper.writeComment(content2, userId2, webtoonId);
+        String userId1 = "guest";
+        String webtoonId = "kakao_2995";
 
         List<CommentDTO> comments = mapper.getCommentList(userId1,webtoonId);
         for (CommentDTO comment : comments) {

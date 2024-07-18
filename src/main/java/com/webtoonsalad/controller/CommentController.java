@@ -27,7 +27,7 @@ public class CommentController {
 
 	@PostMapping("/write")
 	public ResponseEntity<String> writeComment(@RequestParam String content, @RequestParam String userId,
-			@RequestParam String webtoonId) {
+			@RequestParam("webtoonId") String webtoonId) {
 		try {
 			commentService.writeComment(content, userId, webtoonId);
 			return ResponseEntity.ok("Comment added successfully");
@@ -62,6 +62,8 @@ public class CommentController {
 	public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam("userId") String userId,
 			@RequestParam("webtoonId") String webtoonId) {
 		try {
+			System.out.println(userId);
+			System.out.println(webtoonId);
 			List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
 	         System.out.println("코멘트들 "+ comments);
 	        
@@ -79,11 +81,23 @@ public class CommentController {
 	public ResponseEntity<CommentDTO> getMyComment(@RequestParam("userId") String userId,
 			@RequestParam("webtoonId") String webtoonId) {
 		try {
+			System.out.println(userId);
+			System.out.println(webtoonId);
 			CommentDTO content = commentService.getMyComment(userId, webtoonId);
-	        boolean exists = likecommentService.checkCLikeExists(userId, content.getId());
-	        content.setExists(exists);
-            System.out.println("getMyComment response: " + content);
-			return ResponseEntity.ok(content);
+	        System.out.println("??????"+content);
+//			boolean exists = likecommentService.checkCLikeExists(userId, content.getId());
+//	        content.setExists(exists);
+//            System.out.println("getMyComment response: " + content);
+	        if (content != null) {
+	            boolean exists = likecommentService.checkCLikeExists(userId, content.getId());
+	            content.setExists(exists);
+	            System.out.println("getMyComment response: " + content);
+	            return ResponseEntity.ok(content);
+	        } else {
+	            System.out.println("No comment found for userId: " + userId + " and webtoonId: " + webtoonId);
+	            return ResponseEntity.ok(null); // null 응답 반환
+	        }
+//			return ResponseEntity.ok(content);
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(null);
 		}

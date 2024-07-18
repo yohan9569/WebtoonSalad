@@ -16,14 +16,14 @@
         href="${pageContext.request.contextPath}/css/aside.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        const userId = '${userId}';
-        const webtoonId = "${detail.id}";
-
         //CSRF 토큰 설정
         const csrfToken = '${_csrf.token}';
         const csrfHeader = '${_csrf.headerName}';
 
         $(document).ready(function() {
+            const userId = '${userId}';
+            const webtoonId = '${detail.id}';
+            console.log("Document ready. userId:", userId, "webtoonId:", webtoonId);
             $.ajaxSetup({
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader(csrfHeader, csrfToken);
@@ -31,6 +31,7 @@
             });
          	// 로그인 여부 확인 후 댓글 로드
             if (userId && userId !== "guest") {
+            	console.log("Calling loadComments with userId:", userId, "webtoonId:", webtoonId);
                 loadComments(userId, webtoonId); // 페이지 로드 시 한줄평 목록을 불러옴
                 $('#addComment').click(function() {
                     addComment(userId, webtoonId);
@@ -103,22 +104,23 @@
         }
 
         function loadComments(userId, webtoonId) {
+            console.log(`Loading comments for userId: ${userId}, webtoonId: ${detail.id}`);
             getMyComment(userId, webtoonId, function(comment) {
                 let commentsList = $('#commentsList');
                 commentsList.empty(); // 기존 한줄평 목록 삭제
 
                 if (comment) {
                     getLikeCount(comment.id, function(likeCount) {
-                    	let likeButton = '<button class="btn-like" data-comment-id="' + comment.id + '">' 
-                    	+ (comment.exists ? '😍' : '😀') + '</button>';
+                        let likeButton = '<button class="btn-like" data-comment-id="' + comment.id + '">' 
+                        + (comment.exists ? '😍' : '😀') + '</button>';
 
                         commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + comment.content 
-                        		+ ' <span class="create-date">' + new Date(comment.create_date).toLocaleString() + '</span>'
-                        		+ ' <span class="like-count">좋아요: ' + likeCount + '</span>' 
-                        		+ likeButton 
-                        		+ ' <button class="btn-edit" data-content="' + comment.content 
-                        		+ '">수정</button>' 
-                        		+ ' <button class="btn-delete">삭제</button></div>');
+                                + ' <span class="create-date">' + new Date(comment.create_date).toLocaleString() + '</span>'
+                                + ' <span class="like-count">좋아요: ' + likeCount + '</span>' 
+                                + likeButton 
+                                + ' <button class="btn-edit" data-content="' + comment.content 
+                                + '">수정</button>' 
+                                + ' <button class="btn-delete">삭제</button></div>');
                         $('.btn-like').click(function() {
                             const commentId = $(this).data('comment-id');
                             const button = $(this);
@@ -158,6 +160,7 @@
                         });
                     });
                 } else {
+                    console.log('No comments found');
                     $('#commentInputSection').show(); // 한줄평 입력 섹션 표시
                     $('#addComment').off('click').on('click', function() {
                         addComment(userId, webtoonId);
@@ -167,22 +170,33 @@
         }
 
         function getMyComment(userId, webtoonId, callback) {
+            const url = `${pageContext.request.contextPath}/comments/mycomment`;
+            console.log(`Fetching comment for userId: ${userId}, webtoonId: ${detail.id}`);
+            console.log(url);
+            
             $.ajax({
-                url: `${pageContext.request.contextPath}/comments/mycomment`,
+                url: url,
                 type: 'GET',
                 data: {
                     userId: userId,
                     webtoonId: webtoonId
                 },
                 success: function(response) {
+                    console.log('Successfully fetched comment:', response);
+                    if (response === null) {
+                        console.log('No comment found');
+                    }
                     callback(response);
                 },
                 error: function(xhr, status, error) {
-                	console.error('Error fetching comment:', status, error); // 에러 로그 추가
+                    console.error('Error fetching comment:', status, error); // 에러 로그 추가
+                    console.error('Status code:', xhr.status); // 상태 코드 추가
+                    console.error('Response text:', xhr.responseText); // 응답 본문 추가
                     alert('한줄평 목록을 불러오는 데 실패했습니다: ' + xhr.responseText);
                 }
             });
         }
+
 
         function getLikeCount(commentId, callback) {
             $.ajax({
