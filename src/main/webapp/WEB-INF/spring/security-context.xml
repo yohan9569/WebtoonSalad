@@ -24,9 +24,10 @@ class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
     <security:intercept-url pattern="/signup"   access="permitAll" />
     <security:intercept-url pattern="/wagle/detail"   access="permitAll" />
     <security:intercept-url pattern="/webtoon/**"   access="permitAll" />
+    <security:intercept-url pattern="/comments/list" access="permitAll()" />
     
     <!-- 회원 권한이 필요한 URL -->
-    <security:intercept-url pattern="/comments/**" access="hasRole('ROLE_MEMBER')" />
+    <!-- <security:intercept-url pattern="/comments/**" access="hasRole('ROLE_MEMBER')" /> -->
     <security:intercept-url pattern="/jjim/**" access="hasRole('ROLE_MEMBER')" />
     <security:intercept-url pattern="/wagle/register" access="hasRole('ROLE_MEMBER')" />
     <security:intercept-url pattern="/wagle/reply/register" access="hasRole('ROLE_MEMBER')" />

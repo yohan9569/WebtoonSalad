@@ -4,6 +4,6 @@ public class LikeCommentDTO {
 	
 	private Long id;
 	private String user_id;
-	private Long comment_id;
+	private int comment_id;
 	
 }

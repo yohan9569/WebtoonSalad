@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.webtoonsalad.dto.CommentDTO;
 import com.webtoonsalad.service.CommentService;
+import com.webtoonsalad.service.LikeCommentService;
 
 @RestController
 @RequestMapping("/comments")
@@ -15,12 +20,14 @@ public class CommentController {
 
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private LikeCommentService likecommentService;
 
 	@PostMapping("/write")
 	public ResponseEntity<String> writeComment(@RequestParam String content, @RequestParam String userId,
 			@RequestParam String webtoonId) {
 		try {
-//        	String userId = "test2"; 
 			commentService.writeComment(content, userId, webtoonId);
 			return ResponseEntity.ok("Comment added successfully");
 		} catch (Exception e) {
@@ -32,7 +39,6 @@ public class CommentController {
 	public ResponseEntity<String> deleteComment(@RequestParam("userId") String userId,
 			@RequestParam("webtoonId") String webtoonId) {
 		try {
-//        	String userId = "test2";
 			commentService.deleteComment(userId, webtoonId);
 			return ResponseEntity.ok("Comment deleted successfully");
 		} catch (Exception e) {
@@ -62,8 +68,14 @@ public class CommentController {
 	public ResponseEntity<List<CommentDTO>> getCommentList(@RequestParam("userId") String userId,
 			@RequestParam String webtoonId) {
 		try {
-//        	String userId = "test2";
+			System.out.println("로그인 안한 사용자 아이디: "+userId);
 			List<CommentDTO> comments = commentService.getCommentList(userId, webtoonId);
+			System.out.println("Returned comments: " + comments);
+			// 각 댓글에 대해 좋아요 상태를 확인하고 설정
+	        for (CommentDTO comment : comments) {
+	            boolean exists = likecommentService.checkCLikeExists(userId, comment.getId());
+	            comment.setExists(exists);
+	        }
 			return ResponseEntity.ok(comments);
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(null);
@@ -72,10 +84,12 @@ public class CommentController {
 
 	@GetMapping("/mycomment")
 	public ResponseEntity<CommentDTO> getMyComment(@RequestParam("userId") String userId,
-			@RequestParam String webtoonId) {
+			@RequestParam("webtoonId") String webtoonId) {
 		try {
-//        	String userId = "test2";
 			CommentDTO content = commentService.getMyComment(userId, webtoonId);
+	        boolean exists = likecommentService.checkCLikeExists(userId, content.getId());
+	        content.setExists(exists);
+            System.out.println("getMyComment response: " + content);
 			return ResponseEntity.ok(content);
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(null);

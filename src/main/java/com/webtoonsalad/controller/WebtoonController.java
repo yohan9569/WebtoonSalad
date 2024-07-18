@@ -26,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class WebtoonController {
 	@Autowired
 	private WebtoonService webtoonService;
+	
+	@Autowired
 	private JJimService jjimService;
 	
 	public WebtoonController(WebtoonService webtoonService, JJimService jjimService) {
