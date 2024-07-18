@@ -28,8 +28,9 @@
 		});
 
 		var idChecked = false; // 아이디 중복 체크 여부
+        var nameChecked = false; // 이름 중복 체크 여부
 
-		// 중복 확인 버튼 클릭 시 AJAX 요청
+		// 아이디 중복 확인 버튼 클릭 시 AJAX 요청
 		$("#checkId").on("click", function() {
 			var id = $("#id").val();
 			console.log(id);
@@ -61,7 +62,7 @@
 			});
 		});
 		
-		// 중복 확인 버튼 클릭 시 AJAX 요청
+		// 이름 중복 확인 버튼 클릭 시 AJAX 요청
 		$("#checkName").on("click", function() {
 			var name = $("#name").val();
 			if (name == "") {
@@ -153,8 +154,8 @@
 				<form:input path="pw" id="pw" type="password" placeholder="Password" />
 			</div>
 			<div class="form-group has-feedback">
-				<label class="control-label" for="pwConfirm">비밀번호 확인</label> <input
-					type="password" id="pwConfirm" placeholder="Password Check" />
+				<label class="control-label" for="pwConfirm">비밀번호 확인</label> 
+				<input type="password" id="pwConfirm" placeholder="Password Check" />
 			</div>
 			<div class="form-group has-feedback">
 				<label class="control-label" for="name">이름</label>
