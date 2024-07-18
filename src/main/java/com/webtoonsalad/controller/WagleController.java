@@ -1,5 +1,7 @@
 package com.webtoonsalad.controller;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,14 +12,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.webtoonsalad.dto.LikeWagleDTO;
 import com.webtoonsalad.dto.PageDTO;
 import com.webtoonsalad.dto.ReplyCreateDTO;
 import com.webtoonsalad.dto.ReplyCriteria;
 import com.webtoonsalad.dto.WagleCreateDTO;
 import com.webtoonsalad.dto.WagleCriteria;
 import com.webtoonsalad.dto.WagleDetailDTO;
+import com.webtoonsalad.service.LikeWagleService;
 import com.webtoonsalad.service.ReplyService;
 import com.webtoonsalad.service.WagleService;
 
@@ -33,6 +38,9 @@ public class WagleController {
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private LikeWagleService likeWagleService;
 	
 	@GetMapping("list")
 	public void list(WagleCriteria wagleCri, Model model) throws Exception {
@@ -149,4 +157,22 @@ public class WagleController {
 		
 		return "redirect:list";
 	}
+	
+	@PostMapping("/recommend")
+    @ResponseBody
+    public String toggleRecommend(@RequestParam("id") Long wagleId) throws SQLException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        if (username == null) {
+            return "login"; // 로그인 페이지로 리다이렉트
+        }
+
+        LikeWagleDTO likeWagleDTO = new LikeWagleDTO();
+        likeWagleDTO.setTbl_user_id(username);
+        likeWagleDTO.setTbl_wagle_id(wagleId);
+
+        boolean isRecommended = likeWagleService.toggleLikeWagle(likeWagleDTO);
+        return isRecommended ? "recommended" : "unrecommended";
+    }
 }

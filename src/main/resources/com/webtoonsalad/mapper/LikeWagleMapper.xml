@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webtoonsalad.mapper.LikeWagleMapper">
+
+    <select id="isLiked" parameterType="map" resultType="int">
+        SELECT COUNT(*) 
+        FROM tbl_like_wagle 
+        WHERE tbl_user_id = #{tbl_user_id} 
+          AND tbl_wagle_id = #{tbl_wagle_id}
+    </select>
+
+    <insert id="addLike" parameterType="com.webtoonsalad.dto.LikeWagleDTO">
+        INSERT INTO tbl_like_wagle (tbl_user_id, tbl_wagle_id)
+        VALUES (#{tbl_user_id}, #{tbl_wagle_id})
+    </insert>
+    
+    <delete id="deleteLike" parameterType="com.webtoonsalad.dto.LikeWagleDTO">
+        DELETE FROM tbl_like_wagle
+        WHERE tbl_user_id = #{tbl_user_id} 
+          AND tbl_wagle_id = #{tbl_wagle_id}
+    </delete>
+
+</mapper>
