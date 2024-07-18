@@ -41,6 +41,10 @@ header {
     border-radius: 20px;
 }
 
+.selected {
+  background-color: #f1f1f1;
+}
+
 .auth-buttons {
     display: flex;
     align-items: center;
@@ -86,7 +90,7 @@ nav ul li a:hover {
 .results {
     position: absolute;
     top: 45px; /* 이 값을 조정하여 결과를 입력 필드 아래에 배치 */
-    width: 100%; /* 결과가 검색창의 너비에 맞도록 설정 */
+/*     width: 100%; 결과가 검색창의 너비에 맞도록 설정 */
     border: 1px solid #ccc;
     border-radius: 4px;
     max-height: 300px; /* 결과 창의 최대 높이 설정 */

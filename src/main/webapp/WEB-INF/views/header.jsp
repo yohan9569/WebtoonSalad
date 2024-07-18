@@ -62,74 +62,97 @@
 		</ul>
 	</nav>
 	<script>
-		function search() {
-			var keyword = document.getElementById('searchInput').value;
+	$(document).ready(function() {
+	    let selectedIndex = -1;
 
-			if (keyword.length > 0) {
-				$.ajax({
-					url : '${pageContext.request.contextPath}/webtoon/search',
-					type : 'GET',
-					data : {
-						keyword : keyword
-					},
-					success : function(data) {
-						if (Array.isArray(data)) {
-							displayResults(data);
-						} else {
-							console.error('Received data is not an array');
-						}
-					},
-					error : function() {
-						console.error('검색 중 오류 발생');
-					}
-				});
-			} else {
-				$('#results').hide();
-			}
-		}
+	    function search() {
+	        var keyword = document.getElementById('searchInput').value;
 
-		function displayResults(data) {
-			var results = $('#results');
-			results.empty();
-			if (data.length > 0) {
-				data
-						.forEach(function(item) {
-							var div = $('<div>').addClass('result-item');
-							var thumbnailContainer = $('<div>').addClass(
-									'search-thumbnail-container');
-							var thumbnail1 = $('<img>').addClass(
-									'search-thumbnail1').attr('src',
-									item.thumbnail1).attr('alt',
-									item.title + ' thumbnail');
-							thumbnailContainer.append(thumbnail1);
+	        if (keyword.length > 0) {
+	            $.ajax({
+	                url: '${pageContext.request.contextPath}/webtoon/search',
+	                type: 'GET',
+	                data: {
+	                    keyword: keyword
+	                },
+	                success: function(data) {
+	                    if (Array.isArray(data)) {
+	                        displayResults(data);
+	                    } else {
+	                        console.error('Received data is not an array');
+	                    }
+	                },
+	                error: function() {
+	                    console.error('검색 중 오류 발생');
+	                }
+	            });
+	        } else {
+	            $('#results').hide();
+	        }
+	    }
 
-							if (item.thumbnail2) {
-								var thumbnail2 = $('<img>').addClass(
-										'search-thumbnail2').attr('src',
-										item.thumbnail2).attr('alt',
-										item.title + ' thumbnail');
-								thumbnailContainer.append(thumbnail2);
-							}
+	    function displayResults(data) {
+	        var results = $('#results');
+	        results.empty();
+	        if (data.length > 0) {
+	            data.forEach(function(item) {
+	                var div = $('<div>').addClass('result-item');
+	                var thumbnailContainer = $('<div>').addClass('search-thumbnail-container');
+	                var thumbnail1 = $('<img>').addClass('search-thumbnail1').attr('src', item.thumbnail1).attr('alt', item.title + ' thumbnail');
+	                thumbnailContainer.append(thumbnail1);
 
-							div.append(thumbnailContainer);
-							div.append('<div><span>' + item.title
-									+ '</span><br><span>' + item.authors
-									+ '</span></div>');
+	                if (item.thumbnail2) {
+	                    var thumbnail2 = $('<img>').addClass('search-thumbnail2').attr('src', item.thumbnail2).attr('alt', item.title + ' thumbnail');
+	                    thumbnailContainer.append(thumbnail2);
+	                }
 
-							div
-									.on(
-											'click',
-											function() {
-												window.location.href = '${pageContext.request.contextPath}/webtoon/detail?id='
-														+ item.id;
-											});
-							results.append(div);
-						});
-				results.show();
-			} else {
-				results.hide();
-			}
-		}
+	                div.append(thumbnailContainer);
+	                div.append('<div><span>' + item.title + '</span><br><span>' + item.authors + '</span></div>');
+
+	                div.on('click', function() {
+	                    window.location.href = '${pageContext.request.contextPath}/webtoon/detail?id=' + item.id;
+	                });
+	                results.append(div);
+	            });
+	            results.show();
+	        } else {
+	            results.hide();
+	        }
+	    }
+
+	    // 키보드 이벤트 리스너
+	    $('#searchInput').on('keydown', function(e) {
+	        var results = $('#results').children('.result-item');
+	        if (e.key === 'ArrowDown') {
+	            selectedIndex = (selectedIndex + 1) % results.length;
+	            results.removeClass('selected');
+	            $(results[selectedIndex]).addClass('selected');
+	        } else if (e.key === 'ArrowUp') {
+	            selectedIndex = (selectedIndex - 1 + results.length) % results.length;
+	            results.removeClass('selected');
+	            $(results[selectedIndex]).addClass('selected');
+	        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+	            $(results[selectedIndex]).trigger('click');
+	        }
+	    });
+
+	    // 외부 클릭 시 결과창 닫기
+	    $(document).on('click', function(event) {
+	        if (!$(event.target).closest('#searchInput').length && !$(event.target).closest('#results').length) {
+	            $('#results').hide();
+	        }
+	    });
+
+	    // 검색창 클릭 시 결과창 표시
+	    $('#searchInput').on('focus', function() {
+	        if ($('#searchInput').val().length > 0) {
+	            $('#results').show();
+	        }
+	    });
+
+	    // 검색창 입력 이벤트 리스너
+	    $('#searchInput').on('input', search);
+	});
 	</script>
 </body>
 </html>
