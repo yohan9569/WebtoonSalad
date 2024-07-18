@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mapper.ReportMapper">
+<mapper namespace="com.webtoonsalad.mapper.ReportMapper">
 
     <!-- 플랫폼 별 웹툰 찜한 비율 -->
     <select id="getPlatformRatio" resultType="map">
@@ -21,11 +21,17 @@
         GROUP BY webtoon.updatedays
     </select>
 
-    <!-- 전체 사용자 중에서 웹툰을 찜한 수 상위 몇 퍼센트인지 -->
-    <select id="getUserJjimCount" resultType="map">
-        SELECT tbl_user_id, COUNT(*) AS count
-        FROM tbl_jjim
-        GROUP BY tbl_user_id
-        ORDER BY count DESC
+    <!-- 현재 사용자의 웹툰 찜 수와 전체 사용자의 순위 -->
+    <select id="getUserJjimCountRank" resultType="map">
+        SELECT tbl_user_id, count, 
+               DENSE_RANK() OVER (ORDER BY count DESC) AS rank
+        FROM (
+            SELECT tbl_user_id, COUNT(*) AS count
+            FROM tbl_jjim
+            GROUP BY tbl_user_id
+        ) t
+        ORDER BY rank
     </select>
+
+
 </mapper>
