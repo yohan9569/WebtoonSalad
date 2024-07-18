@@ -71,9 +71,15 @@
 	</section>
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	
+	<!-- sec:authentication 태그가 HTML 엔터티를 이스케이프하므로 먼저 값 할당 -->
+    <sec:authentication property="name" var="loggedInUserId" />
+    
 	<script>
+	// JSP에서 할당된 변수를 JavaScript에서 사용
+	var loggedInUserId = '${loggedInUserId}';
+	
 	function deleteJJim(userId, webtoonId) {
-		var loggedInUserId = '<sec:authentication property="name" />';
 		if (userId === loggedInUserId) {
 			if (confirm("정말 삭제하시겠습니까?")) {
 		        $.ajax({
@@ -97,7 +103,6 @@
 	}
 	
     function updateLastView(userId, webtoonId) {
-    	var loggedInUserId = '<sec:authentication property="name" />';
         $.ajax({
             url: '${pageContext.request.contextPath}/jjim/updateLastView',
             type: 'POST',
