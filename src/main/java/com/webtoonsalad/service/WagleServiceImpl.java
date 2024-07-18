@@ -64,4 +64,10 @@ public class WagleServiceImpl implements WagleService {
 		return wagleMapper.deleteWagle(id) == 1;
 	}
 
+	@Override
+	public void incrementViewCount(Long id) throws Exception {
+		System.out.println("increment: " + id);
+		wagleMapper.incrementViewCount(id);
+	}
+
 }

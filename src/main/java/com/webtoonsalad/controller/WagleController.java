@@ -54,7 +54,6 @@ public class WagleController {
 		model.addAttribute("pageMaker", new PageDTO(wagleCri, total));
 	}
 	
-	
 	@GetMapping("register")
 	public String register() {
 		return "wagle/register";
@@ -78,15 +77,16 @@ public class WagleController {
 		return "redirect:list";
 	}
 	
-	
 	@GetMapping("detail")
 	public void get(@RequestParam("id") Long id, ReplyCriteria replyCri, Model model) throws Exception {
 	    
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String username = auth.getName();
 	    
-		log.info("detail");
-		
+		System.out.println("detail");
+
+		wagleService.incrementViewCount(id);
+        
 		model.addAttribute("loggedInUser", username);
 		model.addAttribute("detailList", wagleService.getDetailWagle(id));
 		model.addAttribute("replyList", replyService.getList(replyCri, id));
@@ -124,7 +124,6 @@ public class WagleController {
 	    return "redirect:/wagle/detail?id=" + tblWagleId;
 	}
 	
-	
 	@GetMapping("modify")
 	public String modify(@RequestParam("id") Long id, Model model) throws Exception {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -147,7 +146,6 @@ public class WagleController {
 		
 		return "redirect:/wagle/detail?id=" + dto.getId();
 	}
-	
 	
 	@PostMapping("remove")
 	public String remove(@RequestParam("id") Long id, RedirectAttributes rttr) throws Exception {
@@ -208,6 +206,5 @@ public class WagleController {
 	public int getReplyRecommendCount(@RequestParam("replyId") Long replyId) throws Exception {
 	    return likeReplyService.getRecommendCount(replyId);
 	}
-
 
 }
