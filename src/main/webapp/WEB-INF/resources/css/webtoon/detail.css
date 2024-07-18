@@ -1,163 +1,194 @@
 body {
-	font-family: Arial, sans-serif;
-	/* margin: 0;
+    font-family: Arial, sans-serif;
+    /* margin: 0;
     padding: 0;
     box-sizing: border-box; */
 }
 
 main {
-	display: flex;
-	padding: 20px;
+    display: flex;
+    padding: 20px;
 }
 
 section.webtoon-detail {
-	flex: 1;
+    flex: 1;
 }
 
 .webtoon-info {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .thumbnail-container {
-	position: relative;
-	width: 150px;
-	height: 300px;
-	margin-right: 20px;
+    position: relative;
+    width: 150px;
+    height: 300px;
+    margin-right: 20px;
 }
 
 .thumbnail {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .details {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .details h2 {
-	margin: 0;
+    margin: 0;
 }
 
 .details p {
-	margin: 5px 0;
+    margin: 5px 0;
 }
 
 .btn-jjim, .btn-view, .btn-ad {
-	padding: 10px 20px;
-	margin: 10px 0;
-	cursor: pointer;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
 }
 
 .btn-jjim {
-	background-color: #ff6666;
-	border: none;
-	color: white;
+    background-color: #ff6666;
+    border: none;
+    color: white;
 }
 
 .btn-view {
-	background-color: #ddd;
-	border: none;
+    background-color: #ddd;
+    border: none;
 }
 
 #commentInputSection {
-	display: none;
-	border: 1px solid #E74C3C; /* 빨간색 테두리 */
-	padding: 10px; /* 내부 여백 */
-	border-radius: 5px; /* 둥근 모서리 */
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px; /* 댓글 간 간격 */
+    display: flex;
+    border: 1px solid #E74C3C; /* 빨간색 테두리 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 5px; /* 둥근 모서리 */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* 댓글 간 간격 */
 }
 
 #commentInputSection input[type="text"] {
-	flex: 1;
-	margin-right: 10px;
-	padding: 5px;
-	font-size: 14px;
+    flex: 1;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 14px;
 }
 
 #commentInputSection button {
-	background-color: transparent; /* 투명한 배경 */
-	border: 1px solid #E74C3C; /* 빨간색 테두리 */
-	color: #E74C3C; /* 빨간색 버튼 텍스트 */
-	cursor: pointer; /* 호버 시 포인터 커서 */
-	font-size: 14px; /* 버튼 텍스트 크기 */
-	padding: 5px 10px;
-	border-radius: 5px; /* 둥근 모서리 */
+    background-color: transparent; /* 투명한 배경 */
+    border: 1px solid #E74C3C; /* 빨간색 테두리 */
+    color: #E74C3C; /* 빨간색 버튼 텍스트 */
+    cursor: pointer; /* 호버 시 포인터 커서 */
+    font-size: 14px; /* 버튼 텍스트 크기 */
+    padding: 5px 10px;
+    border-radius: 5px; /* 둥근 모서리 */
 }
 
 #commentInputSection button:hover {
-	text-decoration: underline; /* 호버 시 밑줄 */
+    text-decoration: underline; /* 호버 시 밑줄 */
 }
 
 .comment {
-	border: 1px solid #E74C3C; /* 빨간색 테두리 */
-	padding: 10px; /* 내부 여백 */
-	border-radius: 5px; /* 둥근 모서리 */
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px; /* 댓글 간 간격 */
+    border: 1px solid #E74C3C; /* 빨간색 테두리 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 5px; /* 둥근 모서리 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* 댓글 간 간격 */
 }
 
 .comment strong {
-	font-size: 16px; /* "내 댓글:" 텍스트 크기 */
-	margin-right: 10px; /* strong과 댓글 내용 간격 */
+    font-size: 16px; /* "내 댓글:" 텍스트 크기 */
+    margin-right: 10px; /* strong과 댓글 내용 간격 */
 }
 
 .comment .btn-edit, .comment .btn-delete {
-	background-color: transparent; /* 투명한 배경 */
-	border: none; /* 버튼 테두리 없음 */
-	color: none; /* 빨간색 버튼 텍스트 */
-	cursor: pointer; /* 호버 시 포인터 커서 */
-	font-size: 14px; /* 버튼 텍스트 크기 */
-	margin-left: 1px; /* 버튼 간 간격 */
+    background-color: transparent; /* 투명한 배경 */
+    border: none; /* 버튼 테두리 없음 */
+    color: none; /* 빨간색 버튼 텍스트 */
+    cursor: pointer; /* 호버 시 포인터 커서 */
+    font-size: 14px; /* 버튼 텍스트 크기 */
+    margin-left: 1px; /* 버튼 간 간격 */
 }
 
 .comment .btn-edit:hover, .comment .btn-delete:hover {
-	text-decoration: underline; /* 호버 시 밑줄 */
+    text-decoration: underline; /* 호버 시 밑줄 */
 }
 
 .ad-placeholder {
-	margin-top: 20px;
-	text-align: center;
-	border: 1px solid #ccc;
-	padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.review-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Space between grid items */
 }
 
 .review-card {
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	padding: 16px;
-	width: 300px;
-	font-family: Arial, sans-serif;
-	margin-bottom: 20px;
-	display: none; /* 처음에는 보이지 않게 설정 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 300px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+    background-color: #fff;
 }
 
 .user-info {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-.user-info .username {
-	font-weight: bold;
-	margin-right: 8px;
+.username {
+    font-weight: bold;
+    margin-right: 8px;
 }
 
 .review-text {
-	margin-top: 12px;
-	margin-bottom: 16px;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    color: #333;
+    line-height: 1.5;
 }
 
-.like-button {
-	color: #e91e63;
-	font-weight: bold;
-	cursor: pointer;
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
 }
+
+.like-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.btn-like {
+    background-color: transparent;
+    border: none;
+    color: #e91e63;
+    font-weight: bold;
+    font-size : 15px;
+    cursor: pointer;
+}
+
+.create-date {
+    text-align: right;
+    color: #999;
+    font-size: 0.9em;
+}
+
+

@@ -58,36 +58,37 @@
 			<button onclick="filterByDay('일')">일</button>
 		</div>
 		<div class="webtoon-items">
-			<c:forEach var="webtoon" items="${home}">
-				<div class="webtoon-item">
-					<a class="webtoon-link"
-						href="${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.id}">
-						<div class="thumbnail-container">
-							<img src="${webtoon.thumbnail1}"
-								alt="${webtoon.title} thumbnail 1" />
-							<c:if test="${not empty webtoon.thumbnail2}">
-								<img src="${webtoon.thumbnail2}"
-									alt="${webtoon.title} thumbnail 2" />
-							</c:if>
-						</div>
-						<p>${webtoon.title}</p>
-						<c:choose>
-							<c:when test="${webtoon.isUpdated == 1}">  🆙
-                        	</c:when>
-							<c:otherwise>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${webtoon.isAdult == 1}"> 🔞
-                        	</c:when>
-							<c:otherwise>
-							</c:otherwise>
-						</c:choose>
-						<p>♥ ${webtoon.jjimCount}</p>
-					</a>
-				</div>
-			</c:forEach>
-		</div>
+    <c:forEach var="webtoon" items="${home}">
+        <div class="webtoon-item">
+            <a class="webtoon-link" href="${pageContext.request.contextPath}/webtoon/detail?id=${webtoon.id}">
+                <div class="thumbnail-container">
+                    <img src="${webtoon.thumbnail1}" alt="${webtoon.title} thumbnail 1" />
+                    <c:if test="${not empty webtoon.thumbnail2}">
+                        <img src="${webtoon.thumbnail2}" alt="${webtoon.title} thumbnail 2" />
+                    </c:if>
+                    <div class="labels">
+                        <c:choose>
+                            <c:when test="${webtoon.isAdult == 1}">
+                                <div class="is-adult">🔞</div>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${webtoon.isUpdated == 1}">
+                                <div class="is-updated">🆙</div>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="jjim-count">❤️ ${webtoon.jjimCount}</div>
+                </div>
+                <p>${webtoon.title}</p>
+            </a>
+        </div>
+    </c:forEach>
+</div>
 	</section>
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
