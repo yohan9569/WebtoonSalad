@@ -1,9 +1,9 @@
 /* 기본 스타일 초기화 */
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
 /* 전체 레이아웃 */
 .middleSection {

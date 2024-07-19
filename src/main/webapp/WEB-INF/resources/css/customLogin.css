@@ -29,6 +29,10 @@ body {
     height: 100px;
 }
 
+.logo-image:hover {
+	cursor: pointer;
+}
+
 .login-box {
     background: #ffffff;
     padding: 40px;

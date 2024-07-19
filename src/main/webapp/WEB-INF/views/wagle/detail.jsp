@@ -86,15 +86,18 @@
 						            </span>
 						        </td>
 						        <c:if test="${loggedInUser == reply.tbl_user_id}">
-						            <td>
-						                <form action="reply/remove" method="post" onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
-						                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-						                    <input type="hidden" name="id" value="${reply.id}"> 
-						                    <input type="hidden" name="tbl_wagle_id" value="${detailList.id}">
-						                    <button type="submit" class="replyDeleteButton">삭제</button>
-						                </form>
-						            </td>
-						        </c:if>
+								    <td class="replyDeleteCell">
+								        <form action="reply/remove" method="post" onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
+								            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+								            <input type="hidden" name="id" value="${reply.id}"> 
+								            <input type="hidden" name="tbl_wagle_id" value="${detailList.id}">
+								            <button type="submit" class="replyDeleteButton">X</button>
+								        </form>
+								    </td>
+								</c:if>
+								<c:if test="${loggedInUser != reply.tbl_user_id}">
+								    <td class="replyDeleteCell"></td>
+								</c:if>
 						    </tr>
 						</c:forEach>
 					</table>
@@ -131,7 +134,8 @@
 				</form>
 			</div>
 		</div>
-		<div class="rightAd"></div>
+		<jsp:include page="/WEB-INF/views/rightaside.jsp" />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 
 	<!-- footer -->

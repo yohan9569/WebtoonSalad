@@ -92,8 +92,19 @@
     </c:forEach>
 </div>
 	</section>
-	<jsp:include page="/WEB-INF/views/rightaside.jsp" />
+	<div class="rightSection">
+		<img class="top_down_button" src="resources/images/top_button.png" onclick="scrollToTop()">
+		<jsp:include page="/WEB-INF/views/rightaside.jsp" />
+	</div>
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
+<script type="text/javascript">
+	function scrollToTop() {
+	    window.scrollTo({
+	        top: 0,
+	        behavior: 'smooth'
+	    });
+	}
+</script>
 </body>
 </html>
