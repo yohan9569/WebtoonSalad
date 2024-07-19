@@ -35,6 +35,7 @@ class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
     <security:intercept-url pattern="/wagle/reply/register" access="hasRole('ROLE_MEMBER')" />
     <security:intercept-url pattern="/wagle/modify" access="hasRole('ROLE_MEMBER')" />
     <security:intercept-url pattern="/wagle/remove" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/mypage/**" access="hasRole('ROLE_MEMBER')" />
     
     <security:access-denied-handler ref="customAccessDenied" />
     <security:form-login login-page="/customLogin"

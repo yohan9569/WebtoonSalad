@@ -31,6 +31,14 @@ body {
     height: 100px;
 }
 
+.logo-image:hover {
+	cursor: pointer;
+}
+
+.check-button:hover {
+	cursor: pointer;
+}
+
 .login-box {
     background: #ffffff;
     padding: 30px; /* 패딩 조절 */

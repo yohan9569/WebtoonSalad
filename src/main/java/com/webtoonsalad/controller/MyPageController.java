@@ -19,7 +19,7 @@ public class MyPageController {
     private ReportService reportService;
 
     @GetMapping
-    public String myPage(@RequestParam(defaultValue = "info") String tab, Model model, Principal principal) {
+    public String myPage(@RequestParam(defaultValue = "report") String tab, Model model, Principal principal) {
         if ("report".equals(tab)) {
             return myReport(principal, model);
         }
