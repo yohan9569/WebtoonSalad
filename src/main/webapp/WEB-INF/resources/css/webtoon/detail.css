@@ -65,67 +65,111 @@ section.webtoon-detail {
 }
 
 #commentInputSection {
-    display: flex;
-    border: 1px solid #E74C3C; /* 빨간색 테두리 */
-    padding: 10px; /* 내부 여백 */
-    border-radius: 5px; /* 둥근 모서리 */
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px; /* 댓글 간 간격 */
+   display: flex;
+   flex-direction: column; /* Flex 방향을 세로로 변경 */
+   padding: 20px 10px; /* 내부 여백 */
+   border-radius: 20px; /* 더 둥근 모서리 */
+   margin-bottom: 15px; /* 댓글 간 간격 */
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+}
+
+#commentInputSection:hover {
+   background-color: #F7F7F2;
+}
+
+#commentInputSection label {
+   margin-bottom: 10px;
+   font-size: 16px;
+   font-weight: bold;
 }
 
 #commentInputSection input[type="text"] {
-    flex: 1;
-    margin-right: 10px;
-    padding: 5px;
-    font-size: 14px;
+   flex: 1;
+   margin-right: 10px;
+   border-radius: 30px;
+   padding: 10px; /* 내부 여백 증가 */
+   font-size: 14px;
+   border: 2px solid #ddd; /* 추가된 테두리 */
+   outline: none; /* 포커스 시 기본 테두리 제거 */
+}
+
+#commentInputSection input[type="text"]:focus {
+   border-color: #FFD700; /* 포커스 시 테두리 색상 변경 */
 }
 
 #commentInputSection button {
-    background-color: transparent; /* 투명한 배경 */
-    border: 1px solid #E74C3C; /* 빨간색 테두리 */
-    color: #E74C3C; /* 빨간색 버튼 텍스트 */
-    cursor: pointer; /* 호버 시 포인터 커서 */
-    font-size: 14px; /* 버튼 텍스트 크기 */
-    padding: 5px 10px;
-    border-radius: 5px; /* 둥근 모서리 */
+   height: 40px;
+   background-color: #E74C3C;
+   color: white;
+   cursor: pointer; /* 호버 시 포인터 커서 */
+   font-size: 14px; /* 버튼 텍스트 크기 */
+   padding: 10px 15px; /* 버튼 내부 여백 증가 */
+   border-radius: 5px; /* 둥근 모서리 */
+   border: none;
+   transition: background-color 0.3s; /* 배경색 전환 효과 추가 */
 }
 
 #commentInputSection button:hover {
-    text-decoration: underline; /* 호버 시 밑줄 */
+   background-color: #C0392B;
+}
+
+.CommentWrite {
+   display: flex;
+   align-items: center;
 }
 
 .comment {
-    border: 1px solid #E74C3C; /* 빨간색 테두리 */
-    padding: 10px; /* 내부 여백 */
-    border-radius: 5px; /* 둥근 모서리 */
+    padding: 15px; /* 내부 여백 */
+    border-radius: 20px; /* 더 둥근 모서리 */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px; /* 댓글 간 간격 */
+    flex-direction: column; /* Flex 방향을 세로로 변경 */
+    margin-bottom: 15px; /* 댓글 간 간격 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 }
 
-.comment strong {
-    font-size: 16px; /* "내 댓글:" 텍스트 크기 */
-    margin-right: 10px; /* strong과 댓글 내용 간격 */
+.comment-header {
+    font-size: 16px; /* "내 한줄평:" 텍스트 크기 */
+    margin-bottom: 10px; /* strong과 댓글 내용 간격 */
 }
 
 .comment-content {
-	width: 1000px;
     overflow: hidden;
+    margin-bottom: 10px; /* 댓글 내용과 버튼 간격 */
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.comment .btn-like {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 10px; /* 버튼 사이 여백 */
 }
 
 .comment .btn-edit, .comment .btn-delete {
-    background-color: transparent; /* 투명한 배경 */
-    border: none; /* 버튼 테두리 없음 */
-    color: none; /* 빨간색 버튼 텍스트 */
-    cursor: pointer; /* 호버 시 포인터 커서 */
-    font-size: 14px; /* 버튼 텍스트 크기 */
-    margin-left: 1px; /* 버튼 간 간격 */
+    background-color: #E74C3C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 5px; /* 버튼 사이 여백 */
 }
 
 .comment .btn-edit:hover, .comment .btn-delete:hover {
-    text-decoration: underline; /* 호버 시 밑줄 */
+    background-color: #C0392B;
+}
+
+.comment .create-date {
+    color: #999;
+    font-size: 0.9em;
+    margin-left: 10px;
 }
 
 .ad-placeholder {
@@ -136,7 +180,7 @@ section.webtoon-detail {
 }
 
 .review-card-section {
-	text-align: left;
+   text-align: left;
 }
 
 .review-card {
@@ -184,10 +228,14 @@ section.webtoon-detail {
 .btn-like {
     background-color: transparent;
     border: none;
-    color: #e91e63;
     font-weight: bold;
-    font-size : 15px;
+    font-size : 20px;
     cursor: pointer;
+}
+
+.btn-like:hover {
+    color: #ff4500; /* 호버 시 텍스트 색상 변경 */
+    transform: scale(1.1); /* 호버 시 약간 커지는 효과 추가 */
 }
 
 .create-date {

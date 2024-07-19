@@ -36,7 +36,7 @@ public class MyPageController {
 
         int totalUsers = (int) rankData.get("totalUsers");
         int userRank = (int) rankData.get("userRank");
-        double percentage = ((double) (totalUsers - userRank) / totalUsers) * 100;
+        double percentage = ((double) userRank / totalUsers) * 100;
 
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("userRank", userRank);

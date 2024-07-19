@@ -23,24 +23,21 @@
         $(document).ready(function() {
             const userId = '${userId}';
             const webtoonId = '${detail.id}';
-            console.log("Document ready. userId:", userId, "webtoonId:", webtoonId);
             $.ajaxSetup({
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader(csrfHeader, csrfToken);
                 }
             });
-         	// 로그인 여부 확인 후 댓글 로드
+            // 로그인 여부 확인 후 댓글 로드
             if (userId && userId !== "guest") {
-            	console.log("Calling loadComments with userId:", userId, "webtoonId:", webtoonId);
                 loadComments(userId, webtoonId); // 페이지 로드 시 한줄평 목록을 불러옴
                 $('#addComment').click(function() {
                     addComment(userId, webtoonId);
                 });
             } else {
                 $('#loginMessage').show(); // 로그인하지 않은 경우 로그인 안내 메시지를 표시
-                console.log("User is not logged in.");
             }
-         	
+            
             $('.btn-ad').click(function() {
                 loadCommentsExceptMine(userId, webtoonId);
             });
@@ -52,12 +49,9 @@
                 modal.style.display = "block";
                 return;
             }
-            console.log("Button clicked for webtoonId: " + webtoonId); // 버튼 클릭 확인용 로그 출력
             const toggleUrl = `${pageContext.request.contextPath}/webtoonsalad/jjim/toggleJjim?userId=${userId}&webtoonId=${detail.id}`;
-            console.log("Toggle URL: " + toggleUrl);
 
             $.get(toggleUrl, function(response) {
-                console.log("Response: ", response); // 응답 확인용 로그 출력
 
                 if (response.error) {
                     console.log("Error: " + response.error);
@@ -75,8 +69,6 @@
         }
 
         function addComment(userId, webtoonId) {
-            alert('userId: ' + userId);
-            alert('webtoonId: ' + webtoonId);
             const commentContent = $('#newComment').val();
             if (!commentContent) {
                 alert('한줄평을 입력해주세요.');
@@ -105,7 +97,6 @@
         }
 
         function loadComments(userId, webtoonId) {
-            console.log(`Loading comments for userId: ${userId}, webtoonId: ${detail.id}`);
             getMyComment(userId, webtoonId, function(comment) {
                 let commentsList = $('#commentsList');
                 commentsList.empty(); // 기존 한줄평 목록 삭제
@@ -115,53 +106,54 @@
                         let likeButton = '<button class="btn-like" data-comment-id="' + comment.id + '">' 
                                         + (comment.exists ? '😍 ' : '😀 ') + likeCount + '</button>';
 
-                        commentsList.append('<div class="comment"><strong>내 한줄평:</strong> ' + '<div class="comment-content">' + comment.content + '</div>' 
-                                            + ' ' 
+                        commentsList.append('<div class="comment"><div class="comment-header"><strong> 내 한줄평 </strong></div> ' + '<div class="comment-content">' + comment.content + '</div>' 
+                              +'<div class="comment-actions">'
                                             + likeButton 
                                             + ' <button class="btn-edit" data-content="' + comment.content + '">수정</button>' 
                                             + ' <button class="btn-delete">삭제</button>' 
-                                            + ' <span class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</span></div>');
+                                            + ' <span class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</span></div></div>');
 
                         $('.btn-like').click(function() {
                             const commentId = $(this).data('comment-id');
                             const button = $(this);
                             toggleLike(commentId, userId, function(response) {
-                                alert(response.message);
+                                //alert(response.message);
                                 if (response.status === "liked") {
                                     button.text('😍 ' + likeCount);
                                 } else if (response.status === "unliked") {
                                     button.text('😀 ' + likeCount);
                                 }
-                                // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
+                                // 좋아요 수 갱신
                                 getLikeCount(commentId, function(newLikeCount) {
-                                    button.text((response.status === "liked" ? '😍' : '😀') + newLikeCount);
+                                    button.text((response.status === "liked" ? '😍 ' : '😀 ') + newLikeCount);
                                 });
                             });
                         });
 
                         $('.btn-edit').click(function() {
-                            console.log('댓글 수정 버튼 클릭됨');
+                            const commentId = $(this).data('comment-id'); // comment-id를 가져옴
                             const commentContent = $(this).data('content');
-                            console.log('기존 댓글 내용:', commentContent);
-                            const newContent = prompt('수정할 내용을 입력하세요:', commentContent);
-                            console.log('새로운 댓글 내용:', newContent);
-                            if (newContent === null || newContent.trim() === '') {
-                                console.log('null값임');
-                                alert('null값임');
-                            } else {
-                                editComment(newContent, userId, webtoonId);
-                            }
+                            $('#commentInputSection').show(); // 수정 입력 섹션 표시
+                            $('#newComment').val(commentContent); // 기존 내용 입력 필드에 설정
+                            $('#addComment').hide(); // 추가 버튼 숨기기
+                            $('#editComment').show(); // 수정 버튼 보이기
+
+                            $('.comment').hide(); // 모든 댓글 숨기기
+                            $('.comment[data-comment-id="' + commentId + '"]').hide(); // 수정 중인 댓글 숨기기
+
+                            $('#editComment').off('click').on('click', function() {
+                                const newContent = $('#newComment').val();
+                                editComment(newContent, userId, webtoonId, commentId);
+                            });
                         });
 
                         $('.btn-delete').click(function() {
                             if (confirm('정말로 이 한줄평을 삭제하시겠습니까?')) {
-                                alert('userid: ' + userId);
                                 deleteComment(userId, webtoonId);
                             }
                         });
                     });
                 } else {
-                    console.log('No comments found');
                     $('#commentInputSection').show(); // 한줄평 입력 섹션 표시
                     $('#addComment').off('click').on('click', function() {
                         addComment(userId, webtoonId);
@@ -172,8 +164,6 @@
 
         function getMyComment(userId, webtoonId, callback) {
             const url = `${pageContext.request.contextPath}/comments/mycomment`;
-            console.log(`Fetching comment for userId: ${userId}, webtoonId: ${detail.id}`);
-            console.log(url);
             
             $.ajax({
                 url: url,
@@ -183,7 +173,6 @@
                     webtoonId: webtoonId
                 },
                 success: function(response) {
-                    console.log('Successfully fetched comment:', response);
                     if (response === null) {
                         console.log('No comment found');
                     }
@@ -220,7 +209,7 @@
                 url: `${pageContext.request.contextPath}/comments/likes/toggle`,
                 type: 'POST',
                 data: {
-                    userId: userId, // 현재 사용자의 ID로 대체
+                    userId: userId,
                     commentId: commentId
                 },
                 success: function(response) {
@@ -261,6 +250,7 @@
                 },
                 success: function(response) {
                     alert('한줄평이 성공적으로 수정되었습니다.');
+                    $('#commentInputSection').hide();
                     loadComments(userId, webtoonId); // 한줄평 목록 새로고침
                 },
                 error: function(xhr, status, error) {
@@ -271,19 +261,15 @@
 
 
         function loadCommentsExceptMine(userId, webtoonId) {
-        	console.log('userId:', userId); // userId 값 확인
-            console.log('webtoonId:', webtoonId); // webtoonId 값 확인
             
             $.ajax({
                 url: `${pageContext.request.contextPath}/comments/list`,
                 type: 'GET',
                 data: {
-                	userId: userId,
+                   userId: userId,
                     webtoonId: webtoonId,
                 },
                 success: function(response) {
-                	console.log('서버 응답:', response);
-
                     let commentsList = $('<div class="review-card-section"></div>'); // 새로운 div 생성하여 한줄평 목록 저장
                     if (response.length > 0) {
                         response.forEach(function(comment) {
@@ -293,29 +279,28 @@
                                 const likeButtonInitialText = comment.exists ? '😍 ' + likeCount : '😀 ' + likeCount;
 
                                 commentsList.append(
-                                		
-                                	    '<div class="review-card">' 
-                                	    + '<div class="user-info">' 
-                                	        + '<div class="username">' + '👤 ' + userName + '</div>' 
-                                	    + '</div>' 
-                                	    + '<div class="review-text">' + comment.content + '</div>' 
-                                	    + '<hr class="divider">' 
-                                	    + '<div class="like-section">' 
-                                	        + ' <button class="btn-like" data-comment-id="' + comment.id + '">' + likeButtonInitialText + '</button>' 
-                                	    + '</div>' 
-                                	    + '<div class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</div>'
-                                	    + '</div>'
-                                	    
-                                	);
+                                      
+                                       '<div class="review-card">' 
+                                       + '<div class="user-info">' 
+                                           + '<div class="username">' + '👤 ' + userName + '</div>' 
+                                       + '</div>' 
+                                       + '<div class="review-text">' + comment.content + '</div>' 
+                                       + '<hr class="divider">' 
+                                       + '<div class="like-section">' 
+                                           + ' <button class="btn-like" data-comment-id="' + comment.id + '">' + likeButtonInitialText + '</button>' 
+                                       + '</div>' 
+                                       + '<div class="create-date">' + new Date(comment.create_date).toISOString().split('T')[0] + '</div>'
+                                       + '</div>'
+                                       
+                                   );
 
                                 $('#ad-placeholder').html(commentsList); // ad-placeholder 자리에 한줄평 목록을 추가
                                 $('.review-card').show(); // review-card 요소를 모두 보이도록 설정
                                 $('.btn-ad').hide(); // btn-ad 버튼 숨기기
 
                                 $('.btn-like').off('click').on('click', function() {
-                                    console.log('array id 값: ', userId);
                                     if (userId === "guest") {
-                                    	// 모달 열기
+                                       // 모달 열기
                                         var modal = document.getElementById("myModal");
                                         modal.style.display = "block";
                                         return;
@@ -324,13 +309,13 @@
                                     const commentId = $(this).data('comment-id');
                                     const button = $(this);
                                     toggleLike(commentId, userId, function(response) {
-                                        alert(response.message);
-                                        // 좋아요 수를 갱신하려면 여기서 좋아요 수를 다시 불러올 수 있습니다
+                                        //alert(response.message);
+                                        // 좋아요 수 갱신
                                         getLikeCount(commentId, function(newLikeCount) {
                                             if (response.status === "liked") {
-                                                button.text('😍  ' + newLikeCount);
+                                                button.text('😍 ' + newLikeCount);
                                             } else if (response.status === "unliked") {
-                                                button.text('😀   ' + newLikeCount);
+                                                button.text('😀 ' + newLikeCount);
                                             }
                                         });
                                     });
@@ -396,8 +381,6 @@
     <main>
         <jsp:include page="/WEB-INF/views/leftaside.jsp" />
         <section class="webtoon-detail">
-            <p>User ID: ${userId}</p>
-            <p>webtoon ID: ${detail.id}</p>
             <h1>웹툰</h1>
             <div class="webtoon-info">
                 <div class="thumbnail-container">
@@ -438,24 +421,29 @@
                     </c:choose>
 
                     <button class="btn-view"
-                        onclick="updateLastView('${userId}', '${detail.id}'); window.open('${detail.url}', '_blank');">바로
-                        보기</button>
+                        onclick="updateLastView('${userId}', '${detail.id}'); window.open('${detail.url}', '_blank');">바로보기
+                    </button>
                 </div>
             </div>
+            
             <div class="comments-section">
-            <h1>한줄평✍️</h1>
+               <h1>한줄평✍️</h1>
                 <div id="commentInputSection" class="input-section" style="display: none;">
-                    <input type="text" id="newComment" placeholder="한줄평 입력">
-                    <button id="addComment">추가</button>
+                    <label for="newComment">🙋 내 한줄평</label>
+                    <div class="CommentWrite">
+                       <input type="text" id="newComment" placeholder="한줄평 입력">
+                       <button id="addComment">추가</button>
+                       <button id="editComment" style="display: none;">수정</button>   
+                    </div>
                 </div>
                 <div id="loginMessage" class="input-section" style="display: none;">
-        			<p>한줄평 작성은 로그인 후, 이용 가능합니다.</p>
-    			</div>
+                 <p>한줄평 작성은 로그인 후, 이용 가능합니다.</p>
+             </div>
                 <div id="commentsList"></div>
             </div>
+            
             <div class="ad-placeholder" id="ad-placeholder">
-                <button class="btn-ad">스포 방지 버튼</button>
-                
+                <button class="btn-ad">스포 방지 버튼</button>            
             </div>
         </section>
     </main>

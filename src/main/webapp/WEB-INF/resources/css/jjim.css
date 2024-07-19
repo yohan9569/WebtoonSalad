@@ -5,11 +5,11 @@ body {
 
 main {
     display: flex;
-    padding: 20px;
+    padding-top: 20px;
 }
 
 .jjim-list {
-    width: 80%;
+    width: 70%;
 }
 
 .jjim-list h1 {
@@ -27,7 +27,7 @@ main {
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 20px;
 }
 
@@ -87,6 +87,13 @@ main {
     border: 1px solid #ddd;
     padding: 10px;
     margin-bottom: 10px; /* 항목 간 간격 추가 */
+    border-radius: 10px; /* 둥근 모서리 추가 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    transition: transform 0.2s; /* 호버 효과 추가 */
+}
+
+.webtoon-item:hover {
+    transform: scale(1.01); /* 호버 시 확대 효과 */
 }
 
 .webtoon-link {
@@ -120,15 +127,19 @@ main {
     flex-direction: column;
 }
 
+.up_title {
+   display: flex;
+}
+
 .webtoon-title {
     font-size: 16px;
     font-weight: bold;
-    margin: 0 0 10px 0;
+    margin: 0 10px 10px 0;
 }
 
 .webtoon-info {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; /* 요소들을 수직으로 배치합니다 */
     gap: 10px; /* 요소들 사이의 간격을 조정합니다 */
 }
 
