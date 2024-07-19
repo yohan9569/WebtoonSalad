@@ -35,25 +35,12 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<CommentDTO> getCommentList(String userId, String webtoonId) throws Exception {
-    	if (userId == null) {
-    		System.out.println("userId is null");
-        } else if (userId.isEmpty()) {
-        	System.out.println("userId is empty");
-        } else {
-    	System.out.println("Fetching comments for userId: "+ userId+ " and webtoonId: "+ webtoonId);
-        }
-        List<CommentDTO> comments = commentMapper.getCommentList(userId, webtoonId);
-        System.out.println("Fetched comments: "+ comments);
-        return comments;
+    	return commentMapper.getCommentList(userId, webtoonId);
     }
 
     @Override
     public CommentDTO getMyComment(String userId, String webtoonId) throws Exception {
-    	 System.out.println("getMyComment 호출됨 - userId: " + userId + ", webtoonId: " + webtoonId);
-         CommentDTO comment = commentMapper.getMyComment(userId, webtoonId);
-         System.out.println("DB 조회 결과 - comment: " + comment);
-         return comment;
-//        return commentMapper.getMyComment(userId, webtoonId);
+        return commentMapper.getMyComment(userId, webtoonId);
     }
 }
 
