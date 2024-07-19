@@ -11,4 +11,8 @@ public interface SignupService {
 	boolean idChk(@Param("id") String id);
 	
 	boolean nameChk(@Param("name") String name);
+	
+    UserDTO getUserById(String id) throws Exception;
+    
+    void updatePassword(String id, String newPassword) throws Exception;
 }

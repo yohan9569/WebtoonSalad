@@ -31,6 +31,7 @@
 		FROM tbl_like_comment
 		WHERE tbl_user_id = #{userId} AND
 		tbl_comment_id = #{commentId}
+		ORDER BY likeExists desc
 	</select>
 
 </mapper>

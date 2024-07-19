@@ -31,6 +31,17 @@
 		SELECT COUNT(*) FROM TBL_USER
 		WHERE NAME = #{name}
 	</select>
-
+	
+	<select id="selectUserById" resultType="com.webtoonsalad.dto.UserDTO">
+        SELECT *
+        FROM tbl_user
+        WHERE id = #{id}
+    </select>
+    
+    <update id="updatePassword">
+        UPDATE tbl_user
+        SET pw = #{newPassword}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

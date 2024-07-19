@@ -1,23 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="user-info">
-    <h2>회원 정보 수정</h2>
-    <form>
-        <div>
-            <label for="id">아이디</label>
-            <input type="text" id="id" name="id" value="아이디 (read only)" readonly>
-        </div>
-        <div>
-            <label for="password">비밀번호</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div>
-            <label for="password-confirm">비밀번호 확인</label>
-            <input type="password" id="password-confirm" name="password-confirm">
-        </div>
-        <div>
-            <label for="name">닉네임</label>
-            <input type="text" id="name" name="name" value="닉네임">
-        </div>
-        <button type="submit">수정하기</button>
-    </form>
-</div>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Info</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            // 성공 메시지를 Model에서 가져와서 alert로 표시
+            <c:if test="${not empty success}">
+                alert("${success}");
+            </c:if>
+            // 오류 메시지를 Model에서 가져와서 alert로 표시
+            <c:if test="${not empty error}">
+                alert("${error}");
+            </c:if>
+        }
+    </script>
+</head>
+<body>
+    <div class="user-info">
+        <h3>메롱</h3>
+        <c:choose>
+            <c:when test="${not empty user}">
+                <p>ID: ${user.id}</p>
+                <p>Name: ${user.name}</p>
+            </c:when>
+            <c:otherwise>
+                <p>${error}</p>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="update-password">
+        <h3>Update Password</h3>
+        <form action="${pageContext.request.contextPath}/updatePassword" method="post">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <button type="submit">Update Password</button>
+        </form>
+    </div>
+</body>
+</html>

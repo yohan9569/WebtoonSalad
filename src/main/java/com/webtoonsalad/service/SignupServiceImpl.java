@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.webtoonsalad.dto.UserDTO;
 import com.webtoonsalad.mapper.SignupMapper;
 
 @Service
@@ -47,5 +48,17 @@ public class SignupServiceImpl implements SignupService {
 	public boolean nameChk(String name) {
 		return signupMapper.nameChk(name);
 	};
+	
+	@Override
+    public UserDTO getUserById(String id) throws Exception {
+        return signupMapper.selectUserById(id);
+    }
+	
+	@Override
+    @Transactional
+    public void updatePassword(String id, String newPassword) throws Exception {
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        signupMapper.updatePassword(id, encodedPassword);
+    }
 
 }
