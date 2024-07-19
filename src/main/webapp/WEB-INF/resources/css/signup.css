@@ -1,0 +1,146 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding-top: 60px; /* 로고가 가리지 않도록 페이지 전체에 위쪽 여백 추가 */
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px; /* 로고 아래 여백 추가 */
+    margin-top: 120px; /* 로고 위쪽 여백 추가 */
+}
+
+.logo .logo-image {
+    height: 100px;
+}
+
+.login-box {
+    background: #ffffff;
+    padding: 30px; /* 패딩 조절 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* 전체 박스 크기 조정 */
+}
+
+.login-box h2 {
+    margin-bottom: 20px; /* 제목 여백 조절 */
+    color: #333333;
+}
+
+.err-msg {
+    color: #fff;
+    background-color: #ff4d4d; /* 빨간색 배경 */
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px; /* 오류 메시지 여백 조절 */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-group {
+    margin-bottom: 20px; /* 그룹 간 여백 조절 */
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px; /* 입력창 패딩 조절 */
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px; /* 입력창 폰트 크기 조절 */
+}
+
+.login-button, .cancel-button { /* 두 버튼에 동일한 스타일 적용 */
+    width: 100%;
+    padding: 10px; /* 버튼 패딩 조절 */
+    background-color: #333333;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px; /* 버튼 폰트 크기 조절 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px; /* 버튼 간 여백 조절 */
+}
+
+.login-button:hover, .cancel-button:hover {
+    background-color: #555555;
+}
+
+.signup-link {
+    margin-top: 20px; /* 여백 조절 */
+}
+
+.signup-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.advertisement {
+    width: 100%;
+    text-align: center;
+}
+
+.ad {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.ad .ad-image {
+    height: 120px;
+    margin-right: 20px;
+}
+
+.ad .ad-text {
+    text-align: center;
+}
+
+.ad .webtoon {
+    color: #FFBC00;
+}
+
+.ad .salad {
+    color: #4CAF50;
+}
