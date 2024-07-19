@@ -19,11 +19,11 @@
 </head>
 <body>
     <div class="user-info">
-        <h3>메롱</h3>
+        <h3>회원정보</h3>
         <c:choose>
             <c:when test="${not empty user}">
-                <p>ID: ${user.id}</p>
-                <p>Name: ${user.name}</p>
+                <p>아이디: ${user.id}</p>
+                <p>닉네임: ${user.name}</p>
             </c:when>
             <c:otherwise>
                 <p>${error}</p>
@@ -32,12 +32,12 @@
     </div>
 
     <div class="update-password">
-        <h3>Update Password</h3>
+        <h3>비밀번호 변경</h3>
         <form action="${pageContext.request.contextPath}/updatePassword" method="post">
-            <label for="newPassword">New Password:</label>
+            <label for="newPassword">새 비밀번호:</label>
             <input type="password" id="newPassword" name="newPassword" required />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <button type="submit">Update Password</button>
+            <button type="submit">수정</button>
         </form>
     </div>
 </body>

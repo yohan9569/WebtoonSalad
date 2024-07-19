@@ -28,12 +28,9 @@ public class MyPageController {
     public String myPage(@RequestParam(defaultValue = "report") String tab, Model model, Principal principal) {
         if ("report".equals(tab)) {
             return myReport(principal, model);
-        } else if ("userinfo".equals(tab)) {
+        } else if ("info".equals(tab)) {
             return userInfo(principal, model);
-        }
-        
-        String tabContent = "mypage/userinfo";
-        model.addAttribute("tabContent", tabContent);
+        }        
         return "mypage/mypage";
     }
     
@@ -60,14 +57,17 @@ public class MyPageController {
             UserDTO user = signupService.getUserById(id);
             if (user != null) {
                 model.addAttribute("user", user);
-                return "redirect:/mypage?tab=info";
+                model.addAttribute("tabContent", "mypage/userinfo");
+                return "mypage/mypage";
             } else {
                 model.addAttribute("error", "User not found");
-                return "redirect:/mypage?tab=info";
+                model.addAttribute("tabContent", "mypage/userinfo");
+                return "mypage/mypage";
             }
         } catch (Exception e) {
             model.addAttribute("error", "An error occurred");
-            return "mypage/userinfo";
+            model.addAttribute("tabContent", "mypage/userinfo");
+            return "mypage/mypage";
         }
     }
 }
