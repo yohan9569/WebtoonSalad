@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webtoonsalad.mapper.WebtoonMapper">
+
+    <!-- 모든 웹툰의 isupdated를 0으로 초기화 -->
+    <update id="resetIsUpdated">
+        UPDATE tbl_webtoon
+        SET
+        isupdated = 0
+    </update>
+    
+    <!-- lastup과 isupdated를 업데이트 -->
+    <update id="updateWebtoonInfo" parameterType="String">
+        UPDATE tbl_webtoon
+        SET
+        lastup = SYSDATE,
+        isupdated = 1
+        WHERE id = #{id}
+    </update>
+
+	<select id="getAllWebtoonList"
+		resultType="com.webtoonsalad.dto.WebtoonDTO">
+		SELECT w.id, 
+			w.title,
+			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1) AS thumbnail1,
+			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1) AS thumbnail2,
+			COUNT(j.tbl_webtoon_id) AS jjimCount,
+			w.lastup, w.isUpdated, w.isAdult
+		FROM tbl_webtoon w
+			LEFT JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
+		GROUP BY w.id,
+			w.title,
+			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1),
+			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1),
+			w.lastup, w.isUpdated, w.isAdult
+		ORDER BY jjimCount DESC, w.lastup DESC NULLS LAST, w.title ASC
+
+	</select>
+
+	<select id="getDayWebtoonList" parameterType="string"
+		resultType="com.webtoonsalad.dto.WebtoonDTO">
+		SELECT w.id,
+			w.title,
+			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1) AS thumbnail1,
+			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1) AS thumbnail2,
+			COUNT(j.tbl_webtoon_id) AS jjimCount,
+			w.lastup, w.isUpdated, w.isAdult
+		FROM tbl_webtoon w
+			LEFT JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
+		 WHERE w.updatedays LIKE '%' || #{day} || '%'
+		GROUP BY w.id,
+			w.title,
+			DBMS_LOB.SUBSTR(w.thumbnail1, 4000, 1),
+			DBMS_LOB.SUBSTR(w.thumbnail2, 4000, 1),
+			w.lastup, w.isUpdated, w.isAdult
+		ORDER BY jjimCount DESC, w.lastup DESC NULLS LAST, w.title ASC
+	</select>
+	
+	<select id="getDetail" parameterType="string"
+		resultType="com.webtoonsalad.dto.WebtoonDTO">
+		SELECT *
+		FROM tbl_webtoon
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getJjimCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(j.tbl_webtoon_id) as jjimCount
+		FROM tbl_webtoon w
+			JOIN tbl_jjim j ON w.id = j.tbl_webtoon_id
+		WHERE w.id = #{id}
+		GROUP BY w.id
+	</select>
+	
+	<select id="searchWebtoon" parameterType="map"
+		resultType="com.webtoonsalad.dto.WebtoonDTO">
+		SELECT id, title, authors, thumbnail1, thumbnail2, provider
+		FROM tbl_webtoon
+		WHERE title LIKE '%' || #{keyword} || '%' OR authors LIKE '%' || #{keyword} || '%'
+	</select>
+	
+</mapper>

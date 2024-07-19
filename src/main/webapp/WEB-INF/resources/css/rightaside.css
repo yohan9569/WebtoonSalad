@@ -1,0 +1,8 @@
+.right_advertisement {
+	display: flex;
+	justify-content: center;
+    width: 12.5%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+

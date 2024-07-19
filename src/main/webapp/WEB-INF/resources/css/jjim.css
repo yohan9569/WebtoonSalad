@@ -1,0 +1,186 @@
+@charset "UTF-8";
+body {
+    font-family: Arial, sans-serif;
+}
+
+main {
+    display: flex;
+    padding-top: 20px;
+}
+
+.jjim-list {
+    width: 70%;
+}
+
+.jjim-list h1 {
+    margin-bottom: 20px;
+}
+
+.user-name {
+    color: #FFBC00;
+}
+.jjim-text {
+    color: #4CAF50;
+}
+
+.user-search-bar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.user-search-bar input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.results {
+    position: absolute;
+    top: 50px; /* 이 값을 조정하여 결과를 입력 필드 아래에 배치 */
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px; /* 최대 높이 설정 */
+    overflow-y: auto; /* 내용이 넘치면 스크롤바 표시 */
+    display: none;
+    background-color: #fff;
+    z-index: 1000; /* 결과가 다른 요소 위에 나타나도록 하는 요소 */
+}
+
+.result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item:hover, .result-item.selected {
+    background-color: #f1f1f1;
+}
+
+
+.webtoon-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.webtoon-item.viewed {
+    background-color: #d3d3d3 !important; /* 회색 배경 */
+}
+
+.webtoon-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px; /* 항목 간 간격 추가 */
+    border-radius: 10px; /* 둥근 모서리 추가 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    transition: transform 0.2s; /* 호버 효과 추가 */
+}
+
+.webtoon-item:hover {
+    transform: scale(1.01); /* 호버 시 확대 효과 */
+}
+
+.webtoon-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+    width: 100%; /*링크가 전체 너비를 차지하도록 설정 */
+}
+
+.thumbnail-container {
+    position: relative;
+    width: 100px; /* 원하는 너비 설정 */
+    height: 161.8px; /* 원하는 높이 설정 */
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.thumbnail-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.webtoon-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.up_title {
+   display: flex;
+}
+
+.webtoon-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px 10px 0;
+}
+
+.webtoon-info {
+    display: flex;
+    flex-direction: column; /* 요소들을 수직으로 배치합니다 */
+    gap: 10px; /* 요소들 사이의 간격을 조정합니다 */
+}
+
+.webtoon-info p {
+    margin: 0;
+}
+
+.webtoon-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 20px;
+    align-items: center;
+}
+
+.detail-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.detail-button:hover {
+    background-color: #45a049;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 4px 2px;
+}
+
+.delete-button:hover {
+    color: red; /* 마우스를 올렸을 때 색상을 변경 */
+}

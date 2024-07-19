@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.my-report {
+    padding: 20px;
+}
+
+.my-report h3 {
+    margin-top: 80px; /* 차트 위 간격 */
+    margin-bottom: 20px; /* 차트 아래 간격 */
+}
+
+p {
+    font-size: 1.5em; /* 글자 크기 키우기 */
+}
+
+.rank {
+    color: #FFBC00; /* ${userRank} 색상 변경 */
+}
+
+.percentage {
+    color: #4CAF50; /* ${percentage}% 색상 변경 */
+}
+
+/* chart.css */
+.chart-container {
+    width: 400px;  /* 너비 조정 */
+    height: 400px; /* 높이 조정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    margin-bottom: 100px; /* 차트와 다음 요소 사이 간격 */
+}
+
+canvas {
+	display: block;
+    width: 100% !important;
+    height: 100% !important;
+}

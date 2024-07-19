@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.webtoonsalad.mapper.WagleMapper">
+
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_wagle
+	</select>
+
+	<select id="selectWagleListWithPaging" parameterType="com.webtoonsalad.dto.WagleCriteria" resultType="com.webtoonsalad.dto.WagleListDTO">
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
+		    w.id AS id,
+	        w.title AS title,
+	        u.name AS name,
+	        w.create_date AS create_date,
+	        w.view_cnt AS view_cnt,
+		    NVL(l.like_cnt, 0) AS recommend_cnt
+		FROM 
+		    tbl_wagle w,
+		    tbl_user u,
+		    (SELECT tbl_wagle_id, COUNT(*) AS like_cnt
+		     FROM tbl_like_wagle
+		     GROUP BY tbl_wagle_id) l
+		WHERE 
+		    w.tbl_user_id = u.id
+		    AND w.id = l.tbl_wagle_id(+)
+		ORDER BY 
+		    w.create_date DESC
+		OFFSET (#{pageNum} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+	</select>
+
+	<select id="selectWagleList" resultType="com.webtoonsalad.dto.WagleListDTO">
+		SELECT ROW_NUMBER() OVER (ORDER BY w.create_date DESC) AS row_number,
+			   w.id AS id,
+		       w.title AS title,
+		       u.name AS name,
+		       w.create_date AS create_date,
+		       w.view_cnt AS view_cnt
+		FROM tbl_wagle w, tbl_user u
+		WHERE w.tbl_user_id = u.id
+		ORDER BY w.create_date DESC
+		OFFSET (#{pageNum} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+	</select>
+	
+	<insert id="insertWagle" parameterType="com.webtoonsalad.dto.WagleCreateDTO">
+		INSERT INTO tbl_wagle (
+			title
+		  , create_date
+		  , content
+		  , content_file
+		  , tbl_user_id
+		)
+		VALUES (
+			#{title}
+		  , sysdate
+		  , #{content}
+		  , #{content_file, jdbcType=VARCHAR}
+		  , #{user_id}
+		)
+	</insert>
+	
+	<insert id="insertSelectKeyWagle" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tbl_wagle (
+            title
+            , create_date
+            , view_cnt
+            , content
+            , content_file
+            , tbl_user_id
+        )
+        VALUES (
+			 #{title}
+		   , sysdate
+		   , 1
+		   , #{content}
+		   , #{content_file, jdbcType=VARCHAR}
+		   , #{user_id}
+        )
+    </insert>
+    
+    <select id="detailWagle" resultType="com.webtoonsalad.dto.WagleDetailDTO">
+    	SELECT 
+		    w.id,
+		    w.title,
+		    u.name,
+		    w.create_date,
+		    w.content,
+		    w.content_file,
+		    NVL(l.like_cnt, 0) AS recommend_cnt,
+		    w.tbl_user_id
+		FROM 
+		    TBL_WAGLE w,
+		    TBL_USER u,
+		    (SELECT tbl_wagle_id, COUNT(*) AS like_cnt
+		     FROM tbl_like_wagle
+		     GROUP BY tbl_wagle_id) l
+		WHERE 
+		    w.tbl_user_id = u.id
+		    AND w.id = l.tbl_wagle_id(+)
+		    AND w.id = #{id}
+    </select>
+    
+    <update id="updateWagle" parameterType="com.webtoonsalad.dto.WagleDetailDTO">
+    	UPDATE tbl_wagle
+		SET title = #{title}
+		  , content = #{content}
+		  , create_date = sysdate
+		  , content_file = #{content_file, jdbcType=VARCHAR}
+		WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteWagle">
+    	DELETE tbl_Wagle WHERE id = #{id}
+    </delete>
+    
+    <update id="incrementViewCount" parameterType="Long">
+    	UPDATE tbl_wagle
+		SET view_cnt = view_cnt + 1
+		WHERE id = #{id}
+    </update>
+
+</mapper>

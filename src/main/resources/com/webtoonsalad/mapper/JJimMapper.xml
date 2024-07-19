@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webtoonsalad.mapper.JJimMapper">
+  
+  <select id="selectJJimByUserId" parameterType="String" resultType="com.webtoonsalad.dto.JJimDTO">
+    SELECT 
+    	j.id, j.tbl_user_id AS userId, j.lastView, 
+        w.id AS webtoonId, w.title, w.provider, w.updateDays, 
+        w.url, w.thumbnail1, w.thumbnail2, w.authors, 
+        w.isAdult, w.isUpdated, w.freeWaitHour, w.lastUp,
+        (SELECT COUNT(*) 
+         FROM tbl_jjim j2 
+         WHERE j2.tbl_webtoon_id = w.id) AS jjimCount,
+        CASE 
+            WHEN w.LastUp > NVL(j.LastView, DATE '0001-01-01') THEN 0 
+            ELSE 1 
+        END AS isViewed
+    FROM tbl_jjim j
+    JOIN tbl_webtoon w ON j.tbl_webtoon_id = w.id
+    WHERE j.tbl_user_id = #{userId}
+    ORDER BY 
+    	isViewed,
+        NVL(w.LastUp, DATE '0001-01-01') DESC
+  </select>
+  
+  <update id="updateLastView" parameterType="map">
+    UPDATE tbl_jjim
+    SET lastview = SYSDATE
+    WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+  </update>
+  
+  <select id="checkJJimExists" parameterType="map" resultType="boolean">
+    SELECT COUNT(*)
+    FROM tbl_jjim
+    WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+  </select>
+	
+  <insert id="insertJJim" parameterType="map">
+    INSERT INTO tbl_jjim (tbl_user_id, tbl_webtoon_id)
+    VALUES (#{userId}, #{webtoonId})
+  </insert>
+
+  <delete id="deleteJJim" parameterType="map">
+    DELETE FROM tbl_jjim
+    WHERE tbl_user_id = #{userId} AND tbl_webtoon_id = #{webtoonId}
+  </delete>
+  
+</mapper>

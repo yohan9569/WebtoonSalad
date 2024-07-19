@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:security="http://www.springframework.org/schema/security"
+xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="customAccessDenied" class="com.webtoonsalad.security.CustomAccessDeniedHandler">
+</bean>
+
+<bean id="customLoginSuccess" class="com.webtoonsalad.security.CustomLoginSuccessHandler">
+</bean>    
+
+<bean id="bcryptPasswordEncoder"
+class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+ 
+<bean id="customUserDetailsService" class="com.webtoonsalad.security.CustomUserDetailsService">
+</bean>
+      
+<security:http>
+	<!-- 누구나 접근 가능 -->
+    <security:intercept-url pattern="/home"   access="permitAll" />
+    <security:intercept-url pattern="/customLogin"   access="permitAll" />
+    <security:intercept-url pattern="/signup"   access="permitAll" />
+    <security:intercept-url pattern="/wagle/detail"   access="permitAll" />
+    <security:intercept-url pattern="/webtoon/**"   access="permitAll" />
+    <security:intercept-url pattern="/comments/list" access="permitAll" />
+    <security:intercept-url pattern="/checkId" access="permitAll" />
+
+    
+    <!-- 회원 권한이 필요한 URL -->
+    <!-- <security:intercept-url pattern="/comments/**" access="hasRole('ROLE_MEMBER')" /> -->
+    <security:intercept-url pattern="/jjim/**" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/register" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/reply/register" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/modify" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/wagle/remove" access="hasRole('ROLE_MEMBER')" />
+    <security:intercept-url pattern="/mypage/**" access="hasRole('ROLE_MEMBER')" />
+    
+    <security:access-denied-handler ref="customAccessDenied" />
+    <security:form-login login-page="/customLogin"
+    authentication-success-handler-ref="customLoginSuccess" />  
+    <security:logout logout-url="/customLogout" invalidate-session="true" />        
+</security:http>
+
+
+<security:authentication-manager>
+   
+    <security:authentication-provider   user-service-ref="customUserDetailsService">    
+       
+        <security:password-encoder ref="bcryptPasswordEncoder" />
+    </security:authentication-provider>
+</security:authentication-manager>      
+
+
+       
+
+</beans>

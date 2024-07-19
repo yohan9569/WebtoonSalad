@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.webtoonsalad.mapper.ReplyMapper">
+
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_reply
+		WHERE tbl_wagle_id = #{id}
+	</select>
+
+    <select id="getListWithPaging" parameterType="map" resultType="com.webtoonsalad.dto.ReplyDTO">
+        SELECT
+        	r.id,
+            r.tbl_wagle_id,
+            r.tbl_user_id,
+            u.name,
+            r.content,
+            r.create_date,
+            NVL(l.like_cnt, 0) AS recommend_cnt
+        FROM
+            tbl_user u,
+            tbl_reply r,
+            (SELECT tbl_reply_id, COUNT(*) AS like_cnt
+             FROM tbl_like_reply
+             GROUP BY tbl_reply_id) l
+        WHERE
+            r.tbl_user_id = u.id
+            AND r.id = l.tbl_reply_id(+)
+            AND r.tbl_wagle_id = #{tbl_wagle_id}
+        ORDER BY
+            recommend_cnt DESC
+        OFFSET (#{cri.pageNum} - 1) * #{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
+    </select>
+
+    <select id="selectReplyList" parameterType="map" resultType="com.webtoonsalad.dto.ReplyDTO">
+        SELECT
+            r.tbl_wagle_id,
+            u.name,
+            r.content,
+            r.create_date,
+            NVL(l.like_cnt, 0) AS recommend_cnt
+        FROM
+            tbl_user u,
+            tbl_reply r,
+            (SELECT tbl_reply_id, COUNT(*) AS like_cnt
+             FROM tbl_like_reply
+             GROUP BY tbl_reply_id) l
+        WHERE
+            r.tbl_user_id = u.id
+            AND r.id = l.tbl_reply_id(+)
+            AND r.tbl_wagle_id = #{tbl_wagle_id}
+        ORDER BY
+            recommend_cnt DESC
+    </select>
+    
+    <insert id="insertSelectKeyReply" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tbl_reply (
+            content,
+            create_date,
+            tbl_user_id,
+            tbl_wagle_id
+        )
+        VALUES (
+            #{content},
+            sysdate,
+            #{user_id},
+            #{tbl_wagle_id}
+        )
+    </insert>
+    
+    <delete id="deleteReply" parameterType="long">
+        DELETE FROM tbl_reply WHERE id = #{id}
+    </delete>
+
+</mapper>
