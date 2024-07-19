@@ -38,6 +38,13 @@ public class JJimController {
     @GetMapping("/jjim")
     public String getJJim(@RequestParam("userId") String userId, Model model) {
         List<JJimDTO> jjims = jjimService.getJJimByUserId(userId);
+        
+        // 요일 변환 로직 추가
+        for (JJimDTO jjim : jjims) {
+            String translatedJJimDays = translateDays(jjim.getUpdateDays());
+            jjim.setUpdateDays(translatedJJimDays);
+        }
+        
         String userName = userService.getUserNameById(userId);
         model.addAttribute("jjims", jjims);
         model.addAttribute("userId", userId);
@@ -96,6 +103,45 @@ public class JJimController {
             response.put("error", e.getMessage());
             return response;
         }
+    }
+    
+    private String translateDays(String days) {
+        if (days == null || days.isEmpty()) {
+            return "";
+        }
+        String[] dayArray = days.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        for (String day : dayArray) {
+            switch (day) {
+                case "MON":
+                    result.append("월");
+                    break;
+                case "TUE":
+                    result.append("화");
+                    break;
+                case "WED":
+                    result.append("수");
+                    break;
+                case "THU":
+                    result.append("목");
+                    break;
+                case "FRI":
+                    result.append("금");
+                    break;
+                case "SAT":
+                    result.append("토");
+                    break;
+                case "SUN":
+                    result.append("일");
+                    break;
+                default:
+                    result.append(day);
+            }
+            result.append(" ");
+        }
+
+        return result.toString().trim();
     }
 
 }

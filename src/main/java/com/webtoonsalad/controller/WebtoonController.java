@@ -55,9 +55,14 @@ public class WebtoonController {
     public String getWebtoonDetail(@RequestParam("id") String id, Principal principal, Model model) throws Exception {
         try {
             WebtoonDTO webtoon = webtoonService.getDetail(id);
+            
+            // 요일 변환 로직 추가
+            String translatedDays = translateDays(webtoon.getUpdateDays());
+            webtoon.setUpdateDays(translatedDays);
+            
             String userId = (principal != null) ? principal.getName() : "guest"; // 로그인 여부 확인
-            System.out.println("사용자 아이디~~~~~~~~~~~~~~"+ userId);
             boolean jjimExists = jjimService.checkJJimExists(userId, id);
+            
             model.addAttribute("detail", webtoon);
             model.addAttribute("jjimExists", jjimExists);
             model.addAttribute("userId", userId);
@@ -85,6 +90,45 @@ public class WebtoonController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+	
+    private String translateDays(String days) {
+        if (days == null || days.isEmpty()) {
+            return "";
+        }
+        String[] dayArray = days.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        for (String day : dayArray) {
+            switch (day) {
+                case "MON":
+                    result.append("월");
+                    break;
+                case "TUE":
+                    result.append("화");
+                    break;
+                case "WED":
+                    result.append("수");
+                    break;
+                case "THU":
+                    result.append("목");
+                    break;
+                case "FRI":
+                    result.append("금");
+                    break;
+                case "SAT":
+                    result.append("토");
+                    break;
+                case "SUN":
+                    result.append("일");
+                    break;
+                default:
+                    result.append(day);
+            }
+            result.append(" ");
+        }
+
+        return result.toString().trim();
     }
 
 }
