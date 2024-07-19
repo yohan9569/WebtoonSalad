@@ -4,17 +4,17 @@ body {
 
 main {
     display: flex;
-    padding: 20px;
+    padding-top: 20px;
     /* justify-content: space-between; */ /* 전체 컨텐츠를 양쪽으로 정렬 */
 }
 
 aside {
-    width: 15%; /* 왼쪽 사이드바 너비 */
+    width: 20%; /* 왼쪽 사이드바 너비 */
     padding-right: 50px; /* 오른쪽 빈 공간 */
 }
 
 .webtoon-list {
-    width: 65%; /* 웹툰 리스트의 너비 */
+    width: 75%; /* 웹툰 리스트의 너비 */
 }
 
 .day-filter {
@@ -131,4 +131,21 @@ a.webtoon-link {
 
 a.webtoon-link:hover {
     color: blue; 
+}
+
+.top_down_button {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	margin-top: 400px;
+	margin-left: 50px;
+	background-color: #f8f8f8;
+	padding: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.3s;
+}
+
+.top_down_button:hover {
+	background-color: #eee;
 }

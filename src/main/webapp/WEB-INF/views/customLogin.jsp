@@ -15,6 +15,7 @@
     	<div class="logo">
     		<img
 				src="${pageContext.request.contextPath}/resources/images/text_logo.png"
+				onclick="location.href='${pageContext.request.contextPath}/home'"
 				alt="로고 이미지" class="logo-image">
 		</div>
         <div class="login-box">

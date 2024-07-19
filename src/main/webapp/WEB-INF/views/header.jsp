@@ -19,7 +19,7 @@
 </head>
 <body>
 	<header>
-		<div class="logo"> 
+		<div class="logo" onclick="location.href='${pageContext.request.contextPath}/home'">
 			<img src="${pageContext.request.contextPath}/resources/images/icon_logo1.png" alt="로고 이미지" class="icon-logo-image">
 			<img src="${pageContext.request.contextPath}/resources/images/text_logo.png" alt="텍스트 로고 이미지" class="text-logo-image">
 			<img src="${pageContext.request.contextPath}/resources/images/icon_logo2.png" alt="로고 이미지" class="icon-logo-image">

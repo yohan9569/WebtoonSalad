@@ -41,6 +41,7 @@ th, td {
 svg {
 	width: 20px;
 	height: 20px;
+	transition: fill 0.3s ease;
 }
 
 svg:hover {
@@ -168,6 +169,12 @@ th {
 	border-radius: 0;
 }
 
+.replyDeleteCell {
+    width: 60px; /* Adjust the width as necessary */
+    text-align: center;
+    vertical-align: middle;
+}
+
 .replyButton {
 	float: right;
 	margin-right: 20px;
@@ -180,6 +187,16 @@ th {
 
 .replyButton:hover {
     color: #0080ff;
+}
+
+.replyDeleteButton {
+	background: none;
+	border: 0;
+	transition: color 0.3s ease;
+}
+
+.replyDeleteButton:hover {
+	color: #ff9d9d;
 }
 
 .pagiNation {

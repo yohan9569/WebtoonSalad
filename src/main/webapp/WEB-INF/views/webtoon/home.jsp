@@ -14,6 +14,8 @@
 	href="${pageContext.request.contextPath}/css/footer.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/aside.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/rightaside.css">
 <script>
     function filterByDay(day) {
         // 한글 요일을 영어 요일로 변환하는 객체
@@ -41,7 +43,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp" />
-	<main> <jsp:include page="/WEB-INF/views/aside.jsp" />
+	<main> <jsp:include page="/WEB-INF/views/leftaside.jsp" />
 	<section class="webtoon-list">
 		<form id="dayForm" action="${pageContext.request.contextPath}/home"
 			method="get">
@@ -90,7 +92,19 @@
     </c:forEach>
 </div>
 	</section>
+	<div class="rightSection">
+		<img class="top_down_button" src="resources/images/top_button.png" onclick="scrollToTop()">
+		<jsp:include page="/WEB-INF/views/rightaside.jsp" />
+	</div>
 	</main>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
+<script type="text/javascript">
+	function scrollToTop() {
+	    window.scrollTo({
+	        top: 0,
+	        behavior: 'smooth'
+	    });
+	}
+</script>
 </body>
 </html>

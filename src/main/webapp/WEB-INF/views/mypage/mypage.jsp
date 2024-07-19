@@ -9,7 +9,7 @@
 <body>
     <jsp:include page="/WEB-INF/views/header.jsp" />
     <div class="middleSection">
-        <jsp:include page="/WEB-INF/views/aside.jsp" />
+        <jsp:include page="/WEB-INF/views/leftaside.jsp" />
         <div class="content">
             <nav class="tab">
                 <ul>
