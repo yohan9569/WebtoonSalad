@@ -4,12 +4,14 @@
 2. [**기술 스택**](#2)
 3. [**주요 기능**](#3)
 4. [**아키텍처**](#4)
-5. [**구글 애널리틱스 통계**](#5)
-6. [**팀 소개**](#6)
-7. [**폴더 구조**](#7)
+5. [**팀 소개**](#5)
+6. [**폴더 구조**](#6)
 
 <div id="1"></div>
 
+<details>
+  
+</details>
 ## 📌프로젝트 소개
 <img width="1280" alt="제목 없음" src="https://github.com/user-attachments/assets/95aba97b-d419-4443-9b7f-681770bcaef7">
 <img width="1280" alt="기획배경" src="https://github.com/user-attachments/assets/19adf54e-e018-4eb3-a3a7-774809b534ad">
@@ -29,5 +31,7 @@
   - [**PPT 바로가기 Click !**](https://drive.google.com/file/d/1MRQRrBvDkOaiY8XIKcfj3ZbXTnZDG8U0/view?usp=sharing) 👈
 
 <br/>
+
+<div id="2"></div>
 
 ## 📌기술 스택
