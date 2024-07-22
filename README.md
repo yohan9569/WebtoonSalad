@@ -18,7 +18,7 @@
 
 - **소개**
 
-  - 매일매일 다양한 플랫폼의 신선한 웹툰을 한 눈에! **WebtoonSalad**<br/>
+  - 다양한 플랫폼의 신선한 웹툰을 한 눈에! **WebtoonSalad**<br/>
 
 - **프로젝트 기간**
 
@@ -29,3 +29,5 @@
   - [**PPT 바로가기 Click !**](https://drive.google.com/file/d/1MRQRrBvDkOaiY8XIKcfj3ZbXTnZDG8U0/view?usp=sharing) 👈
 
 <br/>
+
+## 📌기술 스택
