@@ -15,17 +15,17 @@
 <img width="1280" alt="기획배경" src="https://github.com/user-attachments/assets/19adf54e-e018-4eb3-a3a7-774809b534ad">
 <img width="1280" alt="문제점" src="https://github.com/user-attachments/assets/35a98a0d-f61a-4726-8af1-d506e27a3aff">
 <img width="1280" alt="그래서" src="https://github.com/user-attachments/assets/3c3f85aa-19c4-440f-a05d-d43e761b9710">
-<img width="1280" alt="비즈니스" src="https://github.com/user-attachments/assets/979e6213-0013-47a9-bc67-c07a54c7e61c">
-
-#### 프로젝트 기간 : ```2024-07-02 ~ 2024-07-19```
 
 - **소개**
 
   - 매일매일 다양한 플랫폼의 신선한 웹툰을 한 눈에! **WebtoonSalad**<br/>
+
+- **프로젝트 기간**
+
+  - ```2024-07-02 ~ 2024-07-19``` <br/>
 
 
 - **발표자료 및 영상**
   - [**PPT 바로가기 Click !**](https://drive.google.com/file/d/1MRQRrBvDkOaiY8XIKcfj3ZbXTnZDG8U0/view?usp=sharing) 👈
 
 <br/>
-
