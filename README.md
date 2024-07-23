@@ -34,13 +34,13 @@
 
 ## 📌기술 스택
 
-### Stacks
+### Stack
 
 <div style="display: flex;">
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
   <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
-  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
   <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
@@ -54,3 +54,19 @@
   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white" />
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" />
 </div>
+
+<br/>
+<!--
+- Spring Tool Suite 3.9.11 (STS 3)
+- Java 8(1.8)
+- Spring Framework 5.3.20.
+- tomcat 9.0.37
+- Maven 3.6.1 (EMBEDDED in STS 3)
+- Oracle 21c Version 21.3.0.0.0
+-->
+
+<br/>
+
+<div id="3"></div>
+
+## 📌 주요 기능
