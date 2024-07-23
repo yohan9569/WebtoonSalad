@@ -9,9 +9,6 @@
 
 <div id="1"></div>
 
-<details>
-  
-</details>
 ## 📌프로젝트 소개
 <img width="1280" alt="제목 없음" src="https://github.com/user-attachments/assets/95aba97b-d419-4443-9b7f-681770bcaef7">
 <img width="1280" alt="기획배경" src="https://github.com/user-attachments/assets/19adf54e-e018-4eb3-a3a7-774809b534ad">
@@ -35,3 +32,24 @@
 <div id="2"></div>
 
 ## 📌기술 스택
+
+### Stacks
+
+<div style="display: flex;">
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+  <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
+  <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white">
+</div>
+
+### Collaboration
+
+<div style="display: flex;">
+  <img src="https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
+  <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white" />
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" />
+</div>
