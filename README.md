@@ -11,9 +11,10 @@
 
 ## 📌프로젝트 소개
 <img width="1280" alt="제목 없음" src="https://github.com/user-attachments/assets/95aba97b-d419-4443-9b7f-681770bcaef7">
-<img width="1280" alt="기획배경" src="https://github.com/user-attachments/assets/19adf54e-e018-4eb3-a3a7-774809b534ad">
+
+<!-- <img width="1280" alt="기획배경" src="https://github.com/user-attachments/assets/19adf54e-e018-4eb3-a3a7-774809b534ad">
 <img width="1280" alt="문제점" src="https://github.com/user-attachments/assets/35a98a0d-f61a-4726-8af1-d506e27a3aff">
-<img width="1280" alt="그래서" src="https://github.com/user-attachments/assets/3c3f85aa-19c4-440f-a05d-d43e761b9710">
+<img width="1280" alt="그래서" src="https://github.com/user-attachments/assets/3c3f85aa-19c4-440f-a05d-d43e761b9710"> -->
 
 - **소개**
 
